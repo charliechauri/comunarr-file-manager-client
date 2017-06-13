@@ -60,7 +60,6 @@ export const CollectiveManagerComponent = {
             return collective.comunarrProjects.find(pro => pro.id === project.id);
         }
 
-
         /**
          * Add/remove a project in a collective
          * @param {any} project
