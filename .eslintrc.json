@@ -1,0 +1,55 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-const-assign": "warn",
+        "no-this-before-super": "warn",
+        "no-undef": "warn",
+        "no-unreachable": "warn",
+        "no-unused-vars": "warn",
+        "constructor-super": "warn",
+        "valid-typeof": "warn",
+        "no-new-object": "error",
+        "no-var": "error",
+        "object-shorthand": "error",
+        "no-array-constructor": "error",
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "prefer-template": "error",
+        "no-duplicate-imports": "error",
+        "func-style": [
+            "error",
+            "expression",
+            {
+                "allowArrowFunctions": true
+            }
+        ],
+        "no-new-func": "error",
+        "prefer-arrow-callback": "error",
+        "arrow-spacing": "error",
+        "arrow-parens": [
+            "error",
+            "as-needed"
+        ],
+        "no-dupe-class-members": "error",
+        "eqeqeq": "error",
+        "no-nested-ternary": "error",
+        "no-unneeded-ternary": "error",
+        "semi": "error",
+        "id-length": "error",
+        "camelcase": "error",
+        "new-cap": "error"
+    }
+}
