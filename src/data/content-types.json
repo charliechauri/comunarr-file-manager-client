@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "Video",
+        "status": true
+    },
+    {
+        "id": 2,
+        "name": "Audio",
+        "status": true
+    },
+    {
+        "id": 3,
+        "name": "Relatoría",
+        "status": true
+    },
+    {
+        "id": 4,
+        "name": "Registro",
+        "status": true
+    },
+    {
+        "id": 5,
+        "name": "Fotografía",
+        "status": true
+    },
+    {
+        "id": 6,
+        "name": "Entrevista",
+        "status": true
+    }
+]

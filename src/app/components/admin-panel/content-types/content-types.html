@@ -1,0 +1,40 @@
+<md-content layout-padding>
+    <header layout="row">
+        <h1>
+            Tipos de contenido
+        </h1>
+        <span flex></span>
+        <div>
+            <md-button class="md-primary md-raised" ng-click="$ctrl.addOrEdit({id: null, name: '', status: true}, $event, 'add')"> Añadir nuevo tipo de contenido </md-button>
+        </div>
+    </header>
+
+    <section>
+        <header layout="row">
+            <h2 flex="50" layout-margin>Nombre</h2>
+            <h2 flex layout-margin>Estatus</h2>
+            <span flex></span>
+        </header>
+
+        <md-divider></md-divider>
+
+        <article ng-repeat="contentType in $ctrl.contentTypes">
+            <div layout="row">
+                <p flex="50" layout-margin> {{ contentType.name }} </p>
+                <p flex layout-margin>
+                    {{ contentType.status === true ? 'Activo' : 'Inactivo' }}
+                </p>
+                <span flex></span>
+                <div>
+                    <md-button class="md-fab md-primary md-mini" ng-click="$ctrl.addOrEdit(contentType, $event, 'edit')">
+                        <md-icon>edit</md-icon>
+                        <md-tooltip>
+                            Editar
+                        </md-tooltip>
+                    </md-button>
+                </div>
+            </div>
+            <md-divider></md-divider>
+        </article>
+    </section>
+</md-content>
