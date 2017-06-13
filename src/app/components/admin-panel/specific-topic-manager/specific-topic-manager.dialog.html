@@ -1,0 +1,59 @@
+<md-dialog flex="70">
+    <form name="specificTopicForm">
+        <md-dialog-content>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h4 ng-if="$ctrl.isEditing">Editar tema específico</h4>
+                    <h4 ng-if="!$ctrl.isEditing">Añadir tema específico</h4>
+                </div>
+            </md-toolbar>
+
+            <md-content layout-padding>
+                <div>
+                    <md-input-container class="md-block">
+                        <label>Nombre</label>
+                        <input ng-model="$ctrl.selectedSpecificTopic.name" name="name" required minlength="2" md-maxlength="100" pattern="\S+">
+                        <div ng-messages="specificTopicForm.name.$error">
+                            <div ng-message="required">Es un campo requerido</div>
+                            <div ng-message="minlength">Mínimo 2 caracteres</div>
+                            <div ng-message="md-maxlength">Máximo 100 caracteres</div>
+                            <div ng-message="pattern">No es posible añadir espacios al inicio o al final</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div>
+                    <md-checkbox class="md-primary" ng-model="$ctrl.selectedSpecificTopic.status" aria-label="Estatus">
+                        Estatus
+                    </md-checkbox>
+                </div>
+
+                <div>
+                    <h3>Temas generales:</h3>
+                </div>
+
+                <div layout="row" layout-wrap>
+                    <div flex="25" ng-repeat="generalTopic in $ctrl.generalTopics">
+                        <md-checkbox class="md-primary" ng-checked="$ctrl.isGeneralTopicInSpecificTopic(generalTopic, $ctrl.selectedSpecificTopic)" aria-label="tema general"
+                            ng-click="$ctrl.toggleGeneralTopicToSpecificTopic(generalTopic, $ctrl.selectedSpecificTopic)">
+                            {{ generalTopic.name }}
+                        </md-checkbox>
+                    </div>
+                </div>
+            </md-content>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button md-no-ink class="md-primary" ng-click="$ctrl.$mdDialog.cancel()">
+                Cancelar
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedSpecificTopic)" ng-if="$ctrl.isEditing"
+                ng-disabled="specificTopicForm.$invalid">
+                Editar
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedSpecificTopic)" ng-if="!$ctrl.isEditing"
+                ng-disabled="specificTopicForm.$invalid">
+                Añadir
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

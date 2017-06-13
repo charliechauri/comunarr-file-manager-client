@@ -1,0 +1,41 @@
+<md-dialog>
+    <form name="generalTopicForm">
+        <md-dialog-content>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h4 ng-if="$ctrl.isEditing">Editar tema general</h4>
+                    <h4 ng-if="!$ctrl.isEditing">Añadir tema general</h4>
+                </div>
+            </md-toolbar>
+
+            <md-content layout-padding>
+                <md-input-container>
+                    <label>Nombre</label>
+                    <input ng-model="$ctrl.selectedGeneralTopic.name" name="name" required minlength="2" md-maxlength="100" pattern="\S+">
+                    <div ng-messages="generalTopicForm.name.$error">
+                        <div ng-message="required">Es un campo requerido</div>
+                        <div ng-message="minlength">Mínimo 2 caracteres</div>
+                        <div ng-message="md-maxlength">Máximo 100 caracteres</div>
+                        <div ng-message="pattern">No es posible añadir espacios al inicio o al final</div>
+                    </div>
+                </md-input-container>
+                <div>
+                    <md-checkbox class="md-primary" ng-model="$ctrl.selectedGeneralTopic.status" aria-label="Estatus">
+                        Estatus
+                    </md-checkbox>
+                </div>
+            </md-content>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button md-no-ink class="md-primary" ng-click="$ctrl.$mdDialog.cancel()">
+                Cancelar
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedGeneralTopic)" ng-if="$ctrl.isEditing" ng-disabled="generalTopicForm.$invalid">
+                Editar
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedGeneralTopic)" ng-if="!$ctrl.isEditing" ng-disabled="generalTopicForm.$invalid">
+                Añadir
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
