@@ -1,0 +1,20 @@
+<!-- filter section -->
+<section layout="row" layout-margin>
+    <div>
+        <md-autocomplete md-items="$ctrl.users">
+            
+        </md-autocomplete>
+    </div>
+</section>
+
+<!-- list of users -->
+<section class="regular-max-height">
+    <md-list layout-margin>
+        <md-list-item class="md-3-line" ng-repeat="user in $ctrl.users" ng-click="$ctrl.showChangePassword()">
+            <img ng-src="{{user.img}}" class="md-avatar" alt="{{user.name}}" />
+            <div class="md-list-item-text" layout="column">
+                <h3>{{ user.name }}</h3>
+            </div>
+        </md-list-item>
+    </md-list>
+</section>
