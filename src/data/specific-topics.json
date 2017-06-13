@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "name": "Narcotráfico",
+        "status": true
+    },
+    {
+        "id": 2,
+        "name": "Despojo de tierras",
+        "status": true
+    },
+    {
+        "id": 3,
+        "name": "Tala clandestina",
+        "status": true
+    },
+    {
+        "id": 4,
+        "name": "Machismo",
+        "status": true
+    },
+    {
+        "id": 5,
+        "name": "Analfabetismo",
+        "status": true
+    }
+]

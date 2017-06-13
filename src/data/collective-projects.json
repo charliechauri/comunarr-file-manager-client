@@ -1,0 +1,34 @@
+[
+    {
+        "idCollective": 1,
+        "idComunarrProject": 1
+    },
+    {
+        "idCollective": 1,
+        "idComunarrProject": 2
+    },
+    {
+        "idCollective": 2,
+        "idComunarrProject": 1
+    },
+    {
+        "idCollective": 2,
+        "idComunarrProject": 2
+    },
+    {
+        "idCollective": 3,
+        "idComunarrProject": 3
+    },
+    {
+        "idCollective": 3,
+        "idComunarrProject": 4
+    },
+    {
+        "idCollective": 3,
+        "idComunarrProject": 5
+    },
+    {
+        "idCollective": 4,
+        "idComunarrProject": 3
+    }
+]

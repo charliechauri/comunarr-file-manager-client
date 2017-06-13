@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "Repechique",
+        "status": true
+    },
+    {
+        "id": 2,
+        "name": "Bachillerato",
+        "status": true
+    },
+    {
+        "id": 3,
+        "name": "Maestría",
+        "status": false
+    },
+    {
+        "id": 4,
+        "name": "Licenciatura",
+        "status": true
+    }
+]

@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "Cooperativismo",
+        "status": true
+    },
+    {
+        "id": 2,
+        "name": "Defensa al bosque",
+        "status": true
+    },
+    {
+        "id": 3,
+        "name": "CNI",
+        "status": false
+    }
+]

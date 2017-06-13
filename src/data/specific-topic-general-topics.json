@@ -1,0 +1,30 @@
+[
+    {
+        "idSpecificTopic": 1,
+        "idGeneralTopic": 1
+    },
+    {
+        "idSpecificTopic": 2,
+        "idGeneralTopic": 2
+    },
+    {
+        "idSpecificTopic": 3,
+        "idGeneralTopic": 3
+    },
+    {
+        "idSpecificTopic": 4,
+        "idGeneralTopic": 1
+    },
+    {
+        "idSpecificTopic": 5,
+        "idGeneralTopic": 2
+    },
+    {
+        "idSpecificTopic": 1,
+        "idGeneralTopic": 3
+    },
+    {
+        "idSpecificTopic": 2,
+        "idGeneralTopic": 1
+    }
+]
