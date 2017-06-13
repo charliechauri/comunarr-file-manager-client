@@ -1,16 +1,16 @@
 import angular from 'angular';
-import template from './project-manager.html';
-import dialogTemplate from './project-manager.dialog.html';
+import template from './projects.html';
+import dialogTemplate from './projects.dialog.html';
 
-export const ProjectManagerComponent = {
+export const ProjectsComponent = {
     bindings: {},
-    controller: class ProjectManagerComponent {
-        constructor($scope, $mdDialog, $mdToast, ProjectManager, ResponseHandler, Validator) {
+    controller: class ProjectsComponent {
+        constructor($scope, $mdDialog, $mdToast, ProjectsService, ResponseHandler, Validator) {
             'ngInject';
             this.$scope = $scope;
             this.$mdDialog = $mdDialog;
             this.$mdToast = $mdToast;
-            this.ProjectManager = ProjectManager;
+            this.ProjectsService = ProjectsService;
             this.ResponseHandler = ResponseHandler;
             this.Validator = Validator;
         }
@@ -21,7 +21,7 @@ export const ProjectManagerComponent = {
         }
 
         getProjects() {
-            return this.ProjectManager.get().then(projects => this.projects = projects);
+            return this.ProjectsService.get().then(projects => this.projects = projects);
         }
 
         addOrEdit(project = { id: null, name: '', status: true }, targetEvent, method) {
@@ -40,7 +40,7 @@ export const ProjectManagerComponent = {
                         this.selectedProject = null;
                         return;
                     }
-                    this.ProjectManager[method](project).then(this.ResponseHandler.success);
+                    this.ProjectsService[method](project).then(this.ResponseHandler.success);
                 })
                 .catch(() => {
                     this.selectedProject = null;

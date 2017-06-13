@@ -1,9 +1,9 @@
 /**
- * @name ProjectManager
+ * @name ProjectsService
  * @todo integrate to backend
  */
 
-export class ProjectManager {
+export class ProjectsService {
     constructor($http) {
         'ngInject';
 

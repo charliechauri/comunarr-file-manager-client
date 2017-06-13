@@ -1,15 +1,15 @@
 import angular from 'angular';
-import template from './general-topic-manager.html';
-import dialogTemplate from './general-topic-manager.dialog.html';
+import template from './general-topics.html';
+import dialogTemplate from './general-topics.dialog.html';
 
-export const GeneralTopicManagerComponent = {
+export const GeneralTopicsComponent = {
     bindings: {},
-    controller: class GeneralTopicManagerComponent {
-        constructor($scope, $mdDialog, GeneralTopicManager, ResponseHandler, Validator) {
+    controller: class GeneralTopicsComponent {
+        constructor($scope, $mdDialog, GeneralTopicsService, ResponseHandler, Validator) {
             'ngInject';
             this.$scope = $scope;
             this.$mdDialog = $mdDialog;
-            this.GeneralTopicManager = GeneralTopicManager;
+            this.GeneralTopicsService = GeneralTopicsService;
             this.ResponseHandler = ResponseHandler;
             this.Validator = Validator;
         }
@@ -20,7 +20,7 @@ export const GeneralTopicManagerComponent = {
         }
 
         getGeneralTopics() {
-            return this.GeneralTopicManager.get().then(generalTopics => this.generalTopics = generalTopics);
+            return this.GeneralTopicsService.get().then(generalTopics => this.generalTopics = generalTopics);
         }
 
         addOrEdit(generalTopic = { id: null, name: '', status: true }, targetEvent, method) {
@@ -39,7 +39,7 @@ export const GeneralTopicManagerComponent = {
                         this.selectedGeneralTopic = null;
                         return;
                     }
-                    this.GeneralTopicManager[method](generalTopic).then(this.ResponseHandler.success);
+                    this.GeneralTopicsService[method](generalTopic).then(this.ResponseHandler.success);
                 })
                 .catch(() => {
                     this.selectedGeneralTopic = null;

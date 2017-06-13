@@ -1,11 +1,11 @@
 /**
- * @name CollectiveManager
+ * @name CollectivesService
  * @todo integrate to backend
  */
 
 import angular from 'angular';
 
-export class CollectiveManager {
+export class CollectivesService {
     constructor($http) {
         'ngInject';
 

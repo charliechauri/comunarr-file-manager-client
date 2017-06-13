@@ -1,11 +1,11 @@
 /**
- * @name SpecificTopicManager
+ * @name SpecificTopicsService
  * @todo integrate to backend
  */
 
 import angular from 'angular';
 
-export class SpecificTopicManager {
+export class SpecificTopicsService {
     constructor($http) {
         'ngInject';
 

@@ -1,9 +1,9 @@
 /**
- * @name GeneralTopicManager
+ * @name GeneralTopicsService
  * @todo integrate to backend
  */
 
-export class GeneralTopicManager {
+export class GeneralTopicsService {
     constructor($http) {
         'ngInject';
 

@@ -1,16 +1,16 @@
 import angular from 'angular';
-import template from './collective-manager.html';
-import dialogTemplate from './collective-manager.dialog.html';
+import template from './collectives.html';
+import dialogTemplate from './collectives.dialog.html';
 
-export const CollectiveManagerComponent = {
+export const CollectivesComponent = {
     bindings: {},
-    controller: class CollectiveManagerComponent {
-        constructor($scope, $mdDialog, CollectiveManager, ProjectManager, ResponseHandler, Validator) {
+    controller: class CollectivesComponent {
+        constructor($scope, $mdDialog, CollectivesService, ProjectsService, ResponseHandler, Validator) {
             'ngInject';
             this.$scope = $scope;
             this.$mdDialog = $mdDialog;
-            this.CollectiveManager = CollectiveManager;
-            this.ProjectManager = ProjectManager;
+            this.CollectivesService = CollectivesService;
+            this.ProjectsService = ProjectsService;
             this.ResponseHandler = ResponseHandler;
             this.Validator = Validator;
         }
@@ -20,7 +20,7 @@ export const CollectiveManagerComponent = {
          */
         $onInit() {
             this.collectives = [];
-            this.CollectiveManager.getRelatedProjects().then(relations => {
+            this.CollectivesService.getRelatedProjects().then(relations => {
                 this.getCollectives().then(() => {
                     this.getProjects().then(() => {
                         this.collectives.forEach(collective => {
@@ -41,14 +41,14 @@ export const CollectiveManagerComponent = {
          * Get all collectives
          */
         getCollectives() {
-            return this.CollectiveManager.get().then(collectives => this.collectives = collectives);
+            return this.CollectivesService.get().then(collectives => this.collectives = collectives);
         }
 
         /**
          * Get all projects
          */
         getProjects() {
-            return this.ProjectManager.get().then(projects => this.projects = projects);
+            return this.ProjectsService.get().then(projects => this.projects = projects);
         }
 
         /**
@@ -98,7 +98,7 @@ export const CollectiveManagerComponent = {
                         this.selectedCollective = null;
                         return;
                     }
-                    this.CollectiveManager[method](collective).then(response => {
+                    this.CollectivesService[method](collective).then(response => {
                         this.ResponseHandler.success(response);
                         this.selectedCollective = this.getNewCollective();
                     });

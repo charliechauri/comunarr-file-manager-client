@@ -1,16 +1,16 @@
 import angular from 'angular';
-import template from './specific-topic-manager.html';
-import dialogTemplate from './specific-topic-manager.dialog.html';
+import template from './specific-topics.html';
+import dialogTemplate from './specific-topics.dialog.html';
 
-export const SpecificTopicManagerComponent = {
+export const SpecificTopicsComponent = {
     bindings: {},
-    controller: class SpecificTopicManagerComponent {
-        constructor($scope, $mdDialog, SpecificTopicManager, GeneralTopicManager, ResponseHandler, Validator) {
+    controller: class SpecificTopicsComponent {
+        constructor($scope, $mdDialog, SpecificTopicsService, GeneralTopicsService, ResponseHandler, Validator) {
             'ngInject';
             this.$scope = $scope;
             this.$mdDialog = $mdDialog;
-            this.SpecificTopicManager = SpecificTopicManager;
-            this.GeneralTopicManager = GeneralTopicManager;
+            this.SpecificTopicsService = SpecificTopicsService;
+            this.GeneralTopicsService = GeneralTopicsService;
             this.ResponseHandler = ResponseHandler;
             this.Validator = Validator;
         }
@@ -20,7 +20,7 @@ export const SpecificTopicManagerComponent = {
          */
         $onInit() {
             this.specificTopics = [];
-            this.SpecificTopicManager.getRelatedGeneralTopics().then(relations => {
+            this.SpecificTopicsService.getRelatedGeneralTopics().then(relations => {
                 this.getSpecificTopics().then(() => {
                     this.getGeneralTopics().then(() => {
                         this.specificTopics.forEach(specificTopic => {
@@ -41,14 +41,14 @@ export const SpecificTopicManagerComponent = {
          * Get all specific topics
          */
         getSpecificTopics() {
-            return this.SpecificTopicManager.get().then(specificTopics => this.specificTopics = specificTopics);
+            return this.SpecificTopicsService.get().then(specificTopics => this.specificTopics = specificTopics);
         }
 
         /**
          * Get all general topics
          */
         getGeneralTopics() {
-            return this.GeneralTopicManager.get().then(generalTopics => this.generalTopics = generalTopics);
+            return this.GeneralTopicsService.get().then(generalTopics => this.generalTopics = generalTopics);
         }
 
         /**
@@ -98,7 +98,7 @@ export const SpecificTopicManagerComponent = {
                         this.selectedSpecificTopic = null;
                         return;
                     }
-                    this.SpecificTopicManager[method](specificTopic).then(response => {
+                    this.SpecificTopicsService[method](specificTopic).then(response => {
                         this.ResponseHandler.success(response);
                         this.selectedSpecificTopic = this.getNewSpecificTopic();
                     });

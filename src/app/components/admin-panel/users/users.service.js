@@ -1,4 +1,4 @@
-export class UserManager {
+export class UsersService {
     constructor(EnvironmentService, $http) {
         'ngInject';
         
