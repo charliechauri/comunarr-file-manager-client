@@ -1,0 +1,29 @@
+<section layout="row" layout-align="center center" layout-fill>
+    <form name="loginForm" layout="column" layout-padding layout-margin md-whiteframe>
+        <h1 class="md-display-3">
+            Comunarr file manager client
+        </h1>
+
+        <md-divider></md-divider>
+
+        <md-input-container>
+            <label>Usuario</label>
+            <input ng-model="$ctrl.credentials.user" name="user" required>
+            <div ng-messages="loginForm.user.$error">
+                <div ng-message="required">Ingresa tu usuario</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container>
+            <label>Contraseña</label>
+            <input ng-model="$ctrl.credentials.password" name="pass" type="password" required>
+            <div ng-messages="loginForm.pass.$error">
+                <div ng-message="required">Ingresa tu contraseña</div>
+            </div>
+        </md-input-container>
+
+        <div layout="row">
+            <md-button flex class="md-primary md-raised" ng-disabled="loginForm.$invalid" ng-click="$ctrl.login($ctrl.credentials)"> Iniciar sesión </md-button>
+        </div>
+    </form>
+</section>
