@@ -36,6 +36,7 @@ export const ProjectsComponent = {
                     template: dialogTemplate
                 })
                 .then(project => {
+                    project.name === project.name.trim();
                     if (!this.Validator.isUnique(this.projects, 'name', this.selectedProject, this.isEditing, true, 'proyecto')) {
                         this.selectedProject = null;
                         return;

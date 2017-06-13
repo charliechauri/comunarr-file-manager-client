@@ -94,6 +94,7 @@ export const SpecificTopicsComponent = {
                     template: dialogTemplate
                 })
                 .then(specificTopic => {
+                    specificTopic.name = specificTopic.name.trim();
                     if (!this.Validator.isUnique(this.specificTopics, 'name', this.selectedSpecificTopic, this.isEditing, true, 'tema específico')) {
                         this.selectedSpecificTopic = null;
                         return;

@@ -35,6 +35,7 @@ export const GeneralTopicsComponent = {
                     template: dialogTemplate
                 })
                 .then(generalTopic => {
+                    generalTopic.name === generalTopic.name.trim();
                     if (!this.Validator.isUnique(this.generalTopics, 'name', this.selectedGeneralTopic, this.isEditing, true, 'temas generales')) {
                         this.selectedGeneralTopic = null;
                         return;

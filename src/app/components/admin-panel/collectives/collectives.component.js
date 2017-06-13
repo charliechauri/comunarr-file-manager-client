@@ -94,6 +94,7 @@ export const CollectivesComponent = {
                     template: dialogTemplate
                 })
                 .then(collective => {
+                    collective.name === collective.name.trim();
                     if (!this.Validator.isUnique(this.collectives, 'name', this.selectedCollective, this.isEditing, true, 'colectivo')) {
                         this.selectedCollective = null;
                         return;

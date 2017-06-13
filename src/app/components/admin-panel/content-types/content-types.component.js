@@ -52,6 +52,7 @@ export const ContentTypesComponent = {
                     template: dialogTemplate
                 })
                 .then(contentType => {
+                    contentType.name === contentType.name.trim();
                     if (!this.Validator.isUnique(this.contentTypes, 'name', this.selectedContentType, this.isEditing, true, 'tipo de contenido')) {
                         this.selectedContentType = null;
                         return;
