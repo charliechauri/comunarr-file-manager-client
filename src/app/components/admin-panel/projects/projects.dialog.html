@@ -11,12 +11,11 @@
             <md-content layout-padding>
                 <md-input-container>
                     <label>Nombre</label>
-                    <input ng-model="$ctrl.selectedProject.name" name="name" required minlength="2" md-maxlength="100" pattern="\S+">
+                    <input ng-model="$ctrl.selectedProject.name" name="name" required minlength="2" md-maxlength="100">
                     <div ng-messages="projectForm.name.$error">
                         <div ng-message="required">Es un campo requerido</div>
                         <div ng-message="minlength">Mínimo 2 caracteres</div>
                         <div ng-message="md-maxlength">Máximo 100 caracteres</div>
-                        <div ng-message="pattern">No es posible añadir espacios al inicio o al final</div>
                     </div>
                 </md-input-container>
                 <div>

@@ -12,12 +12,11 @@
                 <div>
                     <md-input-container class="md-block">
                         <label>Nombre</label>
-                        <input ng-model="$ctrl.selectedCollective.name" name="name" required minlength="2" md-maxlength="100" pattern="\S+">
+                        <input ng-model="$ctrl.selectedCollective.name" name="name" required minlength="2" md-maxlength="100">
                         <div ng-messages="collectiveForm.name.$error">
                             <div ng-message="required">Es un campo requerido</div>
                             <div ng-message="minlength">Mínimo 2 caracteres</div>
                             <div ng-message="md-maxlength">Máximo 100 caracteres</div>
-                            <div ng-message="pattern">No es posible añadir espacios al inicio o al final</div>
                         </div>
                     </md-input-container>
                 </div>
@@ -47,11 +46,11 @@
                 Cancelar
             </md-button>
             <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedCollective)" ng-if="$ctrl.isEditing"
-                ng-disabled="collectiveForm.$invalid">
+                ng-disabled="collectiveForm.$invalid || $ctrl.selectedCollective.comunarrProjects.length === 0">
                 Editar
             </md-button>
             <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedCollective)" ng-if="!$ctrl.isEditing"
-                ng-disabled="collectiveForm.$invalid">
+                ng-disabled="collectiveForm.$invalid || $ctrl.selectedCollective.comunarrProjects.length === 0">
                 Añadir
             </md-button>
         </md-dialog-actions>
