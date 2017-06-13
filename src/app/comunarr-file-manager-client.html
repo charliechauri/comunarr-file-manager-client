@@ -1,0 +1,38 @@
+<!-- Sidenav menu -->
+<md-sidenav class="md-sidenav-left" md-component-id="side-nav" md-whiteframe="4" ng-if="!('login' | isState)">
+    <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Menú</h1>
+    </md-toolbar>
+    <md-content>
+        <div layout="column">
+            <md-button ng-repeat="item in $ctrl.menuItems" flex class="md-primary no-margin align-left no-border-radius" ng-click="$ctrl.changeState(item.state)" ng-class="{ 'md-raised md-hue-2': item.label === $ctrl.getCurrentLabelState() }">
+                {{ item.label }}
+            </md-button>
+        </div>
+    </md-content>
+</md-sidenav>
+
+<!-- Toolbar -->
+<md-toolbar class="co-toolbar" ng-if="!('login' | isState)">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Mostrar menú" ng-click="$ctrl.toggleSidenav()">
+            <i class="material-icons">menu</i>
+        </md-button>
+
+        <h1 flex>
+            Comunarr - {{ $ctrl.getCurrentLabelState() }}
+        </h1>
+
+        <md-button class="md-icon-button" aria-label="Cerrar sesión" ng-click="$ctrl.logOut()">
+            <i class="material-icons">exit_to_app</i>
+        </md-button>
+    </div>
+</md-toolbar>
+
+<!-- Main view -->
+<section ui-view class="main-view" ng-class="{ 'layout-fill' : ('login' | isState) }"></section>
+
+<!-- Footer -->
+<footer class="co-footer" layout="row" layout-margin ng-if="!('login' | isState)">
+    <h4>@todo footer section</h4>
+</footer>
