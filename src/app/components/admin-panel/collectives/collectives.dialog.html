@@ -12,11 +12,11 @@
                 <div>
                     <md-input-container class="md-block">
                         <label>Nombre</label>
-                        <input ng-model="$ctrl.selectedCollective.name" name="name" required minlength="2" md-maxlength="100">
+                        <input ng-model="$ctrl.selectedCollective.name" name="name" required minlength="1" md-maxlength="255">
                         <div ng-messages="collectiveForm.name.$error">
                             <div ng-message="required">Es un campo requerido</div>
-                            <div ng-message="minlength">Mínimo 2 caracteres</div>
-                            <div ng-message="md-maxlength">Máximo 100 caracteres</div>
+                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="md-maxlength">Máximo 255 caracteres</div>
                         </div>
                     </md-input-container>
                 </div>
