@@ -11,6 +11,7 @@ import { FilesModule } from './components/files/files.module';
 import { UserModule } from './components/user/user.module';
 import { LoginModule } from './components/login/login.module';
 import { CommonModule } from './common/common.module';
+import { ComunarrThemeConfig } from './config/theme.config';
 import { ComunarrFileManagerClientComponent } from './comunarr-file-manager-client.component';
 
 import 'angular-material/angular-material.min.css';
@@ -42,5 +43,6 @@ export const ComunarrFileManagerClient = angular
             .accentPalette('blue-grey')
             .warnPalette('red');
     })
+    .config(ComunarrThemeConfig)
     .component('coFileManagerClient', ComunarrFileManagerClientComponent)
     .name;
