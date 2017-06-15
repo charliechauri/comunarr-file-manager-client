@@ -1,8 +1,11 @@
-<section layout="row" layout-align="center center" layout-fill>
-    <form name="loginForm" layout="column" layout-padding layout-margin md-whiteframe>
-        <h1 class="md-display-3">
-            Comunarr file manager client
-        </h1>
+<section layout="row" layout-align="center center" layout-fill md-colors="{ background: 'primary-50' }">
+    <form name="loginForm" class="login-form" layout="column" layout-padding layout-margin md-whiteframe md-colors="{ background: 'grey-50' }">
+
+        <div layout="row" layout-align="center">
+            <div flex="50">
+                <img ng-src="{{ 'img/logo/logo.png' }}" alt="Logo" class="square medium">
+            </div>
+        </div>
 
         <md-divider></md-divider>
 
@@ -23,7 +26,8 @@
         </md-input-container>
 
         <div layout="row">
-            <md-button flex class="md-primary md-raised" ng-disabled="loginForm.$invalid" ng-click="$ctrl.login($ctrl.credentials)"> Iniciar sesión </md-button>
+            <md-button flex class="md-primary md-raised" ng-disabled="loginForm.$invalid" ng-click="$ctrl.login($ctrl.credentials)">
+                Iniciar sesión </md-button>
         </div>
     </form>
 </section>
