@@ -32,3 +32,16 @@
 .no-border-radius {
     border-radius: 0;
 }
+
+.square.medium {
+    width: 200px;
+    height:auto;
+}
+
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.login-form {
+    min-width: 500px;
+}
