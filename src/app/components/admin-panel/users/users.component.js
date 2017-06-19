@@ -58,11 +58,6 @@ export const UsersComponent = {
                     this.selectedUser = this.getNewUser();
                 });
         }
-
-        showChangePassword() {
-
-        }
-
     },
     template
 };
