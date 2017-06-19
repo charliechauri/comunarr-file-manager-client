@@ -22,7 +22,7 @@
             <div layout="row">
                 <p flex="50" layout-margin> {{ contentType.name }} </p>
                 <p flex layout-margin>
-                    {{ contentType.status === true ? 'Activo' : 'Inactivo' }}
+                    {{ contentType.status | Active }}
                 </p>
                 <span flex></span>
                 <div>

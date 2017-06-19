@@ -21,7 +21,7 @@
                     </md-input-container>
                 </div>
 
-                <div>
+                <div ng-if="$ctrl.isEditing">
                     <md-checkbox class="md-primary" ng-model="$ctrl.selectedSpecificTopic.status" aria-label="Estatus">
                         Estatus
                     </md-checkbox>

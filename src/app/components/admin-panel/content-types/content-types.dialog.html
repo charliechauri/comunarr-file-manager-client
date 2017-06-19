@@ -18,7 +18,7 @@
                         <div ng-message="md-maxlength">Máximo 255 caracteres</div>
                     </div>
                 </md-input-container>
-                <div>
+                <div ng-if="$ctrl.isEditing">
                     <md-checkbox class="md-primary" ng-model="$ctrl.selectedContentType.status" aria-label="Estatus">
                         Estatus
                     </md-checkbox>
