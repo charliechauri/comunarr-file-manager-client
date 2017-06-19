@@ -33,6 +33,11 @@
     border-radius: 0;
 }
 
+.square.small {
+    width: 40px;
+    height:auto;
+}
+
 .square.medium {
     width: 200px;
     height:auto;
