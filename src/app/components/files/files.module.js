@@ -1,4 +1,5 @@
 import angular from 'angular';
+import { FilesService } from './files.service';
 import { FilesComponent } from './files.component';
 
 export const FilesModule = angular
@@ -12,5 +13,6 @@ export const FilesModule = angular
                 component: 'coFiles'
             });
     })
+    .service('FilesService', FilesService)
     .component('coFiles', FilesComponent)
     .name;
