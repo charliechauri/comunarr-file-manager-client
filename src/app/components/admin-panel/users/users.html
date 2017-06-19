@@ -1,20 +1,42 @@
-<!-- filter section -->
-<section layout="row" layout-margin>
-    <div>
-        <md-autocomplete md-items="$ctrl.users">
-            
-        </md-autocomplete>
-    </div>
-</section>
+<md-content layout-padding>
+    <header layout="row">
+        <h1>
+            Usuarios
+        </h1>
+        <span flex></span>
+        <div>
+            <md-button class="md-primary md-raised" ng-click="$ctrl.addOrEdit($ctrl.getNewUser(), $event, 'add')"> Añadir nuevo usuario </md-button>
+        </div>
+    </header>
 
-<!-- list of users -->
-<section class="regular-max-height">
-    <md-list layout-margin>
-        <md-list-item class="md-3-line" ng-repeat="user in $ctrl.users" ng-click="$ctrl.showChangePassword()">
-            <img ng-src="{{user.img}}" class="md-avatar" alt="{{user.name}}" />
-            <div class="md-list-item-text" layout="column">
-                <h3>{{ user.name }}</h3>
+    <section>
+        <header layout="row">
+            <h2 flex="40" layout-margin>Nombre</h2>
+            <h2 flex="20" layout-margin>Usuario</h2>
+            <h2 flex layout-margin>Estatus</h2>
+            <span flex></span>
+        </header>
+
+        <md-divider></md-divider>
+
+        <article layout="row" layout-align="start center" ng-repeat="user in $ctrl.users">
+            <p flex="40" layout-margin> {{ user.name }} </p>
+            <p flex="20" layout-margin>
+                {{ user.userName }}
+            </p>
+            <p flex layout-margin>
+                {{ user.status | Active }}
+            </p>
+            <span flex></span>
+            <div>
+                <md-button class="md-fab md-primary md-mini" ng-click="$ctrl.addOrEdit(user, $event, 'edit')">
+                    <md-icon>edit</md-icon>
+                    <md-tooltip>
+                        Editar
+                    </md-tooltip>
+                </md-button>
             </div>
-        </md-list-item>
-    </md-list>
-</section>
+        </article>
+        <md-divider></md-divider>
+    </section>
+</md-content>

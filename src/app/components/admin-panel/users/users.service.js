@@ -1,12 +1,13 @@
 export class UsersService {
     constructor(EnvironmentService, $http) {
         'ngInject';
-        
+
         this.EnvironmentService = EnvironmentService;
         this.$http = $http;
     }
 
     /**
+     * @authorize [Admin]
      * Get all registered application users (admins, members and common users)
      */
     getAll() {
@@ -14,9 +15,26 @@ export class UsersService {
     }
 
     /**
-     * Change password for a specific user
+     * @authorize [Admin]
+     * Add a new user
      */
-    changePassword(){
+    add(user) {
+        return this.$http.post('', user).then(response => response.data);
+    }
 
+    /**
+     * @authorize [Admin]
+     * Edit a whole user
+     */
+    edit(user) {
+        return this.$http.put('', user).then(response => response.data);
+    }
+
+    /**
+     * @authorize [User]
+     * Change own password
+     */
+    changePassword(user) {
+        return this.$http.put('', user).then(response => response.data);
     }
 }

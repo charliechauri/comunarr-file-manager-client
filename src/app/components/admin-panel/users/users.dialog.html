@@ -1,0 +1,87 @@
+<md-dialog flex="70">
+    <form name="userForm">
+        <md-dialog-content>
+
+            <!-- Header -->
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h4 ng-if="$ctrl.isEditing">Editar usuario</h4>
+                    <h4 ng-if="!$ctrl.isEditing">Añadir usuario</h4>
+                </div>
+            </md-toolbar>
+
+            <md-content layout-padding>
+                <!-- Name -->
+                <div layout="row" layout-margin>
+                    <md-input-container class="md-block" flex="70">
+                        <label>Nombre</label>
+                        <input ng-model="$ctrl.selectedUser.name" name="name" required minlength="1" md-maxlength="255">
+                        <div ng-messages="userForm.name.$error">
+                            <div ng-message="required">Es un campo requerido</div>
+                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="md-maxlength">Máximo 255 caracteres</div>
+                        </div>
+                    </md-input-container>
+
+                    <!-- User name -->
+                    <md-input-container class="md-block" flex="30">
+                        <label>Usuario</label>
+                        <input ng-model="$ctrl.selectedUser.userName" name="userName" required minlength="1" md-maxlength="255">
+                        <div ng-messages="userForm.userName.$error">
+                            <div ng-message="required">Es un campo requerido</div>
+                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="md-maxlength">Máximo 255 caracteres</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <!-- Password and confirmPassword -->
+                <div layout="row" ng-if="!$ctrl.isEditing" layout-margin>
+                    <md-input-container class="md-block" flex>
+                        <label>Password</label>
+                        <input ng-model="$ctrl.selectedUser.password" name="password" type="password" required minlength="1" md-maxlength="255">
+                        <div ng-messages="userForm.password.$error">
+                            <div ng-message="required">Es un campo requerido</div>
+                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="md-maxlength">Máximo 255 caracteres</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex>
+                        <label>Confirmar password</label>
+                        <input ng-model="$ctrl.selectedUser.confirmPassword" name="confirmPassword" type="password" required minlength="1" md-maxlength="255">
+                        <div ng-messages="userForm.confirmPassword.$error">
+                            <div ng-message="required">Es un campo requerido</div>
+                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="md-maxlength">Máximo 255 caracteres</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <!-- Status -->
+                <div layout-margin ng-if="$ctrl.isEditing">
+                    <md-input-container>
+                        <md-checkbox class="md-primary" ng-model="$ctrl.selectedUser.status" aria-label="Estatus">
+                            Estatus
+                        </md-checkbox>
+                    </md-input-container>
+                </div>
+
+            </md-content>
+        </md-dialog-content>
+
+        <md-dialog-actions>
+            <div>
+                <md-button md-no-ink class="md-primary" ng-click="$ctrl.$mdDialog.cancel()">
+                    Cancelar
+                </md-button>
+                <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedUser)" ng-if="$ctrl.isEditing" ng-disabled="userForm.$invalid">
+                    Editar
+                </md-button>
+                <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedUser)" ng-if="!$ctrl.isEditing" ng-disabled="userForm.$invalid || ($ctrl.selectedUser.password !== $ctrl.selectedUser.confirmPassword)">
+                    Añadir
+                </md-button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
