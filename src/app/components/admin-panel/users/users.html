@@ -28,6 +28,7 @@
                 {{ user.status | Active }}
             </p>
             <span flex></span>
+            <md-button co-password-handler user="user">Cambiar contraseña</md-button>
             <div>
                 <md-button class="md-fab md-primary md-mini" ng-click="$ctrl.addOrEdit(user, $event, 'edit')">
                     <md-icon>edit</md-icon>
