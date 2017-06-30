@@ -6,9 +6,10 @@
     </md-toolbar>
     <md-content>
         <div layout="column">
-            <md-button ng-repeat="item in $ctrl.menuItems" flex class="md-primary no-margin align-left no-border-radius" ng-click="$ctrl.changeState(item.state)" ng-class="{ 'md-raised md-hue-2': item.label === $ctrl.getCurrentLabelState() }">
+            <md-button ng-repeat="item in $ctrl.menuItems" class="full-width md-primary no-margin align-left no-border-radius" ng-click="$ctrl.changeState(item.state)" ng-class="{ 'md-raised md-hue-2': item.label === $ctrl.getCurrentLabelState() }">
                 {{ item.label }}
             </md-button>
+            <co-password-handler flex user="user" is-admin="false"></co-password-handler>
         </div>
     </md-content>
 </md-sidenav>

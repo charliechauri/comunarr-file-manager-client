@@ -4,7 +4,7 @@ import { MenuService } from './services/menu.service';
 import { ResponseHandler } from './services/response-handler.service';
 import { Validator } from './services/validator.service';
 import { ActiveFilter } from './filters/active.filter';
-import { PasswordHandlerModule } from './directives/password-handler/password-handler.module';
+import { PasswordHandlerModule } from './components/password-handler/password-handler.module';
 
 export const CommonModule = angular
     .module('co-file-manager-client.common', [

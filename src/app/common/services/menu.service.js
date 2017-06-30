@@ -11,8 +11,7 @@ export class MenuService {
             { label: 'Tipos de contenido', state: 'content-types', privacyType: 1 },
             { label: 'Temas generales', state: 'general-topics', privacyType: 1 },
             { label: 'Temas específicos', state: 'specific-topics', privacyType: 1 },
-            { label: 'Buscar archivos', state: 'files', privacyType: 3 },
-            { label: 'Cambiar contraseña', state: 'user', privacyType: 3 }
+            { label: 'Buscar archivos', state: 'files', privacyType: 3 }
         ];
     }
 
