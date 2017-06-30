@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --config webpack.config.js --env.production=false",
-    "serve": "webpack-dev-server"
+    "start": "webpack-dev-server"
   },
   "keywords": [],
   "author": "Ariana Hernández",
