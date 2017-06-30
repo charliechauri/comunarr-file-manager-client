@@ -4,7 +4,7 @@ export class PasswordHandler {
         this.$http = $http;
     }
 
-    change(user) {
-        return this.$http.post('', user).then(response => response.data);
+    change(form) {
+        return this.$http.post('', form).then(response => response.data);
     }
 }
