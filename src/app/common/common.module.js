@@ -4,6 +4,7 @@ import { MenuService } from './services/menu.service';
 import { ResponseHandler } from './services/response-handler.service';
 import { Validator } from './services/validator.service';
 import { ActiveFilter } from './filters/active.filter';
+import { UserTypeFilter } from './filters/user-type.filter';
 import { PasswordHandlerModule } from './components/password-handler/password-handler.module';
 
 export const CommonModule = angular
@@ -15,4 +16,5 @@ export const CommonModule = angular
     .service('ResponseHandler', ResponseHandler)
     .service('Validator', Validator)
     .filter('Active', ActiveFilter)
+    .filter('UserTypeFilter', UserTypeFilter)
     .name;
