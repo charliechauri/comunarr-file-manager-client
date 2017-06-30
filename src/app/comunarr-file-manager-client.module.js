@@ -8,7 +8,6 @@ import ngSanitize from 'angular-sanitize';
 import ngLoadingBar from 'angular-loading-bar';
 import { AdminPanelModule } from './components/admin-panel/admin-panel.module';
 import { FilesModule } from './components/files/files.module';
-import { UserModule } from './components/user/user.module';
 import { LoginModule } from './components/login/login.module';
 import { CommonModule } from './common/common.module';
 import { ComunarrThemeConfig } from './config/theme.config';
@@ -29,7 +28,6 @@ export const ComunarrFileManagerClient = angular
         ngLoadingBar,
         AdminPanelModule,
         FilesModule,
-        UserModule,
         LoginModule,
         CommonModule
     ])
