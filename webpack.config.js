@@ -21,10 +21,14 @@ module.exports = (env = {}) => {
                 {
                     test: /\.js$/,
                     exclude: /node_modules/,
-                    loader: 'babel-loader',
-                    query: {
-                        presets: ['babili']
-                    }
+                    use: [
+                        {
+                            loader: 'babel-loader',
+                            query: {
+                                presets: ['babili']
+                            }
+                        }
+                    ]
                 },
                 {
                     test: /\.css$/,
@@ -35,7 +39,9 @@ module.exports = (env = {}) => {
                 },
                 {
                     test: /\.html$/,
-                    loader: 'html-loader'
+                    use: [
+                        { loader: 'html-loader' }
+                    ]
                 }
             ]
         },
