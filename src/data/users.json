@@ -3,18 +3,21 @@
         "id": 1,
         "name": "Carlos Echauri",
         "userName": "cechauri",
+        "type": 1,
         "status": true
     },
     {
         "id": 2,
         "name": "Ariana Hernández",
         "userName": "ariherna",
+        "type": 2,
         "status": true
     },
     {
         "id": 3,
         "name": "Óscar González",
         "userName": "ogonzale",
+        "type": 3,
         "status": false
     }
 ]

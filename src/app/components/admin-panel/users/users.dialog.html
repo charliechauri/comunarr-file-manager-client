@@ -1,4 +1,4 @@
-<md-dialog flex="70">
+<md-dialog flex="50">
     <form name="userForm">
         <md-dialog-content>
 
@@ -12,8 +12,8 @@
 
             <md-content layout-padding>
                 <!-- Name -->
-                <div layout="row" layout-margin>
-                    <md-input-container class="md-block" flex="70">
+                <div layout="column" layout-margin>
+                    <md-input-container class="md-block">
                         <label>Nombre</label>
                         <input ng-model="$ctrl.selectedUser.name" name="name" required minlength="1" md-maxlength="255">
                         <div ng-messages="userForm.name.$error">
@@ -24,7 +24,7 @@
                     </md-input-container>
 
                     <!-- User name -->
-                    <md-input-container class="md-block" flex="30">
+                    <md-input-container class="md-block">
                         <label>Usuario</label>
                         <input ng-model="$ctrl.selectedUser.userName" name="userName" required minlength="1" md-maxlength="255">
                         <div ng-messages="userForm.userName.$error">
@@ -32,6 +32,16 @@
                             <div ng-message="minlength">Mínimo 1 caracteres</div>
                             <div ng-message="md-maxlength">Máximo 255 caracteres</div>
                         </div>
+                    </md-input-container>
+
+                    <!-- Type of user -->
+                    <md-input-container class="md-block">
+                        <label>Tipo de usuario</label>
+                        <md-select ng-model="$ctrl.selectedUser.type">
+                            <md-option ng-repeat="type in $ctrl.userTypes" ng-value="{{ type.id }}">
+                                {{ type.name }}
+                            </md-option>
+                        </md-select>
                     </md-input-container>
                 </div>
 

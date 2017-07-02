@@ -11,8 +11,9 @@
 
     <section>
         <header layout="row">
-            <h2 flex="40" layout-margin>Nombre</h2>
-            <h2 flex="20" layout-margin>Usuario</h2>
+            <h2 flex="30" layout-margin>Nombre</h2>
+            <h2 flex="15" layout-margin>Usuario</h2>
+            <h2 flex="15" layout-margin>Tipo de usuario</h2>
             <h2 flex layout-margin>Estatus</h2>
             <span flex></span>
         </header>
@@ -20,9 +21,12 @@
         <md-divider></md-divider>
 
         <article layout="row" layout-align="start center" ng-repeat="user in $ctrl.users">
-            <p flex="40" layout-margin> {{ user.name }} </p>
-            <p flex="20" layout-margin>
+            <p flex="30" layout-margin> {{ user.name }} </p>
+            <p flex="15" layout-margin>
                 {{ user.userName }}
+            </p>
+            <p flex="15" layout-margin>
+                {{ user.type | UserTypeFilter }}
             </p>
             <p flex layout-margin>
                 {{ user.status | Active }}

@@ -5,22 +5,24 @@ import dialogTemplate from './users.dialog.html';
 export const UsersComponent = {
     bindings: {},
     controller: class UsersComponent {
-        constructor($scope, $mdDialog, UsersService, Validator) {
+        constructor($scope, $mdDialog, UsersService, UserTypesService, Validator) {
             'ngInject';
 
             this.$scope = $scope;
             this.$mdDialog = $mdDialog;
             this.UsersService = UsersService;
+            this.UserTypesService = UserTypesService;
             this.Validator = Validator;
         }
 
         $onInit() {
             this.users = [];
+            this.userTypes = this.UserTypesService.get();
             this.getUsers();
         }
 
         getUsers() {
-            this.UsersService.getAll().then(data => this.users = data);
+            return this.UsersService.getAll().then(data => this.users = data);
         }
 
         getNewUser() {
