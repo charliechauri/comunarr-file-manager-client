@@ -3,6 +3,7 @@ import { EnvironmentService } from './services/environment.service';
 import { MenuService } from './services/menu.service';
 import { ResponseHandler } from './services/response-handler.service';
 import { Validator } from './services/validator.service';
+import { UserTypesService } from './services/user-types.service';
 import { ActiveFilter } from './filters/active.filter';
 import { UserTypeFilter } from './filters/user-type.filter';
 import { PasswordHandlerModule } from './components/password-handler/password-handler.module';
@@ -15,6 +16,7 @@ export const CommonModule = angular
     .service('MenuService', MenuService)
     .service('ResponseHandler', ResponseHandler)
     .service('Validator', Validator)
+    .service('UserTypesService', UserTypesService)
     .filter('Active', ActiveFilter)
     .filter('UserTypeFilter', UserTypeFilter)
     .name;
