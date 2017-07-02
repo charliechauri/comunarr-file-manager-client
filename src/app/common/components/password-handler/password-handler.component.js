@@ -20,12 +20,13 @@ export const PasswordHandlerComponent = {
 
         $onInit() { }
 
-        changePassword() {
+        changePassword(targetEvent) {
             this.$mdDialog
                 .show({
                     preserveScope: true,
                     scope: this.$scope,
-                    template: dialogTemplate
+                    template: dialogTemplate,
+                    targetEvent
                 }).then(form => {
                     const newForm = this.isAdmin ? { idUser: this.user.id, password: form.newPassword } : { password: form.password, newPassword: form.newPassword };
 
