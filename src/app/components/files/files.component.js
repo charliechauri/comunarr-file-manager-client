@@ -1,171 +1,40 @@
+import angular from 'angular';
 import template from './files.html';
 import dialogTemplate from './files.dialog.html';
 
 export const FilesComponent = {
     bindings: {},
     controller: class FilesComponent {
-        constructor($mdDialog, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService) {
+        constructor($scope, $mdToast, $mdDialog, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService) {
             'ngInject';
+
+            this.$scope = $scope;
+            this.$mdToast = $mdToast;
             this.$mdDialog = $mdDialog;
             this.FilesService = FilesService;
-            this.ProjectsService = ProjectsService;
-            this.CollectivesService = CollectivesService;
-            this.GeneralTopicsService = GeneralTopicsService;
-            this.SpecificTopicsService = SpecificTopicsService;
-            this.ContentTypesService = ContentTypesService;
+
+            // Fill all catalogs
+            ProjectsService.get().then(comunarrProjects => this.comunarrProjects = comunarrProjects);
+            CollectivesService.get().then(data => this.collectives = data);
+            GeneralTopicsService.get().then(generalTopics => this.generalTopics = generalTopics);
+            SpecificTopicsService.get().then(specificTopics => this.specificTopics = specificTopics);
+            ContentTypesService.get().then(contentTypes => this.contentTypes = contentTypes);
         }
 
         $onInit() {
-            this.JSON = JSON;
-            this.collectives = [];
-            this.comunarrProjects = [];
-            this.generalTopics = [];
-            this.specificTopics = [];
-            this.contentTypes = [];
+            this.form = {};
 
+            this.privacyTypes = [
+                { id: 1, name: 'Sólo yo' },
+                { id: 2, name: 'Miembros del equipo' },
+                { id: 3, name: 'Todos' }
+            ];
             this.showSimpleSearchFilters = true;
             this.showSpecificSearchFilters = true;
             this.filters = this.FilesService.getSimpleFilters();
             this.results = [];
-            this.getProjects();
-            this.getCollectives();
-            this.getGeneralTopics();
-            this.getSpecificTopics();
-            this.getContentTypes();
-            this.results = [
-                {
-                    id: 1,
-                    title: 'Relatoria PROFECTAR Sisoguichi agosto 2016. Autonomía de pueblos originarios',
-                    author: 'Emma Medrano',
-                    comunarrProject: 'Economía solidaria',
-                    collective: 'Samachique',
-                    generalTopic: 'Artesanía',
-                    icon: 'img/docs-icons/avi.svg'
-                },
-                {
-                    id: 2,
-                    title: 'Archivo 1',
-                    author: 'Emma Medrano',
-                    comunarrProject: 'Economía solidaria',
-                    collective: 'Samachique',
-                    generalTopic: 'Artesanía',
-                    icon: 'img/docs-icons/avi.svg'
-                },
-                {
-                    id: 3,
-                    title: 'Archivo 1',
-                    author: 'Emma Medrano',
-                    comunarrProject: 'Economía solidaria',
-                    collective: 'Samachique',
-                    generalTopic: 'Artesanía',
-                    icon: 'img/docs-icons/avi.svg'
-                },
-                {
-                    id: 4,
-                    title: 'Archivo 1',
-                    author: 'Emma Medrano',
-                    comunarrProject: 'Economía solidaria',
-                    collective: 'Samachique',
-                    generalTopic: 'Artesanía',
-                    icon: 'img/docs-icons/avi.svg'
-                },
-                {
-                    id: 5,
-                    title: 'Archivo 1',
-                    author: 'Emma Medrano',
-                    comunarrProject: 'Economía solidaria',
-                    collective: 'Samachique',
-                    generalTopic: 'Artesanía',
-                    icon: 'img/docs-icons/avi.svg'
-                },
-                {
-                    id: 6,
-                    title: 'Archivo 1',
-                    author: 'Emma Medrano',
-                    comunarrProject: 'Economía solidaria',
-                    collective: 'Samachique',
-                    generalTopic: 'Artesanía',
-                    icon: 'img/docs-icons/avi.svg'
-                },
-                {
-                    id: 7,
-                    title: 'Archivo 1',
-                    author: 'Emma Medrano',
-                    comunarrProject: 'Economía solidaria',
-                    collective: 'Samachique',
-                    generalTopic: 'Artesanía',
-                    icon: 'img/docs-icons/avi.svg'
-                },
-                {
-                    id: 8,
-                    title: 'Archivo 1',
-                    author: 'Emma Medrano',
-                    comunarrProject: 'Economía solidaria',
-                    collective: 'Samachique',
-                    generalTopic: 'Artesanía',
-                    icon: 'img/docs-icons/avi.svg'
-                },
-                {
-                    id: 9,
-                    title: 'Archivo 1',
-                    author: 'Emma Medrano',
-                    comunarrProject: 'Economía solidaria',
-                    collective: 'Samachique',
-                    generalTopic: 'Artesanía',
-                    icon: 'img/docs-icons/avi.svg'
-                },
-                {
-                    id: 10,
-                    title: 'Archivo 1',
-                    author: 'Emma Medrano',
-                    comunarrProject: 'Economía solidaria',
-                    collective: 'Samachique',
-                    generalTopic: 'Artesanía',
-                    icon: 'img/docs-icons/avi.svg'
-                }
-            ];
-        }
 
-        /**
-        * Get all projects
-        */
-        getProjects() {
-            return this.ProjectsService.get().then(comunarrProjects => this.comunarrProjects = comunarrProjects);
-        }
-
-        /**
-         * Gets all collectives
-         */
-        getCollectives() {
-            return this.CollectivesService.get().then(data => this.collectives = data);
-        }
-
-        /**
-         * Get all general topics
-         */
-        getGeneralTopics() {
-            return this.GeneralTopicsService.get().then(generalTopics => this.generalTopics = generalTopics);
-        }
-
-        /**
-         * Get all specific topics
-         */
-        getSpecificTopics() {
-            return this.SpecificTopicsService.get().then(specificTopics => this.specificTopics = specificTopics);
-        }
-
-        /**
-         * Get all content types
-         */
-        getContentTypes() {
-            return this.ContentTypesService.get().then(contentTypes => this.contentTypes = contentTypes);
-        }
-
-        /**
-         * Set results to an empty array
-         */
-        resetResults() {
-            this.results = [];
+            this.$scope.fileChanged = this.fileChanged;
         }
 
         /**
@@ -179,6 +48,42 @@ export const FilesComponent = {
             } else if (searchType === 'specific') {
                 this.showSpecificSearchFilters = false;
             }
+        }
+
+        /**
+         * Display file selection
+         */
+        showSelectFile() {
+            const inputFile = angular.element(document.querySelector('#fileInput'))[0];
+            inputFile.click();
+        }
+
+        /**
+         * Add new file
+         * @param {any} targetEvent
+         * @param {string} method
+         */
+        addOrEditFile(targetEvent, method) {
+            this.isEditing = method !== 'add';
+            this.$mdDialog
+                .show({
+                    escapeToClose: false,
+                    preserveScope: true,
+                    scope: this.$scope,
+                    targetEvent,
+                    template: dialogTemplate
+                })
+                .then(formData => {
+                    this.FilesService.post(formData).then(response => {
+                        this.$mdToast.show(this.$ctrl.$mdToast.simple()
+                            .textContent('Éxito: se subió de forma correcta el archivo')
+                            .position('top right')
+                        );
+                    });
+                })
+                .catch(() => {
+                    this.form = {};
+                });
         }
 
         /**

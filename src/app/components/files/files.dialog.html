@@ -1,0 +1,153 @@
+<md-dialog flex="90" aria-label="Subir archivo">
+    <form name="fileForm">
+        <md-dialog-content>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h4 ng-if="$ctrl.isEditing">Editar archivo</h4>
+                    <h4 ng-if="!$ctrl.isEditing">Añadir archivo</h4>
+                </div>
+            </md-toolbar>
+
+            <md-content layout-padding>
+
+                <!-- File -->
+                <div layout="row">
+                    <div>
+                        <!--onchange="angular.element(this).scope().fileChanged(this, angular.element(this).scope())"-->
+                        <input file-input="$ctrl.form.file" ng-show="fale" id="input-file" type="file"  accept="audio/*,video/*,image/*,.docx,.xls,.pdf,.ppt,.txt,.zip,.xml,.json,.doc,.xlsx,.html">
+                        <label for="input-file" class="md-button md-primary md-raised animated pulse infinite">
+                            <span ng-if="!$ctrl.form.file"> Elige un archivo  <md-icon>attach_file</md-icon> </span>
+                            <span ng-if="$ctrl.form.file"> Archivo seleccionado: {{ $ctrl.form.file.name }}  <md-icon>attachment</md-icon> </span>
+                        </label>
+                    </div>
+
+                    <h3 flex ng-if="$ctrl.form.file"> Archivo seleccionado: {{ $ctrl.form.file.name }} </h3>
+                </div>
+
+                <!-- Name and author -->
+                <div layout="row" layout-padding>
+                    <!-- Name -->
+                    <md-input-container flex>
+                        <label>Nombre</label>
+                        <input ng-model="$ctrl.form.name" name="name" required minlength="1" md-maxlength="255">
+                        <div ng-messages="generalTopicForm.name.$error">
+                            <div ng-message="required">Es un campo requerido</div>
+                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="md-maxlength">Máximo 255 caracteres</div>
+                        </div>
+                    </md-input-container>
+
+                    <!-- Author -->
+                    <md-input-container flex>
+                        <label>Autor</label>
+                        <input ng-model="$ctrl.form.author" name="author" required minlength="1" md-maxlength="255">
+                        <div ng-messages="generalTopicForm.author.$error">
+                            <div ng-message="required">Es un campo requerido</div>
+                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="md-maxlength">Máximo 255 caracteres</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <!-- Project, collective, general topic and specific topic -->
+                <div layout="row" layout-padding>
+                    <!-- Project -->
+                    <md-input-container flex>
+                        <label>Proyecto</label>
+                        <md-select ng-model="$ctrl.form.idComunarrProject" required>
+                            <md-option ng-repeat="project in $ctrl.comunarrProjects" ng-value="{{ project.id }}">
+                                {{ project.name }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <!-- Collective -->
+                    <md-input-container flex>
+                        <label>Colectivo</label>
+                        <md-select ng-model="$ctrl.form.idCollective" required>
+                            <md-option ng-repeat="collective in $ctrl.collectives" ng-value="{{ collective.id }}">
+                                {{ collective.name }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <!-- General topic -->
+                    <md-input-container flex>
+                        <label>Tema general</label>
+                        <md-select ng-model="$ctrl.form.idGeneralTopic" required>
+                            <md-option ng-repeat="generalTopic in $ctrl.generalTopics" ng-value="{{ generalTopic.id }}">
+                                {{ generalTopic.name }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <!-- Specific topic -->
+                    <md-input-container flex>
+                        <label>Tema específico</label>
+                        <md-select ng-model="$ctrl.form.idSpecificTopic">
+                            <md-option ng-repeat="specificTopic in $ctrl.specificTopics" ng-value="{{ specificTopic.id }}">
+                                {{ specificTopic.name }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+
+                <!-- Privacy type, content type, related date and place -->
+                <div layout="row" layout-padding>
+                    <!-- Privacy type -->
+                    <md-input-container flex>
+                        <label>¿Quién lo puede ver?</label>
+                        <md-select ng-model="$ctrl.form.idPrivacyType" required>
+                            <md-option ng-repeat="privacyType in $ctrl.privacyTypes" ng-value="{{ privacyType.id }}">
+                                {{ privacyType.name }}
+                            </md-option>
+                        </md-select>
+                        <md-tooltip>
+                            Tipo de privacidad
+                        </md-tooltip>
+                    </md-input-container>
+
+                    <!-- Content type -->
+                    <md-input-container flex>
+                        <label>Tipo de contenido</label>
+                        <md-select ng-model="$ctrl.form.idContentType" required>
+                            <md-option ng-repeat="contentType in $ctrl.contentTypes" ng-value="{{ contentType.id }}">
+                                {{ contentType.name }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <!-- Related date -->
+                    <md-input-container flex>
+                        <label>Fecha de relación</label>
+                        <md-datepicker ng-model="$ctrl.form.relatedDate"></md-datepicker>
+                    </md-input-container>
+
+                    <!-- Place -->
+                    <md-input-container flex>
+                        <label>Lugar</label>
+                        <input ng-model="$ctrl.form.place" type="date" name="place" minlength="1" md-maxlength="255">
+                        <div ng-messages="fileForm.place.$error">
+                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="md-maxlength">Máximo 255 caracteres</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+            </md-content>
+        </md-dialog-content>
+
+        <!-- Actions -->
+        <md-dialog-actions>
+            <md-button md-no-ink class="md-primary" ng-click="$ctrl.$mdDialog.cancel()">
+                Cancelar
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.form)" ng-if="$ctrl.isEditing" ng-disabled="fileForm.$invalid || !$ctrl.form.file">
+                Editar
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.form)" ng-if="!$ctrl.isEditing" ng-disabled="fileForm.$invalid || !$ctrl.form.file">
+                Añadir
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

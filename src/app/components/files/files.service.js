@@ -2,13 +2,36 @@
  * @name FilesService
  */
 
+import angular from 'angular';
+
 export class FilesService {
     constructor($http) {
         'ngInject';
+
         this.$http = $http;
     }
 
+    /**
+     * @param {any} 
+     */
     get() {
+        return this.$http.get('./data/files.json').then(response => response.data);
+    }
+
+    /**
+     * @todo Integrate to backend
+     * @param {any} form
+     */
+    post(form) {
+        let fd = new FormData();
+        for (const prop in form) { fd.append(prop, form[prop]); }
+
+        const config = {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        };
+
+        return this.$http.post('URL', fd, config).then(response => response.data);
 
     }
 
