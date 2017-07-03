@@ -15,6 +15,7 @@ import { ComunarrFileManagerClientComponent } from './comunarr-file-manager-clie
 
 import 'angular-material/angular-material.min.css';
 import 'angular-loading-bar/build/loading-bar.css';
+import 'animate.css/animate.css';
 import './comunarr-file-manager-client.css';
 
 export const ComunarrFileManagerClient = angular
