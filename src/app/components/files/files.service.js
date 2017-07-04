@@ -12,10 +12,21 @@ export class FilesService {
     }
 
     /**
-     * @param {any} 
+     * Search with simple filters
+     * @param {any} filters
      */
-    get() {
-        return this.$http.get('./data/files.json').then(response => response.data);
+    simpleSearch(filters) {
+        return this.$http.get('./data/files.json', filters).then(response => response.data);
+    }
+
+    /**
+     * Search with complex filters
+     * @param {any} filters
+     */
+    specificSearch(filters) {
+        // @todo Filter each filter's property if an element doesn't have a value (.length > 0) or a numeric id (id !== null)
+        console.log(filters);
+        return this.$http.get('./data/files.json', filters).then(response => response.data);
     }
 
     /**
@@ -35,7 +46,11 @@ export class FilesService {
 
     }
 
-    getSimpleFilters() {
+    /**
+     * Gets all type of filters for a specific search
+     * @return {any}
+     */
+    getSpecificFilters() {
         return {
             title: [
                 {
