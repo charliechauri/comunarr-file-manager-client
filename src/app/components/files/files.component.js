@@ -126,7 +126,7 @@ export const FilesComponent = {
                     template: dialogFormTemplate
                 })
                 .then(formData => {
-                    this.FilesService.post(formData).then(response => {
+                    this.FilesService.post(formData).then(() => {
                         this.$mdToast.show(this.$ctrl.$mdToast.simple()
                             .textContent('Éxito: se subió de forma correcta el archivo')
                             .position('top right')
