@@ -11,17 +11,20 @@
             <md-content layout-padding>
 
                 <!-- File -->
-                <div layout="row">
+                <div layout="row" layout-align="start center">
                     <div>
                         <!--onchange="angular.element(this).scope().fileChanged(this, angular.element(this).scope())"-->
                         <input file-input="$ctrl.form.file" ng-show="fale" id="input-file" type="file"  accept="audio/*,video/*,image/*,.docx,.xls,.pdf,.ppt,.txt,.zip,.xml,.json,.doc,.xlsx,.html">
                         <label for="input-file" class="md-button md-primary md-raised animated pulse infinite">
-                            <span ng-if="!$ctrl.form.file"> Elige un archivo  <md-icon>attach_file</md-icon> </span>
-                            <span ng-if="$ctrl.form.file"> Archivo seleccionado: {{ $ctrl.form.file.name }}  <md-icon>attachment</md-icon> </span>
+                            <span ng-if="!$ctrl.form.file && !$ctrl.isEditing"> Elige un archivo  <md-icon>attach_file</md-icon> </span>
+                            <span ng-if="!$ctrl.form.file && $ctrl.isEditing"> Cambiar archivo  <md-icon>attach_file</md-icon> </span>
+                            <span ng-if="$ctrl.form.file && !$ctrl.isEditing"> Archivo seleccionado: {{ $ctrl.form.file.name }}  <md-icon>attachment</md-icon> </span>
+                            <span ng-if="$ctrl.form.file && $ctrl.isEditing"> Archivo seleccionado a cambiar: {{ $ctrl.form.file.name }}  <md-icon>attachment</md-icon> </span>
                         </label>
                     </div>
 
                     <h3 flex ng-if="$ctrl.form.file"> Archivo seleccionado: {{ $ctrl.form.file.name }} </h3>
+                    <h3 flex ng-if="!$ctrl.form.file && $ctrl.isEditing"> Archivo actual: {{ $ctrl.form.name + '.' + $ctrl.form.fileType }} </h3>
                 </div>
 
                 <!-- Name and author -->

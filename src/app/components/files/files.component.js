@@ -1,6 +1,14 @@
+/**
+ * @todo
+ * 1. Add/Edit file set correct dates
+ * 2. Assign correct models to filters.specific
+ * 3. Display file details
+ * 4. Validate who can edit a file
+ */
 import angular from 'angular';
 import template from './files.html';
-import dialogTemplate from './files.dialog.html';
+import dialogFormTemplate from './files.form.dialog.html';
+import dialogDetailsTemplate from './files.details.dialog.html';
 
 export const FilesComponent = {
     bindings: {},
@@ -13,12 +21,11 @@ export const FilesComponent = {
             this.$mdDialog = $mdDialog;
             this.FilesService = FilesService;
 
-            // Fill all catalogs
-            ProjectsService.get().then(comunarrProjects => this.comunarrProjects = comunarrProjects);
-            CollectivesService.get().then(data => this.collectives = data);
-            GeneralTopicsService.get().then(generalTopics => this.generalTopics = generalTopics);
-            SpecificTopicsService.get().then(specificTopics => this.specificTopics = specificTopics);
-            ContentTypesService.get().then(contentTypes => this.contentTypes = contentTypes);
+            this.ProjectsService = ProjectsService;
+            this.CollectivesService = CollectivesService;
+            this.GeneralTopicsService = GeneralTopicsService;
+            this.SpecificTopicsService = SpecificTopicsService;
+            this.ContentTypesService = ContentTypesService;
         }
 
         $onInit() {
@@ -31,10 +38,44 @@ export const FilesComponent = {
             ];
             this.showSimpleSearchFilters = true;
             this.showSpecificSearchFilters = true;
-            this.filters = this.FilesService.getSimpleFilters();
+            this.filters = {
+                simple: {
+                    name: '',
+                    author: '',
+                    idProject: null,
+                    idCollective: null,
+                    idGeneralTopic: null
+                }
+            };
+            this.filters.specific = this.FilesService.getSpecificFilters();
             this.results = [];
 
             this.$scope.fileChanged = this.fileChanged;
+
+            this.ProjectsService.get().then(comunarrProjects => this.comunarrProjects = comunarrProjects);
+
+            // Build collectives
+            this.CollectivesService.getRelatedProjects().then(relations => {
+                this.CollectivesService.get().then(collectives => {
+                    collectives.forEach(collective => {
+                        collective.idComunarrProject = relations.filter(relation => relation.idCollective === collective.id)[0].idComunarrProject;
+                    });
+                    this.collectives = collectives;
+                });
+            });
+
+            this.GeneralTopicsService.get().then(generalTopics => this.generalTopics = generalTopics);
+
+            // Build specific topics
+            this.SpecificTopicsService.getRelatedGeneralTopics().then(relations => {
+                this.SpecificTopicsService.get().then(specificTopics => {
+                    specificTopics.forEach(specificTopic => {
+                        specificTopic.idGeneralTopic = relations.filter(relation => relation.idSpecificTopic === specificTopic.id)[0].idGeneralTopic;
+                    });
+                    this.specificTopics = specificTopics;
+                });
+            });
+            this.ContentTypesService.get().then(contentTypes => this.contentTypes = contentTypes);
         }
 
         /**
@@ -43,10 +84,17 @@ export const FilesComponent = {
          * @todo
          */
         search(searchType) {
+            this.results = [];
+
+            const filters = searchType === 'simple' ? this.filters.simple : this.filters.specific;
+
+            // Hide filters UI
             if (searchType === 'simple') {
                 this.showSimpleSearchFilters = false;
+                this.FilesService.simpleSearch(filters).then(results => this.results = results);
             } else if (searchType === 'specific') {
                 this.showSpecificSearchFilters = false;
+                this.FilesService.specificSearch(filters).then(results => this.results = results);
             }
         }
 
@@ -59,19 +107,23 @@ export const FilesComponent = {
         }
 
         /**
-         * Add new file
+         * Add or edit a file
          * @param {any} targetEvent
          * @param {string} method
+         * @param {any} file Only on edition
          */
-        addOrEditFile(targetEvent, method) {
-            this.isEditing = method !== 'add';
+        addOrEditFile(targetEvent, method, file) {
+            if (method === 'edit') {
+                this.isEditing = true;
+                this.form = angular.copy(file);
+            }
             this.$mdDialog
                 .show({
                     escapeToClose: false,
                     preserveScope: true,
                     scope: this.$scope,
                     targetEvent,
-                    template: dialogTemplate
+                    template: dialogFormTemplate
                 })
                 .then(formData => {
                     this.FilesService.post(formData).then(response => {
@@ -83,6 +135,7 @@ export const FilesComponent = {
                 })
                 .catch(() => {
                     this.form = {};
+                    this.isEditing = false;
                 });
         }
 
@@ -92,12 +145,8 @@ export const FilesComponent = {
          * @param {string} type
          */
         addFilter(key, type) {
-            if (this.filters[key].length <= 5) {
-                if (type === 'value') {
-                    this.filters[key].push({ value: '', op: 'OR' });
-                } else if (type === 'id') {
-                    this.filters[key].push({ id: null, op: 'OR' });
-                }
+            if (this.filters.specific[key].length <= 5) {
+                this.filters.specific[key].push(type === 'value' ? { value: '', op: 'OR' } : { id: null, op: 'OR' });
             }
         }
 
@@ -108,17 +157,45 @@ export const FilesComponent = {
          * @param {any} item
          */
         deleteFilter(key, type, item) {
-            this.filters[key].splice(this.filters[key].map(filter => filter.value).indexOf(item[type]), 1);
+            this.filters.specific[key].splice(this.filters.specific[key].map(filter => filter.value).indexOf(item[type]), 1);
+        }
+
+        /**
+         * If a collective is present in the selected projects filter returns true
+         * @param {any} comunarrProjectFilters
+         * @return {boolean}
+         */
+        filterCollective(comunarrProjectFilters) {
+            return collective => {
+                return comunarrProjectFilters.some(filter => filter.id === collective.idComunarrProject);
+            };
+        }
+
+        /**
+         * If a specific topic is present in the selected general topics filter returns true
+         * @param {any} comunarrPrgeneralTopicFiltersojectFilters
+         * @return {boolean}
+         */
+        filterSpecificTopic(generalTopicFilters) {
+            return specificTopic => {
+                return generalTopicFilters.some(filter => filter.id === specificTopic.idGeneralTopic);
+            };
         }
 
         /**
          * Mostrar detalle de resultado
          * @param {any} result
          */
-        showDetail(result) {
+        showDetail(result, targetEvent) {
+            this.form = angular.copy(result);
+
             this.$mdDialog.show({
-                template: dialogTemplate,
-                locals: { result }
+                preserveScope: true,
+                scope: this.$scope,
+                targetEvent,
+                template: dialogDetailsTemplate
+            }).then(() => {
+                this.form = {};
             });
         }
     },
