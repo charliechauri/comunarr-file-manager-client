@@ -2,8 +2,7 @@
  * @todo
  * 1. Add/Edit file set correct dates
  * 2. Assign correct models to filters.specific
- * 3. Display file details
- * 4. Validate who can edit a file
+ * 3. Validate who can edit a file
  */
 import angular from 'angular';
 import template from './files.html';
