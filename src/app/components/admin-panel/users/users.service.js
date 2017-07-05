@@ -1,17 +1,35 @@
 export class UsersService {
-    constructor(EnvironmentService, $http) {
+    constructor(EnvironmentService, $http, $q, CacheFactory) {
         'ngInject';
 
         this.EnvironmentService = EnvironmentService;
         this.$http = $http;
+        this.$q = $q;
+        this.CacheFactory = CacheFactory;
+
+        this.usersCache = CacheFactory.get('usersCache');
     }
 
     /**
      * @authorize [Admin]
      * Get all registered application users (admins, members and common users)
+     * @param {boolean} forceRefresh
      */
-    getAll() {
-        return this.$http.get('data/users.json').then(response => response.data);
+    getAll(forceRefresh) {
+        let deferred = this.$q.defer(),
+            cacheKey = 'users',
+            usersData = forceRefresh ? null : this.usersCache.get(cacheKey);
+
+        if (usersData) {
+            deferred.resolve(usersData);
+        } else {
+            this.$http.get('data/users.json').then(response => {
+                this.usersCache.put(cacheKey, response.data);
+                deferred.resolve(response.data);
+            });
+        }
+
+        return deferred.promise;
     }
 
     /**

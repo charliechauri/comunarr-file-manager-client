@@ -4,17 +4,35 @@
  */
 
 export class GeneralTopicsService {
-    constructor($http) {
+    constructor($http, $q, CacheFactory) {
         'ngInject';
 
         this.$http = $http;
+        this.$q = $q;
+        this.CacheFactory = CacheFactory;
+
+        this.generalTopicsCache = CacheFactory.get('generalTopicsCache');
     }
 
     /**
      * Get all general topics
+     * @param {boolean} forceRefresh
      */
-    get() {
-        return this.$http.get('data/general-topics.json').then(response => response.data);
+    get(forceRefresh) {
+        let deferred = this.$q.defer(),
+            cacheKey = 'generalTopics',
+            generalTopicsData = forceRefresh ? null : this.generalTopicsCache.get(cacheKey);
+
+        if (generalTopicsData) {
+            deferred.resolve(generalTopicsData);
+        } else {
+            this.$http.get('data/general-topics.json').then(response => {
+                this.generalTopicsCache.put(cacheKey, response.data);
+                deferred.resolve(response.data);
+            });
+        }
+
+        return deferred.promise;
     }
 
     /**

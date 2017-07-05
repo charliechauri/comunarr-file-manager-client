@@ -3,17 +3,36 @@
  * @description Create, read, update of content types
  */
 export class ContentTypesService {
-    constructor($http) {
+    constructor($http, $q, CacheFactory) {
         'ngInject';
 
         this.$http = $http;
+        this.$q = $q;
+        this.CacheFactory = CacheFactory;
+
+        this.contentTypesCache = CacheFactory.get('contentTypesCache');
     }
 
     /**
      * Get all collectives
+     * @param {boolean} forceRefresh
      */
-    get() {
-        return this.$http.get('data/content-types.json').then(response => response.data);
+    get(forceRefresh) {
+
+        let deferred = this.$q.defer(),
+            cacheKey = 'projects',
+            contentTypesData = forceRefresh ? null : this.contentTypesCache.get(cacheKey);
+
+        if (contentTypesData) {
+            deferred.resolve(contentTypesData);
+        } else {
+            this.$http.get('data/content-types.json').then(response => {
+                this.contentTypesCache.put(cacheKey, response.data);
+                deferred.resolve(response.data);
+            });
+        }
+
+        return deferred.promise;
     }
 
     /**

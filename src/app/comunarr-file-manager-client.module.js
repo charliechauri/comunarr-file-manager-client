@@ -12,6 +12,7 @@ import { FilesModule } from './components/files/files.module';
 import { LoginModule } from './components/login/login.module';
 import { CommonModule } from './common/common.module';
 import { ComunarrThemeConfig } from './config/theme.config';
+import { CacheConfig } from './config/cache.config';
 import { ComunarrFileManagerClientComponent } from './comunarr-file-manager-client.component';
 
 import 'angular-material/angular-material.min.css';
@@ -45,30 +46,6 @@ export const ComunarrFileManagerClient = angular
             .warnPalette('red');
     })
     .config(ComunarrThemeConfig)
-    .run(CacheFactory => {
-        'ngInject';
-
-        const cacheNames = [
-            'projectsCache',
-            'collectivesCache',
-            'collectiveProjectsCache',
-            'generalTopicsCache',
-            'specificTopicsCache',
-            'specificTopicGeneralTopics',
-            'contentTypesCache',
-            'usersCache',
-            'keyWordsCache'
-        ];
-
-        const config = {
-            storageMode: 'localStorage',
-            maxAge: 3600000, // 1 hour;
-            deleteOnExpire: 'aggressive'
-        };
-
-        cacheNames.forEach(cacheName => {
-            CacheFactory(cacheName, config);
-        });
-    })
+    .run(CacheConfig)
     .component('coFileManagerClient', ComunarrFileManagerClientComponent)
     .name;
