@@ -11,10 +11,10 @@
             <md-content layout-padding>
                 <md-input-container>
                     <label>Nombre</label>
-                    <input ng-model="$ctrl.selectedProject.name" name="name" required minlength="1" md-maxlength="255">
+                    <input ng-model="$ctrl.selectedProject.name" name="name" required minlength="4" md-maxlength="255">
                     <div ng-messages="projectForm.name.$error">
                         <div ng-message="required">Es un campo requerido</div>
-                        <div ng-message="minlength">Mínimo 1 caracteres</div>
+                        <div ng-message="minlength">Mínimo 4 caracteres</div>
                         <div ng-message="md-maxlength">Máximo 255 caracteres</div>
                     </div>
                 </md-input-container>

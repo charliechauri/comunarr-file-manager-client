@@ -15,10 +15,10 @@
                 <div layout="column" layout-margin>
                     <md-input-container class="md-block">
                         <label>Nombre</label>
-                        <input ng-model="$ctrl.selectedUser.name" name="name" required minlength="1" md-maxlength="255">
+                        <input ng-model="$ctrl.selectedUser.name" name="name" required minlength="4" md-maxlength="255">
                         <div ng-messages="userForm.name.$error">
                             <div ng-message="required">Es un campo requerido</div>
-                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="minlength">Mínimo 4 caracteres</div>
                             <div ng-message="md-maxlength">Máximo 255 caracteres</div>
                         </div>
                     </md-input-container>
@@ -26,10 +26,10 @@
                     <!-- User name -->
                     <md-input-container class="md-block">
                         <label>Usuario</label>
-                        <input ng-model="$ctrl.selectedUser.userName" name="userName" required minlength="1" md-maxlength="255">
+                        <input ng-model="$ctrl.selectedUser.userName" name="userName" required minlength="4" md-maxlength="255">
                         <div ng-messages="userForm.userName.$error">
                             <div ng-message="required">Es un campo requerido</div>
-                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="minlength">Mínimo 4 caracteres</div>
                             <div ng-message="md-maxlength">Máximo 255 caracteres</div>
                         </div>
                     </md-input-container>
@@ -49,20 +49,20 @@
                 <div layout="row" ng-if="!$ctrl.isEditing" layout-margin>
                     <md-input-container class="md-block" flex>
                         <label>Password</label>
-                        <input ng-model="$ctrl.selectedUser.password" name="password" type="password" required minlength="1" md-maxlength="255">
+                        <input ng-model="$ctrl.selectedUser.password" name="password" type="password" required minlength="4" md-maxlength="255">
                         <div ng-messages="userForm.password.$error">
                             <div ng-message="required">Es un campo requerido</div>
-                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="minlength">Mínimo 4 caracteres</div>
                             <div ng-message="md-maxlength">Máximo 255 caracteres</div>
                         </div>
                     </md-input-container>
 
                     <md-input-container class="md-block" flex>
                         <label>Confirmar password</label>
-                        <input ng-model="$ctrl.selectedUser.confirmPassword" name="confirmPassword" type="password" required minlength="1" md-maxlength="255">
+                        <input ng-model="$ctrl.selectedUser.confirmPassword" name="confirmPassword" type="password" required minlength="4" md-maxlength="255">
                         <div ng-messages="userForm.confirmPassword.$error">
                             <div ng-message="required">Es un campo requerido</div>
-                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="minlength">Mínimo 4 caracteres</div>
                             <div ng-message="md-maxlength">Máximo 255 caracteres</div>
                         </div>
                     </md-input-container>

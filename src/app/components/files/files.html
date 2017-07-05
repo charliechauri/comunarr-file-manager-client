@@ -24,10 +24,10 @@
                             <div layout="row" layout-margin layout-align="start start">
                                 <md-input-container class="md-block" flex>
                                     <label>Título</label>
-                                    <input ng-model="$ctrl.filters.simple.name" name="name" md-maxlength="100" minlength="3">
+                                    <input ng-model="$ctrl.filters.simple.name" name="name" md-maxlength="100" minlength="4">
                                     <div ng-messages="simpleSearchForm.name.$error">
+                                        <div ng-message="minlength">Mínimo 4 caracteres</div>
                                         <div ng-message="md-maxlength">Máximo 100 caracteres</div>
-                                        <div ng-message="minlength">Mínimo 3 caracteres</div>
                                     </div>
                                 </md-input-container>
                             </div>
@@ -38,10 +38,10 @@
                             <div layout="row" layout-margin layout-align="start start">
                                 <md-input-container class="md-block" flex>
                                     <label>Autor</label>
-                                    <input ng-model="$ctrl.filters.simple.author" name="author" md-maxlength="100" minlength="3">
+                                    <input ng-model="$ctrl.filters.simple.author" name="author" md-maxlength="100" minlength="4">
                                     <div ng-messages="simpleSearchForm.author.$error">
+                                        <div ng-message="minlength">Mínimo 4 caracteres</div>
                                         <div ng-message="md-maxlength">Máximo 100 caracteres</div>
-                                        <div ng-message="minlength">Mínimo 3 caracteres</div>
                                     </div>
                                 </md-input-container>
                             </div>
@@ -126,10 +126,10 @@
 
                                     <md-input-container class="md-block" flex>
                                         <label>Título</label>
-                                        <input ng-model="filterTitle.value" name="{{ 'title' + $index }}" md-maxlength="100" minlength="3">
+                                        <input ng-model="filterTitle.value" name="{{ 'title' + $index }}" md-maxlength="100" minlength="4">
                                         <div ng-messages="specificSearchForm['title' + $index].$error">
+                                            <div ng-message="minlength">Mínimo 4 caracteres</div>
                                             <div ng-message="md-maxlength">Máximo 100 caracteres</div>
-                                            <div ng-message="minlength">Mínimo 3 caracteres</div>
                                         </div>
                                     </md-input-container>
 
@@ -169,10 +169,10 @@
 
                                     <md-input-container class="md-block" flex>
                                         <label>Autor</label>
-                                        <input ng-model="filterAuthor.value" name="{{ 'author' + $index }}" md-maxlength="100" minlength="3">
+                                        <input ng-model="filterAuthor.value" name="{{ 'author' + $index }}" md-maxlength="100" minlength="4">
                                         <div ng-messages="specificSearchForm['author' + $index].$error">
+                                            <div ng-message="minlength">Mínimo 4 caracteres</div>
                                             <div ng-message="md-maxlength">Máximo 100 caracteres</div>
-                                            <div ng-message="minlength">Mínimo 3 caracteres</div>
                                         </div>
                                     </md-input-container>
 
@@ -427,10 +427,10 @@
 
                                     <md-input-container class="md-block" flex>
                                         <label>Título</label>
-                                        <input ng-model="filterTitle.value" name="{{ 'title' + $index }}" md-maxlength="100" minlength="3">
+                                        <input ng-model="filterTitle.value" name="{{ 'title' + $index }}" md-maxlength="100" minlength="4">
                                         <div ng-messages="specificSearchForm['title' + $index].$error">
+                                            <div ng-message="minlength">Mínimo 4 caracteres</div>
                                             <div ng-message="md-maxlength">Máximo 100 caracteres</div>
-                                            <div ng-message="minlength">Mínimo 3 caracteres</div>
                                         </div>
                                     </md-input-container>
 
@@ -470,10 +470,10 @@
 
                                     <md-input-container class="md-block" flex>
                                         <label>Fecha del documento</label>
-                                        <input ng-model="filterTitle.value" name="{{ 'title' + $index }}" md-maxlength="100" minlength="3" type="date">
+                                        <input ng-model="filterTitle.value" name="{{ 'title' + $index }}" md-maxlength="100" minlength="4" type="date">
                                         <div ng-messages="specificSearchForm['title' + $index].$error">
+                                            <div ng-message="minlength">Mínimo 4 caracteres</div>
                                             <div ng-message="md-maxlength">Máximo 100 caracteres</div>
-                                            <div ng-message="minlength">Mínimo 3 caracteres</div>
                                         </div>
                                     </md-input-container>
 
@@ -513,10 +513,10 @@
 
                                     <md-input-container class="md-block" flex>
                                         <label>Título</label>
-                                        <input ng-model="filterTitle.value" name="{{ 'title' + $index }}" md-maxlength="100" minlength="3">
+                                        <input ng-model="filterTitle.value" name="{{ 'title' + $index }}" md-maxlength="100" minlength="4">
                                         <div ng-messages="specificSearchForm['title' + $index].$error">
+                                            <div ng-message="minlength">Mínimo 4 caracteres</div>
                                             <div ng-message="md-maxlength">Máximo 100 caracteres</div>
-                                            <div ng-message="minlength">Mínimo 3 caracteres</div>
                                         </div>
                                     </md-input-container>
 
@@ -556,10 +556,10 @@
 
                                     <md-input-container class="md-block" flex>
                                         <label>Título</label>
-                                        <input ng-model="filterTitle.value" name="{{ 'title' + $index }}" md-maxlength="100" minlength="3">
+                                        <input ng-model="filterTitle.value" name="{{ 'title' + $index }}" md-maxlength="100" minlength="4">
                                         <div ng-messages="specificSearchForm['title' + $index].$error">
+                                            <div ng-message="minlength">Mínimo 4 caracteres</div>
                                             <div ng-message="md-maxlength">Máximo 100 caracteres</div>
-                                            <div ng-message="minlength">Mínimo 3 caracteres</div>
                                         </div>
                                     </md-input-container>
 

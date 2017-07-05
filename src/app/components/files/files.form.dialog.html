@@ -32,21 +32,21 @@
                     <!-- Name -->
                     <md-input-container flex>
                         <label>Nombre</label>
-                        <input ng-model="$ctrl.form.name" name="name" required minlength="1" md-maxlength="255">
+                        <input ng-model="$ctrl.form.name" name="name" required minlength="4" md-maxlength="100">
                         <div ng-messages="generalTopicForm.name.$error">
                             <div ng-message="required">Es un campo requerido</div>
-                            <div ng-message="minlength">Mínimo 1 caracteres</div>
-                            <div ng-message="md-maxlength">Máximo 255 caracteres</div>
+                            <div ng-message="minlength">Mínimo 4 caracteres</div>
+                            <div ng-message="md-maxlength">Máximo 100 caracteres</div>
                         </div>
                     </md-input-container>
 
                     <!-- Author -->
                     <md-input-container flex>
                         <label>Autor</label>
-                        <input ng-model="$ctrl.form.author" name="author" required minlength="1" md-maxlength="255">
+                        <input ng-model="$ctrl.form.author" name="author" required minlength="4" md-maxlength="255">
                         <div ng-messages="generalTopicForm.author.$error">
                             <div ng-message="required">Es un campo requerido</div>
-                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="minlength">Mínimo 4 caracteres</div>
                             <div ng-message="md-maxlength">Máximo 255 caracteres</div>
                         </div>
                     </md-input-container>
@@ -129,9 +129,9 @@
                     <!-- Place -->
                     <md-input-container flex>
                         <label>Lugar</label>
-                        <input ng-model="$ctrl.form.place" type="date" name="place" minlength="1" md-maxlength="255">
+                        <input ng-model="$ctrl.form.place" type="date" name="place" minlength="4" md-maxlength="255">
                         <div ng-messages="fileForm.place.$error">
-                            <div ng-message="minlength">Mínimo 1 caracteres</div>
+                            <div ng-message="minlength">Mínimo 4 caracteres</div>
                             <div ng-message="md-maxlength">Máximo 255 caracteres</div>
                         </div>
                     </md-input-container>
