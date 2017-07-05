@@ -6,6 +6,7 @@ import ngMaterial from 'angular-material';
 import ngMessages from 'angular-messages';
 import ngSanitize from 'angular-sanitize';
 import ngLoadingBar from 'angular-loading-bar';
+import ngCache from 'angular-cache';
 import { AdminPanelModule } from './components/admin-panel/admin-panel.module';
 import { FilesModule } from './components/files/files.module';
 import { LoginModule } from './components/login/login.module';
@@ -27,6 +28,7 @@ export const ComunarrFileManagerClient = angular
         ngMessages,
         ngSanitize,
         ngLoadingBar,
+        ngCache,
         AdminPanelModule,
         FilesModule,
         LoginModule,
@@ -43,5 +45,30 @@ export const ComunarrFileManagerClient = angular
             .warnPalette('red');
     })
     .config(ComunarrThemeConfig)
+    .run(CacheFactory => {
+        'ngInject';
+
+        const cacheNames = [
+            'projectsCache',
+            'collectivesCache',
+            'collectiveProjectsCache',
+            'generalTopicsCache',
+            'specificTopicsCache',
+            'specificTopicGeneralTopics',
+            'contentTypesCache',
+            'usersCache',
+            'keyWordsCache'
+        ];
+
+        const config = {
+            storageMode: 'localStorage',
+            maxAge: 3600000, // 1 hour;
+            deleteOnExpire: 'aggressive'
+        };
+
+        cacheNames.forEach(cacheName => {
+            CacheFactory(cacheName, config);
+        });
+    })
     .component('coFileManagerClient', ComunarrFileManagerClientComponent)
     .name;
