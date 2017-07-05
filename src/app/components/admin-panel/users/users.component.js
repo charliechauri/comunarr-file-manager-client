@@ -18,11 +18,11 @@ export const UsersComponent = {
         $onInit() {
             this.users = [];
             this.userTypes = this.UserTypesService.get();
-            this.getUsers();
+            this.getUsers(false);
         }
 
-        getUsers() {
-            return this.UsersService.getAll().then(data => this.users = data);
+        getUsers(forceRefresh) {
+            return this.UsersService.getAll(forceRefresh).then(data => this.users = data);
         }
 
         getNewUser() {
@@ -54,6 +54,7 @@ export const UsersComponent = {
                     this.UsersService[method](user).then(response => {
                         this.ResponseHandler.success(response);
                         this.selectedUser = this.getNewUser();
+                        this.getUsers(true);
                     });
                 })
                 .catch(() => {

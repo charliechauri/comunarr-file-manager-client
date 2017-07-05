@@ -24,14 +24,14 @@ export const ContentTypesComponent = {
          */
         $onInit() {
             this.contentTypes = [];
-            this.getContentTypes();
+            this.getContentTypes(false);
         }
 
         /**
          * Get all content types
          */
-        getContentTypes() {
-            return this.ContentTypesService.get().then(contentTypes => this.contentTypes = contentTypes);
+        getContentTypes(forceRefresh) {
+            return this.ContentTypesService.get(forceRefresh).then(contentTypes => this.contentTypes = contentTypes);
         }
 
         /**
@@ -60,6 +60,7 @@ export const ContentTypesComponent = {
                     this.ContentTypesService[method](contentType).then(response => {
                         this.ResponseHandler.success(response);
                         this.selectedContentType = this.getNewContentType();
+                        this.getContentTypes(true);
                     });
                 })
                 .catch(() => {

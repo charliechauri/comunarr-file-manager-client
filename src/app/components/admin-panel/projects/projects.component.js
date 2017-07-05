@@ -17,11 +17,11 @@ export const ProjectsComponent = {
 
         $onInit() {
             this.projects = [];
-            this.getProjects();
+            this.getProjects(false);
         }
 
-        getProjects() {
-            return this.ProjectsService.get().then(projects => this.projects = projects);
+        getProjects(forceRefresh) {
+            return this.ProjectsService.get(forceRefresh).then(projects => this.projects = projects);
         }
 
         addOrEdit(project = { id: null, name: '', status: true }, targetEvent, method) {
@@ -41,7 +41,10 @@ export const ProjectsComponent = {
                         this.selectedProject = null;
                         return;
                     }
-                    this.ProjectsService[method](project).then(this.ResponseHandler.success);
+                    this.ProjectsService[method](project).then(response => {
+                        this.ResponseHandler.success(response);
+                        this.getProjects(true);
+                    });
                 })
                 .catch(() => {
                     this.selectedProject = null;

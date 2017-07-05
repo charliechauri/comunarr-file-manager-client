@@ -20,9 +20,27 @@ export const SpecificTopicsComponent = {
          */
         $onInit() {
             this.specificTopics = [];
-            this.SpecificTopicsService.getRelatedGeneralTopics().then(relations => {
-                this.getSpecificTopics().then(() => {
-                    this.getGeneralTopics().then(() => {
+            this.assignGeneralTopicIdIntoSpecificTopics(false);
+        }
+
+        /**
+         * Get all specific topics
+         */
+        getSpecificTopics(forceRefresh) {
+            return this.SpecificTopicsService.get(forceRefresh).then(specificTopics => this.specificTopics = specificTopics);
+        }
+
+        /**
+         * Get all general topics
+         */
+        getGeneralTopics(forceRefresh) {
+            return this.GeneralTopicsService.get(forceRefresh).then(generalTopics => this.generalTopics = generalTopics);
+        }
+
+        assignGeneralTopicIdIntoSpecificTopics(forceRefresh) {
+            this.SpecificTopicsService.getRelatedGeneralTopics(forceRefresh).then(relations => {
+                this.getSpecificTopics(forceRefresh).then(() => {
+                    this.getGeneralTopics(forceRefresh).then(() => {
                         this.specificTopics.forEach(specificTopic => {
                             specificTopic.generalTopics = [];
 
@@ -35,20 +53,6 @@ export const SpecificTopicsComponent = {
                     });
                 });
             });
-        }
-
-        /**
-         * Get all specific topics
-         */
-        getSpecificTopics() {
-            return this.SpecificTopicsService.get().then(specificTopics => this.specificTopics = specificTopics);
-        }
-
-        /**
-         * Get all general topics
-         */
-        getGeneralTopics() {
-            return this.GeneralTopicsService.get().then(generalTopics => this.generalTopics = generalTopics);
         }
 
         /**
@@ -102,6 +106,7 @@ export const SpecificTopicsComponent = {
                     this.SpecificTopicsService[method](specificTopic).then(response => {
                         this.ResponseHandler.success(response);
                         this.selectedSpecificTopic = this.getNewSpecificTopic();
+                        this.assignGeneralTopicIdIntoSpecificTopics(true);
                     });
                 })
                 .catch(() => {

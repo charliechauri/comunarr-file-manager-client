@@ -20,9 +20,27 @@ export const CollectivesComponent = {
          */
         $onInit() {
             this.collectives = [];
-            this.CollectivesService.getRelatedProjects().then(relations => {
-                this.getCollectives().then(() => {
-                    this.getProjects().then(() => {
+            this.assignProjectIdIntoCollectives(false);
+        }
+
+        /**
+         * Get all collectives
+         */
+        getCollectives(forceRefresh) {
+            return this.CollectivesService.get(forceRefresh).then(collectives => this.collectives = collectives);
+        }
+
+        /**
+         * Get all projects
+         */
+        getProjects(forceRefresh) {
+            return this.ProjectsService.get(forceRefresh).then(projects => this.projects = projects);
+        }
+
+        assignProjectIdIntoCollectives(forceRefresh) {
+            this.CollectivesService.getRelatedProjects(forceRefresh).then(relations => {
+                this.getCollectives(forceRefresh).then(() => {
+                    this.getProjects(forceRefresh).then(() => {
                         this.collectives.forEach(collective => {
                             collective.comunarrProjects = [];
 
@@ -35,20 +53,6 @@ export const CollectivesComponent = {
                     });
                 });
             });
-        }
-
-        /**
-         * Get all collectives
-         */
-        getCollectives() {
-            return this.CollectivesService.get().then(collectives => this.collectives = collectives);
-        }
-
-        /**
-         * Get all projects
-         */
-        getProjects() {
-            return this.ProjectsService.get().then(projects => this.projects = projects);
         }
 
         /**
@@ -102,6 +106,7 @@ export const CollectivesComponent = {
                     this.CollectivesService[method](collective).then(response => {
                         this.ResponseHandler.success(response);
                         this.selectedCollective = this.getNewCollective();
+                        this.assignProjectIdIntoCollectives(true);
                     });
                 })
                 .catch(() => {

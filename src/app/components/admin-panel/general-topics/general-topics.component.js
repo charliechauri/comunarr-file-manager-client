@@ -16,11 +16,11 @@ export const GeneralTopicsComponent = {
 
         $onInit() {
             this.generalTopics = [];
-            this.getGeneralTopics();
+            this.getGeneralTopics(false);
         }
 
-        getGeneralTopics() {
-            return this.GeneralTopicsService.get().then(generalTopics => this.generalTopics = generalTopics);
+        getGeneralTopics(forceRefresh) {
+            return this.GeneralTopicsService.get(forceRefresh).then(generalTopics => this.generalTopics = generalTopics);
         }
 
         addOrEdit(generalTopic = { id: null, name: '', status: true }, targetEvent, method) {
@@ -40,7 +40,10 @@ export const GeneralTopicsComponent = {
                         this.selectedGeneralTopic = null;
                         return;
                     }
-                    this.GeneralTopicsService[method](generalTopic).then(this.ResponseHandler.success);
+                    this.GeneralTopicsService[method](generalTopic).then(response => {
+                        this.ResponseHandler.success(response);
+                        this.getGeneralTopics(true);
+                    });
                 })
                 .catch(() => {
                     this.selectedGeneralTopic = null;
