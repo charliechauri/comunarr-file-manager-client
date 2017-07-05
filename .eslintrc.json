@@ -49,7 +49,6 @@
         "no-unneeded-ternary": "error",
         "semi": "error",
         "id-length": "error",
-        "camelcase": "error",
-        "new-cap": "error"
+        "camelcase": "error"
     }
 }
