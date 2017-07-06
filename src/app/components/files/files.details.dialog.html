@@ -59,7 +59,7 @@
 
             <div layout="row">
                 <div flex="33">
-                    <span class="md-subhead"> <strong>Fecha de relación:</strong> {{ $ctrl.form.relatedDate }}</span>
+                    <span class="md-subhead"> <strong>Fecha del documento:</strong> {{ $ctrl.form.relatedDate }}</span>
                 </div>
                 <div flex="33">
                     <span class="md-subhead"> <strong>Fecha de actualización:</strong> {{ $ctrl.form.updateDate }}</span>
@@ -67,6 +67,15 @@
                 <div flex="33">
                     <span class="md-subhead"> <strong>Nivel de acceso:</strong> {{ ::$ctrl.form.privacyType | UserTypeFilter }}</span>
                 </div>
+            </div>
+
+            <div>
+                <span class="md-subhead"> <strong>Palabras clave</strong>
+                <md-chips ng-model="$ctrl.form.keyWords" readonly="true">
+                    <md-chip-template>
+                        {{ $chip.name }}
+                    </md-chip-template>
+                </md-chips>  
             </div>
 
         </md-content>

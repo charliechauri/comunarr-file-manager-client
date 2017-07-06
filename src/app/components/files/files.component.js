@@ -1,8 +1,6 @@
 /**
  * @todo
- * 1. Add/Edit file set correct dates
- * 2. Assign correct models to filters.specific
- * 3. Validate who can edit a file
+ * 1. Assign correct models to filters.specific
  */
 import angular from 'angular';
 import template from './files.html';
@@ -12,12 +10,13 @@ import dialogDetailsTemplate from './files.details.dialog.html';
 export const FilesComponent = {
     bindings: {},
     controller: class FilesComponent {
-        constructor($scope, $mdToast, $mdDialog, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService) {
+        constructor($scope, $mdToast, $mdDialog, localStorageService, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService, KeyWordsService) {
             'ngInject';
 
             this.$scope = $scope;
             this.$mdToast = $mdToast;
             this.$mdDialog = $mdDialog;
+            this.localStorageService = localStorageService;
             this.FilesService = FilesService;
 
             this.ProjectsService = ProjectsService;
@@ -25,9 +24,11 @@ export const FilesComponent = {
             this.GeneralTopicsService = GeneralTopicsService;
             this.SpecificTopicsService = SpecificTopicsService;
             this.ContentTypesService = ContentTypesService;
+            this.KeyWordsService = KeyWordsService;
         }
 
         $onInit() {
+            this.userInfo = this.localStorageService.get('userInfo');
             this.form = {};
 
             this.privacyTypes = [
@@ -43,7 +44,8 @@ export const FilesComponent = {
                     author: '',
                     idProject: null,
                     idCollective: null,
-                    idGeneralTopic: null
+                    idGeneralTopic: null,
+                    uploadedByMe: false
                 }
             };
             this.filters.specific = this.FilesService.getSpecificFilters();
@@ -75,6 +77,34 @@ export const FilesComponent = {
                 });
             });
             this.ContentTypesService.get().then(contentTypes => this.contentTypes = contentTypes);
+
+            this.keyWords = [];
+            this.getKeyWords(false);
+        }
+
+        isAtLeastOneFilterSelected(filters) {
+            let { name, author, idComunarrProject, idCollective, idGeneralTopic, uploadedByMe } = filters;
+
+            return uploadedByMe || (name && name.length > 0) || (author && author.length) || !!idComunarrProject || !!idCollective || !!idGeneralTopic;
+        }
+
+        /**
+         * Gets all registered keywords
+         * @param {boolean} forceRefresh
+         */
+        getKeyWords(forceRefresh) {
+            return this.KeyWordsService.get(forceRefresh).then(keyWords => this.keyWords = keyWords);
+        }
+
+        /**
+         * Filter keywords by users input
+         */
+        filterKeyWords(query) {
+            return query ? this.keyWords.filter(keyWord => {
+                let lowercaseQuery = angular.lowercase(query);
+                const re = new RegExp(lowercaseQuery, 'g');
+                return keyWord.name.match(re);
+            }) : this.keyWords;
         }
 
         /**
@@ -113,8 +143,19 @@ export const FilesComponent = {
          */
         addOrEditFile(targetEvent, method, file) {
             if (method === 'edit') {
+                this.selectedKeyWord = null;
+                this.searchText = '';
                 this.isEditing = true;
                 this.form = angular.copy(file);
+
+                this.form.keyWords = file.idKeyWord && file.idKeyWord.length > 0 ? file.idKeyWord.map(id => {
+                    return this.keyWords.find(keyWord => keyWord.id === id);
+                }) : [];
+
+                file.keyWords = angular.copy(this.form.keyWords);
+            } else {
+                this.form = {};
+                this.form.keyWords = [];
             }
             this.$mdDialog
                 .show({
@@ -125,17 +166,29 @@ export const FilesComponent = {
                     template: dialogFormTemplate
                 })
                 .then(formData => {
+                    formData.keyWords = formData.keyWords.map(keyWord => keyWord.name);
+
                     this.FilesService.post(formData).then(() => {
                         this.$mdToast.show(this.$ctrl.$mdToast.simple()
                             .textContent('Éxito: se subió de forma correcta el archivo')
                             .position('top right')
                         );
+                        this.form = {};
+                        this.isEditing = false;
                     });
                 })
                 .catch(() => {
                     this.form = {};
                     this.isEditing = false;
                 });
+        }
+
+        /**
+         * Add keyword to file editing or creating
+         * @param {any} $chip
+         */
+        addKeyWord($chip) {
+            return (typeof $chip === 'object') ? $chip : { name: $chip };
         }
 
         /**
@@ -172,7 +225,7 @@ export const FilesComponent = {
 
         /**
          * If a specific topic is present in the selected general topics filter returns true
-         * @param {any} comunarrPrgeneralTopicFiltersojectFilters
+         * @param {any} generalTopicFilters
          * @return {boolean}
          */
         filterSpecificTopic(generalTopicFilters) {
@@ -184,9 +237,16 @@ export const FilesComponent = {
         /**
          * Mostrar detalle de resultado
          * @param {any} result
+         * @param {any} targetEvent
          */
         showDetail(result, targetEvent) {
             this.form = angular.copy(result);
+
+            this.form.keyWords = result.idKeyWord && result.idKeyWord.length > 0 ? result.idKeyWord.map(id => {
+                return this.keyWords.find(keyWord => keyWord.id === id);
+            }) : [];
+
+            console.log(this.form.keyWords);
 
             this.$mdDialog.show({
                 preserveScope: true,

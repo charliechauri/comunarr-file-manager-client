@@ -13,9 +13,8 @@
                 <!-- File -->
                 <div layout="row" layout-align="start center">
                     <div>
-                        <!--onchange="angular.element(this).scope().fileChanged(this, angular.element(this).scope())"-->
-                        <input file-input="$ctrl.form.file" ng-show="fale" id="input-file" type="file"  accept="audio/*,video/*,image/*,.docx,.xls,.pdf,.ppt,.txt,.zip,.xml,.json,.doc,.xlsx,.html">
-                        <label for="input-file" class="md-button md-primary md-raised animated pulse infinite">
+                        <input file-input="$ctrl.form.file" ng-show="fale" id="input-file" type="file" accept="*">
+                        <label for="input-file" class="md-button md-primary md-raised pulse infinite" ng-class="{ 'animated': !$ctrl.form.file }">
                             <span ng-if="!$ctrl.form.file && !$ctrl.isEditing"> Elige un archivo  <md-icon>attach_file</md-icon> </span>
                             <span ng-if="!$ctrl.form.file && $ctrl.isEditing"> Cambiar archivo  <md-icon>attach_file</md-icon> </span>
                             <span ng-if="$ctrl.form.file && !$ctrl.isEditing"> Archivo seleccionado: {{ $ctrl.form.file.name }}  <md-icon>attachment</md-icon> </span>
@@ -122,19 +121,34 @@
 
                     <!-- Related date -->
                     <md-input-container flex>
-                        <label>Fecha de relación</label>
+                        <label>Fecha del archivo</label>
                         <md-datepicker ng-model="$ctrl.form.relatedDate"></md-datepicker>
                     </md-input-container>
 
                     <!-- Place -->
                     <md-input-container flex>
                         <label>Lugar</label>
-                        <input ng-model="$ctrl.form.place" type="date" name="place" minlength="4" md-maxlength="255">
+                        <input ng-model="$ctrl.form.place" name="place" minlength="4" md-maxlength="255">
                         <div ng-messages="fileForm.place.$error">
                             <div ng-message="minlength">Mínimo 4 caracteres</div>
                             <div ng-message="md-maxlength">Máximo 255 caracteres</div>
                         </div>
                     </md-input-container>
+                </div>
+
+                <!-- Key words -->
+                <div layout="row" layout-padding>
+                    <md-chips flex ng-model="$ctrl.form.keyWords" md-transform-chip="$ctrl.addKeyWord($chip)" md-require-match="false">
+                        <md-autocomplete md-selected-item="$ctrl.selectedKeyWord.name" md-search-text="$ctrl.searchText" md-items="keyWord in $ctrl.filterKeyWords($ctrl.searchText)"
+                            md-item-text="keyWord.name" placeholder="Palabras clave">
+                            <span md-highlight-text="$ctrl.searchText"> {{ keyWord.name }} </span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>
+                            <strong>{{ $chip.name}}</strong>
+                        </span>
+                        </md-chip-template>
+                    </md-chips>
                 </div>
 
             </md-content>

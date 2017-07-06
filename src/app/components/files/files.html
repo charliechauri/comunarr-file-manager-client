@@ -3,7 +3,7 @@
         <h1>Búsqueda de archivos</h1>
         <span flex></span>
         <div>
-            <md-button class="md-primary md-raised" ng-click="$ctrl.addOrEditFile($event, 'add')">
+            <md-button class="md-primary md-raised" ng-click="$ctrl.addOrEditFile($event, 'add')" ng-if="$ctrl.userInfo.privacyType === 1 || $ctrl.userInfo.privacyType === 2">
                 Subir archivo
                 <md-icon>add</md-icon>
             </md-button>
@@ -17,10 +17,17 @@
             <md-tab label="Búsqueda simple" ng-click="$ctrl.resetResults()">
                 <br>
                 <form action="simpleSearchForm">
-                    <aside layout="row" ng-show="$ctrl.showSimpleSearchFilters" layout-wrap>
-                        <!-- @todo Validate form -->
+                    <aside layout="row" layout-align="start center" layout-wrap ng-show="$ctrl.showSimpleSearchFilters">
+                        <section flex>
+                            <div layout-margin>
+                                <md-checkbox class="md-primary" ng-model="$ctrl.filters.simple.uploadedByMe" aria-label="Archivos creados por mí">
+                                   Sólo archivos subidos por mí
+                                </md-checkbox>
+                            </div>
+                        </section>
+
                         <!-- Title -->
-                        <section flex="25">
+                        <section flex="20">
                             <div layout="row" layout-margin layout-align="start start">
                                 <md-input-container class="md-block" flex>
                                     <label>Título</label>
@@ -34,7 +41,7 @@
                         </section>
 
                         <!-- Author -->
-                        <section flex="25">
+                        <section flex="20">
                             <div layout="row" layout-margin layout-align="start start">
                                 <md-input-container class="md-block" flex>
                                     <label>Autor</label>
@@ -48,7 +55,7 @@
                         </section>
 
                         <!-- Project -->
-                        <section flex="20">
+                        <section flex="15">
                             <div layout="row" layout-margin layout-align="start start">
                                 <md-input-container class="md-block" flex>
                                     <label>Proyecto</label>
@@ -99,7 +106,7 @@
                         </div>
                         <span flex></span>
                         <div>
-                            <md-button class="md-primary md-raised" ng-click="$ctrl.search('simple')" ng-disabled="simpleSearchForm.$invalid"> Buscar </md-button>
+                            <md-button class="md-primary md-raised" ng-click="$ctrl.search('simple')" ng-disabled="!$ctrl.isAtLeastOneFilterSelected($ctrl.filters.simple)"> Buscar </md-button>
                         </div>
                     </aside>
                 </form>
@@ -256,7 +263,8 @@
                                     <md-input-container class="md-block" flex>
                                         <label>Colectivo</label>
                                         <md-select ng-model="filterCollective.id" ng-disabled="$ctrl.filters.specific.comunarrProject.length === 0">
-                                            <md-option ng-repeat="collective in $ctrl.collectives | filter:$ctrl.filterCollective($ctrl.filters.specific.comunarrProject)" ng-value="{{ collective.id }}">
+                                            <md-option ng-repeat="collective in $ctrl.collectives | filter:$ctrl.filterCollective($ctrl.filters.specific.comunarrProject)"
+                                                ng-value="{{ collective.id }}">
                                                 {{ collective.name }}
                                             </md-option>
                                         </md-select>
@@ -342,7 +350,8 @@
                                     <md-input-container class="md-block" flex>
                                         <label>Tema específico</label>
                                         <md-select ng-model="filterSpecificTopic.id">
-                                            <md-option ng-repeat="specificTopic in $ctrl.specificTopics | filter: $ctrl.filterSpecificTopic($ctrl.filters.specific.generalTopic)" ng-value="{{ specificTopic.id }}">
+                                            <md-option ng-repeat="specificTopic in $ctrl.specificTopics | filter: $ctrl.filterSpecificTopic($ctrl.filters.specific.generalTopic)"
+                                                ng-value="{{ specificTopic.id }}">
                                                 {{ specificTopic.name }}
                                             </md-option>
                                         </md-select>
@@ -666,7 +675,7 @@
                         </md-tooltip>
                     </md-button>
                 </div>
-                <div>
+                <div ng-if="$ctrl.userInfo.privacyType === 1 || $ctrl.userInfo.id === result.idUser">
                     <md-button class="md-fab md-primary md-mini" ng-click="$ctrl.addOrEditFile($event, 'edit', result)">
                         <md-icon>edit</md-icon>
                         <md-tooltip>
