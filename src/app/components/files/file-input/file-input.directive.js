@@ -15,6 +15,14 @@ export const FileInputDirective = ($parse, $mdToast) => {
                     );
                     return;
                 }
+
+                if (element && element.length > 0 && element[0].files.length > 0 && element[0].files[0].type === 'application/x-msdownload') {
+                    $mdToast.show($mdToast.simple()
+                        .textContent('Error: no es posible subir archivos .exe')
+                        .position('top right')
+                    );
+                    return;
+                }
                 $parse(attrs.fileInput).assign(scope, element[0].files[0]);
                 scope.$apply();
             });
