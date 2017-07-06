@@ -3,11 +3,12 @@ import template from './login.html';
 export const LoginComponent = {
     bindings: {},
     controller: class LoginComponent {
-        constructor($state, $mdToast) {
+        constructor($state, $mdToast, localStorageService) {
             'ngInject';
 
             this.$state = $state;
             this.$mdToast = $mdToast;
+            this.localStorageService = localStorageService;
         }
 
         $onInit() {
@@ -24,6 +25,7 @@ export const LoginComponent = {
          */
         login(credentials = { user: '', password: '' }) {
             if (credentials.user === 'charliechauri' && credentials.password === 'pepeelgrillo') {
+                this.localStorageService.set('userInfo', { user: credentials.user, password: credentials.password, privacyType: 1, id: 1 });
                 this.$mdToast.show(this.$mdToast.simple()
                     .textContent('¡Bienvenido!')
                     .position('top right')
