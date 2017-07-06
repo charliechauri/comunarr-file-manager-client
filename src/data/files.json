@@ -13,13 +13,15 @@
         "specificTopic": "Artesanía específica",
         "idPrivacyType": 1,
         "idContentType": 1,
+        "idKeyWord": [1, 2, 3],
         "fileType": "xls",
-        "relatedDate": "",
+        "relatedDate": "2011-07-04",
         "place": "Bocoyna, Ch, México",
-        "updateDate": "",
+        "updateDate": "2017-07-05",
         "uploadedBy": "Óscar José Perro López",
         "privacyType": 1,
-        "contentType": "Relatoría"
+        "contentType": "Relatoría",
+        "idUser": 1
     },
     {
         "id": 2,
@@ -35,13 +37,15 @@
         "specificTopic": "Artesanía específica",
         "idPrivacyType": 1,
         "idContentType": 1,
+        "idKeyWord": [1, 2],
         "fileType": "doc",
-        "relatedDate": "",
+        "relatedDate": "2011-07-04",
         "place": "Bocoyna, Ch, México",
-        "updateDate": "",
+        "updateDate": "2017-07-05",
         "uploadedBy": "Ariana Elizabeth Hernández Vázquez",
         "privacyType": 1,
-        "contentType": "Relatoría"
+        "contentType": "Relatoría",
+        "idUser": 2
     },
     {
         "id": 3,
@@ -58,11 +62,12 @@
         "idPrivacyType": 1,
         "idContentType": 1,
         "fileType": "pdf",
-        "relatedDate": "",
+        "relatedDate": "2017-07-05",
         "place": "Bocoyna, Ch, México",
-        "updateDate": "",
+        "updateDate": "2017-07-11",
         "uploadedBy": "Carlos Antonio Echauri Flores",
         "privacyType": 1,
-        "contentType": "Relatoría"
+        "contentType": "Relatoría",
+        "idUser": 3
     }
 ]
