@@ -42,7 +42,7 @@ export const FilesComponent = {
                 simple: {
                     name: '',
                     author: '',
-                    idProject: null,
+                    idComunarrProject: null,
                     idCollective: null,
                     idGeneralTopic: null,
                     uploadedByMe: false
