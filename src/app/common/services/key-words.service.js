@@ -1,10 +1,11 @@
 export class KeyWordsService {
-    constructor($http, $q, CacheFactory) {
+    constructor($http, $q, CacheFactory, EnvironmentService) {
         'ngInject';
-        
+
         this.$http = $http;
         this.$q = $q;
         this.CacheFactory = CacheFactory;
+        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/keyWord`;
 
         this.keyWordsCache = CacheFactory.get('keyWordsCache');
     }
@@ -21,7 +22,7 @@ export class KeyWordsService {
         if (keyWordsData) {
             deferred.resolve(keyWordsData);
         } else {
-            this.$http.get('data/key-words.json').then(response => {
+            this.$http.get(this.URL).then(response => {
                 this.keyWordsCache.put(cacheKey, response.data);
                 deferred.resolve(response.data);
             });

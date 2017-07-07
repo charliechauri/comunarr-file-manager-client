@@ -22,7 +22,7 @@ export const UsersComponent = {
         }
 
         getUsers(forceRefresh) {
-            return this.UsersService.getAll(forceRefresh).then(data => this.users = data);
+            return this.UsersService.get(forceRefresh).then(data => this.users = data);
         }
 
         getNewUser() {

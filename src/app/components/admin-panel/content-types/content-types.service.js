@@ -3,12 +3,13 @@
  * @description Create, read, update of content types
  */
 export class ContentTypesService {
-    constructor($http, $q, CacheFactory) {
+    constructor($http, $q, CacheFactory, EnvironmentService) {
         'ngInject';
 
         this.$http = $http;
         this.$q = $q;
         this.CacheFactory = CacheFactory;
+        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/contentType`;
 
         this.contentTypesCache = CacheFactory.get('contentTypesCache');
     }
@@ -26,7 +27,7 @@ export class ContentTypesService {
         if (contentTypesData) {
             deferred.resolve(contentTypesData);
         } else {
-            this.$http.get('data/content-types.json').then(response => {
+            this.$http.get(this.URL).then(response => {
                 this.contentTypesCache.put(cacheKey, response.data);
                 deferred.resolve(response.data);
             });
@@ -41,7 +42,7 @@ export class ContentTypesService {
      * @return {any}
      */
     add(contentType) {
-        return this.$http.post('', contentType).then(response => response.data);
+        return this.$http.post(this.URL, contentType).then(response => response.data);
     }
 
     /**
@@ -50,6 +51,6 @@ export class ContentTypesService {
      * @return {any}
      */
     edit(contentType) {
-        return this.$http.put(`/${contentType.id}`, contentType).then(response => response.data);
+        return this.$http.put(this.URL, contentType).then(response => response.data);
     }
 }

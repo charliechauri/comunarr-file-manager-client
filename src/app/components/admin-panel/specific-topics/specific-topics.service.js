@@ -1,17 +1,17 @@
 /**
  * @name SpecificTopicsService
- * @todo integrate to backend
  */
 
 import angular from 'angular';
 
 export class SpecificTopicsService {
-    constructor($http, $q, CacheFactory) {
+    constructor($http, $q, CacheFactory, EnvironmentService) {
         'ngInject';
 
         this.$http = $http;
         this.$q = $q;
         this.CacheFactory = CacheFactory;
+        this.URL = this.URL = `${EnvironmentService.getCurrent().BASE_URL}/specificTopic`;
 
         this.specificTopicsCache = CacheFactory.get('specificTopicsCache');
         this.specificTopicGeneralTopicsCache = CacheFactory.get('specificTopicGeneralTopicsCache');
@@ -29,7 +29,7 @@ export class SpecificTopicsService {
         if (specificTopicsData) {
             deferred.resolve(specificTopicsData);
         } else {
-            this.$http.get('data/specific-topics.json').then(response => {
+            this.$http.get(this.URL).then(response => {
                 this.specificTopicsCache.put(cacheKey, response.data);
                 deferred.resolve(response.data);
             });
@@ -50,7 +50,7 @@ export class SpecificTopicsService {
         if (specificTopicsGeneralTopicsData) {
             deferred.resolve(specificTopicsGeneralTopicsData);
         } else {
-            this.$http.get('data/specific-topic-general-topics.json').then(response => {
+            this.$http.get(`${this.URL}generalTopic`).then(response => {
                 this.specificTopicGeneralTopicsCache.put(cacheKey, response.data);
                 deferred.resolve(response.data);
             });
@@ -65,7 +65,7 @@ export class SpecificTopicsService {
      * @return {any}
      */
     add(specificTopic) {
-        return this.$http.post('', this.format(specificTopic)).then(response => response.data);
+        return this.$http.post(this.URL, this.format(specificTopic)).then(response => response.data);
     }
 
     /**
@@ -75,7 +75,7 @@ export class SpecificTopicsService {
      */
     edit(specificTopic) {
         const specificTopicToRegister = this.format(specificTopic);
-        return this.$http.put(`/${specificTopicToRegister.id}`, specificTopicToRegister).then(response => response.data);
+        return this.$http.put(this.URL, specificTopicToRegister).then(response => response.data);
     }
 
     format(specificTopic) {

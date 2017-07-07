@@ -1,17 +1,17 @@
 /**
  * @name CollectivesService
- * @todo integrate to backend
  */
 
 import angular from 'angular';
 
 export class CollectivesService {
-    constructor($http, $q, CacheFactory) {
+    constructor($http, $q, CacheFactory, EnvironmentService) {
         'ngInject';
 
         this.$http = $http;
         this.$q = $q;
         this.CacheFactory = CacheFactory;
+        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/collective`;
 
         this.collectivesCache = this.CacheFactory.get('collectivesCache');
         this.collectiveProjectsCache = this.CacheFactory.get('collectiveProjectsCache');
@@ -29,7 +29,7 @@ export class CollectivesService {
         if (collectivesData) {
             deferred.resolve(collectivesData);
         } else {
-            this.$http.get('data/collectives.json').then(response => {
+            this.$http.get(this.URL).then(response => {
                 this.collectivesCache.put(cacheKey, response.data);
                 deferred.resolve(response.data);
             });
@@ -50,7 +50,7 @@ export class CollectivesService {
         if (collectiveProjectsData) {
             deferred.resolve(collectiveProjectsData);
         } else {
-            this.$http.get('data/collective-projects.json').then(response => {
+            this.$http.get(`${this.URL}ComunarrProject`).then(response => {
                 this.collectiveProjectsCache.put(cacheKey, response.data);
                 deferred.resolve(response.data);
             });
@@ -65,7 +65,7 @@ export class CollectivesService {
      * @return {any}
      */
     add(collective) {
-        return this.$http.post('', this.format(collective)).then(response => response.data);
+        return this.$http.post(this.URL, this.format(collective)).then(response => response.data);
     }
 
     /**
@@ -75,7 +75,7 @@ export class CollectivesService {
      */
     edit(collective) {
         const collectiveToRegister = this.format(collective);
-        return this.$http.put(`/${collectiveToRegister.id}`, collectiveToRegister).then(response => response.data);
+        return this.$http.put(this.URL, collectiveToRegister).then(response => response.data);
     }
 
     format(collective) {

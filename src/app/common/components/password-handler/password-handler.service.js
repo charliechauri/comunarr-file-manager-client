@@ -1,10 +1,13 @@
 export class PasswordHandler {
-    constructor($http) {
+    constructor($http, EnvironmentService) {
         'ngInject';
         this.$http = $http;
+        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/password`;
+
     }
 
     change(form) {
-        return this.$http.post('', form).then(response => response.data);
+        this.URL = `${!!form.password ? '/own' : ''}`; // Admin or user
+        return this.$http.post(this.URL, form).then(response => response.data);
     }
 }

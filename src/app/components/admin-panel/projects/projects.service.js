@@ -1,15 +1,16 @@
 /**
  * @name ProjectsService
- * @todo integrate to backend
  */
 
 export class ProjectsService {
-    constructor($http, $q, CacheFactory) {
+    constructor($http, $q, CacheFactory, EnvironmentService) {
         'ngInject';
 
         this.$http = $http;
         this.$q = $q;
         this.CacheFactory = CacheFactory;
+        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/comunarrProject`;
+
         this.projectsCache = CacheFactory.get('projectsCache');
     }
 
@@ -25,7 +26,7 @@ export class ProjectsService {
         if (projectsData) {
             deferred.resolve(projectsData);
         } else {
-            this.$http.get('data/projects.json').then(response => {
+            this.$http.get(this.URL).then(response => {
                 this.projectsCache.put(cacheKey, response.data);
                 deferred.resolve(response.data);
             });
@@ -40,7 +41,7 @@ export class ProjectsService {
      * @return {any}
      */
     add(project) {
-        return this.$http.post('', project).then(response => response.data);
+        return this.$http.post(this.URL, project).then(response => response.data);
     }
 
     /**
@@ -49,6 +50,6 @@ export class ProjectsService {
      * @return {any}
      */
     edit(project) {
-        return this.$http.put(`/${project.id}`, project).then(response => response.data);
+        return this.$http.put(this.URL, project).then(response => response.data);
     }
 }

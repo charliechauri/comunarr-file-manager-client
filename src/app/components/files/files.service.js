@@ -5,10 +5,11 @@
 import angular from 'angular';
 
 export class FilesService {
-    constructor($http) {
+    constructor($http, EnvironmentService) {
         'ngInject';
 
         this.$http = $http;
+        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/file`;
     }
 
     /**
@@ -16,7 +17,7 @@ export class FilesService {
      * @param {any} filters
      */
     simpleSearch(filters) {
-        return this.$http.get('./data/files.json', filters).then(response => response.data);
+        return this.$http.get(this.URL, filters).then(response => response.data);
     }
 
     /**
@@ -26,11 +27,10 @@ export class FilesService {
     specificSearch(filters) {
         // @todo Filter each filter's property if an element doesn't have a value (.length > 0) or a numeric id (id !== null)
         console.log(filters);
-        return this.$http.get('./data/files.json', filters).then(response => response.data);
+        return this.$http.get(this.URL, filters).then(response => response.data);
     }
 
     /**
-     * @todo Integrate to backend
      * @param {any} form
      */
     post(form) {
@@ -42,7 +42,7 @@ export class FilesService {
             headers: { 'Content-Type': undefined }
         };
 
-        return this.$http.post('URL', fd, config).then(response => response.data);
+        return this.$http.post(this.URL, fd, config).then(response => response.data);
 
     }
 
@@ -113,5 +113,14 @@ export class FilesService {
                 }
             ],
         };
+    }
+
+    /**
+     * Download a file
+     * @param {number} id
+     * @todo
+     */
+    download(id) {
+
     }
 }

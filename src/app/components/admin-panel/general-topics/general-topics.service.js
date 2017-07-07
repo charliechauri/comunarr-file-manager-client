@@ -1,15 +1,15 @@
 /**
  * @name GeneralTopicsService
- * @todo integrate to backend
  */
 
 export class GeneralTopicsService {
-    constructor($http, $q, CacheFactory) {
+    constructor($http, $q, CacheFactory, EnvironmentService) {
         'ngInject';
 
         this.$http = $http;
         this.$q = $q;
         this.CacheFactory = CacheFactory;
+        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/generalTopic`;
 
         this.generalTopicsCache = CacheFactory.get('generalTopicsCache');
     }
@@ -26,7 +26,7 @@ export class GeneralTopicsService {
         if (generalTopicsData) {
             deferred.resolve(generalTopicsData);
         } else {
-            this.$http.get('data/general-topics.json').then(response => {
+            this.$http.get(this.URL).then(response => {
                 this.generalTopicsCache.put(cacheKey, response.data);
                 deferred.resolve(response.data);
             });
@@ -41,7 +41,7 @@ export class GeneralTopicsService {
      * @return {any}
      */
     add(generalTopic) {
-        return this.$http.post('', generalTopic).then(response => response.data);
+        return this.$http.post(this.URL, generalTopic).then(response => response.data);
     }
 
     /**
@@ -50,6 +50,6 @@ export class GeneralTopicsService {
      * @return {any}
      */
     edit(generalTopic) {
-        return this.$http.put(`/${generalTopic.id}`, generalTopic).then(response => response.data);
+        return this.$http.put(this.URL, generalTopic).then(response => response.data);
     }
 }
