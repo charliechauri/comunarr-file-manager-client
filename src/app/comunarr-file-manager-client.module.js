@@ -16,6 +16,7 @@ import { RouterConfig } from './config/router.config';
 import { ThemingConfig } from './config/theming.config';
 import { ComunarrThemeConfig } from './config/theme.config';
 import { StorageConfig } from './config/storage.config';
+import { EnvironmentConfig } from './config/environment.config';
 import { CacheConfig } from './config/cache.config';
 import { DateLocalConfig } from './config/date-local.config';
 import { ComunarrFileManagerClientComponent } from './comunarr-file-manager-client.component';
@@ -46,6 +47,7 @@ export const ComunarrFileManagerClient = angular
     .config(ComunarrThemeConfig)
     .config(StorageConfig)
     .config(DateLocalConfig)
+    .run(EnvironmentConfig)
     .run(CacheConfig)
     .component('coFileManagerClient', ComunarrFileManagerClientComponent)
     .name;
