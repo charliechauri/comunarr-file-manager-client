@@ -21,7 +21,7 @@ export const LoginComponent = {
         /**
          * Try to authenticate the user
          * @param {any} credentials { user: string, pass: string }
-         * @todo Imp
+         * @todo Implement
          */
         login(credentials = { user: '', password: '' }) {
             if (credentials.user === 'charliechauri' && credentials.password === 'pepeelgrillo') {
