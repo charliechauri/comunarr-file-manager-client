@@ -1,7 +1,7 @@
 export const EnvironmentConfig = EnvironmentService => {
     'ngInject';
 
-    if (EnvironmentService.setCurrent('local')) {
+    if (EnvironmentService.setCurrentByName('local')) {
         console.log('Environment has been succesfully setted');
     }
 };
