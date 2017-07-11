@@ -50,7 +50,7 @@ export class CollectivesService {
         if (collectiveProjectsData) {
             deferred.resolve(collectiveProjectsData);
         } else {
-            this.$http.get(`${this.URL}ComunarrProject`).then(response => {
+            this.$http.get(`${this.URL}-comunarr-project`).then(response => {
                 this.collectiveProjectsCache.put(cacheKey, response.data);
                 deferred.resolve(response.data);
             });

@@ -9,7 +9,7 @@ export class ContentTypesService {
         this.$http = $http;
         this.$q = $q;
         this.CacheFactory = CacheFactory;
-        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/contentType`;
+        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/content-type`;
 
         this.contentTypesCache = CacheFactory.get('contentTypesCache');
     }

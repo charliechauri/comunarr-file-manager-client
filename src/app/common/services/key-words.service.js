@@ -5,7 +5,7 @@ export class KeyWordsService {
         this.$http = $http;
         this.$q = $q;
         this.CacheFactory = CacheFactory;
-        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/keyWord`;
+        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/key-word`;
 
         this.keyWordsCache = CacheFactory.get('keyWordsCache');
     }

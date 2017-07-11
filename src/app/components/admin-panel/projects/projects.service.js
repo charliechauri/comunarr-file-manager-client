@@ -9,7 +9,7 @@ export class ProjectsService {
         this.$http = $http;
         this.$q = $q;
         this.CacheFactory = CacheFactory;
-        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/comunarrProject`;
+        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/comunarr-project`;
 
         this.projectsCache = CacheFactory.get('projectsCache');
     }

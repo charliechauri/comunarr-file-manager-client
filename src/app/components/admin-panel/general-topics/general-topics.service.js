@@ -9,7 +9,7 @@ export class GeneralTopicsService {
         this.$http = $http;
         this.$q = $q;
         this.CacheFactory = CacheFactory;
-        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/generalTopic`;
+        this.URL = `${EnvironmentService.getCurrent().BASE_URL}/general-topic`;
 
         this.generalTopicsCache = CacheFactory.get('generalTopicsCache');
     }

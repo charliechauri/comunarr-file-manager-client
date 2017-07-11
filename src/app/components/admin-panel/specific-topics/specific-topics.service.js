@@ -11,7 +11,7 @@ export class SpecificTopicsService {
         this.$http = $http;
         this.$q = $q;
         this.CacheFactory = CacheFactory;
-        this.URL = this.URL = `${EnvironmentService.getCurrent().BASE_URL}/specificTopic`;
+        this.URL = this.URL = `${EnvironmentService.getCurrent().BASE_URL}/specific-topic`;
 
         this.specificTopicsCache = CacheFactory.get('specificTopicsCache');
         this.specificTopicGeneralTopicsCache = CacheFactory.get('specificTopicGeneralTopicsCache');
@@ -50,7 +50,7 @@ export class SpecificTopicsService {
         if (specificTopicsGeneralTopicsData) {
             deferred.resolve(specificTopicsGeneralTopicsData);
         } else {
-            this.$http.get(`${this.URL}generalTopic`).then(response => {
+            this.$http.get(`${this.URL}-general-topic`).then(response => {
                 this.specificTopicGeneralTopicsCache.put(cacheKey, response.data);
                 deferred.resolve(response.data);
             });
