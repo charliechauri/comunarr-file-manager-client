@@ -8,12 +8,12 @@ export class EnvironmentService {
             {
                 ID: 1,
                 NAME: 'local',
-                BASE_URL: 'http://localhost:8080/Comunarr-File-Manager/api'
+                BASE_URL: 'http://localhost:8000/'
             },
             {
                 ID: 2,
                 NAME: 'deployed',
-                BASE_URL: './Comunarr-File-Manager/api'
+                BASE_URL: './api'
             }
         ];
     }
