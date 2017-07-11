@@ -24,7 +24,7 @@ export const LoginComponent = {
          * @todo Implement
          */
         login(credentials = { user: '', password: '' }) {
-            if (credentials.user === 'charliechauri' && credentials.password === 'pepeelgrillo') {
+            if (credentials.user === 'comunarr' && credentials.password === 'Comunarr2017') {
                 this.localStorageService.set('userInfo', { user: credentials.user, password: credentials.password, privacyType: 1, id: 1 });
                 this.$mdToast.show(this.$mdToast.simple()
                     .textContent('¡Bienvenido!')
