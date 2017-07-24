@@ -3,12 +3,13 @@ import template from './login.html';
 export const LoginComponent = {
     bindings: {},
     controller: class LoginComponent {
-        constructor($state, $mdToast, localStorageService) {
+        constructor($state, $mdToast, localStorageService, AuthFactory) {
             'ngInject';
 
             this.$state = $state;
             this.$mdToast = $mdToast;
             this.localStorageService = localStorageService;
+            this.AuthFactory = AuthFactory;
         }
 
         $onInit() {
@@ -20,24 +21,20 @@ export const LoginComponent = {
 
         /**
          * Try to authenticate the user
-         * @param {any} credentials { user: string, pass: string }
-         * @todo Implement
+         * @param {any} credentials { username: string, pass: string }
          */
-        login(credentials = { user: '', password: '' }) {
-            if (credentials.user === 'comunarr' && credentials.password === 'Comunarr2017') {
-                this.localStorageService.set('userInfo', { user: credentials.user, password: credentials.password, privacyType: 1, id: 1 });
-                this.$mdToast.show(this.$mdToast.simple()
-                    .textContent('¡Bienvenido!')
-                    .position('top right')
-                );
-                this.$state.go('files');
-            } else {
-                this.$mdToast.show(this.$mdToast.simple()
-                    .textContent('El usuario o la contraseña con incorrectos')
-                    .position('top right')
-                );
-            }
+        login(credentials = { username: '', password: '' }) {
 
+            this.AuthFactory
+                .login(credentials)
+                .then(user => {
+                    this.localStorageService.set('user', user);
+                    this.$mdToast.show(this.$mdToast.simple()
+                        .textContent('¡Bienvenido!')
+                        .position('top right')
+                    );
+                    this.$state.go('files', { prevState: 'login' });
+                });
         }
     },
     template
