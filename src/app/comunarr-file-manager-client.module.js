@@ -12,6 +12,7 @@ import { AdminPanelModule } from './components/admin-panel/admin-panel.module';
 import { FilesModule } from './components/files/files.module';
 import { LoginModule } from './components/login/login.module';
 import { CommonModule } from './common/common.module';
+import { AuthConfig } from './config/auth.config';
 import { RouterConfig } from './config/router.config';
 import { ThemingConfig } from './config/theming.config';
 import { ComunarrThemeConfig } from './config/theme.config';
@@ -19,6 +20,7 @@ import { StorageConfig } from './config/storage.config';
 import { EnvironmentConfig } from './config/environment.config';
 import { CacheConfig } from './config/cache.config';
 import { DateLocalConfig } from './config/date-local.config';
+import { HttpConfig } from './config/http.config';
 import { ComunarrFileManagerClientComponent } from './comunarr-file-manager-client.component';
 
 import 'angular-material/angular-material.min.css';
@@ -42,11 +44,13 @@ export const ComunarrFileManagerClient = angular
         LoginModule,
         CommonModule
     ])
+    .config(AuthConfig)
     .config(RouterConfig)
     .config(ThemingConfig)
     .config(ComunarrThemeConfig)
     .config(StorageConfig)
     .config(DateLocalConfig)
+    .config(HttpConfig)
     .run(EnvironmentConfig)
     .run(CacheConfig)
     .component('coFileManagerClient', ComunarrFileManagerClientComponent)

@@ -3,22 +3,22 @@ import template from './comunarr-file-manager-client.html';
 export const ComunarrFileManagerClientComponent = {
     bindings: {},
     controller: class ComunarrFileManagerClientComponent {
-        constructor($mdSidenav, $state, $mdToast, MenuService) {
+        constructor($mdSidenav, $state, $mdToast, MenuService, localStorageService) {
             'ngInject';
 
             this.$mdSidenav = $mdSidenav;
             this.$state = $state;
             this.$mdToast = $mdToast;
             this.MenuService = MenuService;
+            this.localStorageService = localStorageService;
         }
 
         $onInit() {
             this.menuItems = [];
-            /**
-             * @todo Calculate privacyTypeOfCurrentUser
-             */
-            const privacyTypeOfCurrentUser = 1;
-            this.getMenu(privacyTypeOfCurrentUser);
+            const user = this.localStorageService.get('user') || null;
+            if (!!user) {
+                this.getMenu(user.idUserType);
+            }
         }
 
         /**
@@ -54,13 +54,14 @@ export const ComunarrFileManagerClientComponent = {
 
         /**
          * Log out user and redirect to login state
-         * @todo Clean session
          */
         logOut() {
             this.$mdToast.show(this.$mdToast.simple()
                 .textContent('Has finalizado tu sesión')
                 .position('top right')
             );
+
+            this.localStorageService.clearAll();
 
             this.$state.go('login');
         }
