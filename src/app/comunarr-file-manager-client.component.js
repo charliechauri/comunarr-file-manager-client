@@ -15,9 +15,9 @@ export const ComunarrFileManagerClientComponent = {
 
         $onInit() {
             this.menuItems = [];
-            const user = this.localStorageService.get('user') || null;
-            if (!!user) {
-                this.getMenu(user.idUserType);
+            this.user = this.localStorageService.get('user') || null;
+            if (!!this.user) {
+                this.getMenu(this.user.idUserType);
             }
         }
 

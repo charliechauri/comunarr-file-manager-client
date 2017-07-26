@@ -24,7 +24,9 @@
         <h1 flex>
             Comunarr - {{ $ctrl.getCurrentLabelState() }}
         </h1>
-
+        <span>
+            {{ $ctrl.user.name }}
+        </span>
         <md-button class="md-icon-button" aria-label="Cerrar sesión" ng-click="$ctrl.logOut()">
             <i class="material-icons">exit_to_app</i>
         </md-button>
