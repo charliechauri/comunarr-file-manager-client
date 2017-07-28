@@ -3,7 +3,7 @@ import template from './comunarr-file-manager-client.html';
 export const ComunarrFileManagerClientComponent = {
     bindings: {},
     controller: class ComunarrFileManagerClientComponent {
-        constructor($mdSidenav, $state, $mdToast, MenuService, localStorageService) {
+        constructor($mdSidenav, $state, $mdToast, MenuService, localStorageService, CacheFactory) {
             'ngInject';
 
             this.$mdSidenav = $mdSidenav;
@@ -11,6 +11,7 @@ export const ComunarrFileManagerClientComponent = {
             this.$mdToast = $mdToast;
             this.MenuService = MenuService;
             this.localStorageService = localStorageService;
+            this.CacheFactory = CacheFactory;
         }
 
         $onInit() {
@@ -62,6 +63,7 @@ export const ComunarrFileManagerClientComponent = {
             );
 
             this.localStorageService.clearAll();
+            this.CacheFactory.clearAll();
 
             this.$state.go('login');
         }
