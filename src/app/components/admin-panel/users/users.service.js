@@ -8,6 +8,7 @@ export class UsersService {
         this.URL = `${EnvironmentService.getCurrent().BASE_URL}/user`;
 
         this.usersCache = CacheFactory.get('usersCache');
+        this.cacheKey = 'users';
     }
 
     /**
@@ -37,7 +38,12 @@ export class UsersService {
      * Add a new user
      */
     add(user) {
-        return this.$http.post(this.URL, user).then(response => response.data);
+        return this.$http.post(this.URL, user).then(response => {
+            let usersData = this.usersCache.get(this.cacheKey);
+            usersData.push(response.data.item);
+            this.usersCache.put(this.cacheKey, usersData);
+            return response.data;
+        });
     }
 
     /**
@@ -45,6 +51,18 @@ export class UsersService {
      * Edit a whole user
      */
     edit(user) {
-        return this.$http.put(this.URL, user).then(response => response.data);
+        return this.$http.put(this.URL, user).then(response => {
+            let usersData = this.usersCache.get(this.cacheKey);
+            usersData.some(item => {
+                const isCurrent = item.id === response.data.item.id;
+
+                item = isCurrent ? response.data.item : item;
+
+                return isCurrent;
+            });
+
+            this.usersCache.put(this.cacheKey, usersData);
+            return response.data;
+        });
     }
 }

@@ -5,7 +5,7 @@ import dialogTemplate from './users.dialog.html';
 export const UsersComponent = {
     bindings: {},
     controller: class UsersComponent {
-        constructor($scope, $mdDialog, UsersService, UserTypesService, Validator) {
+        constructor($scope, $mdDialog, UsersService, UserTypesService, Validator, ResponseHandler) {
             'ngInject';
 
             this.$scope = $scope;
@@ -13,6 +13,7 @@ export const UsersComponent = {
             this.UsersService = UsersService;
             this.UserTypesService = UserTypesService;
             this.Validator = Validator;
+            this.ResponseHandler = ResponseHandler;
         }
 
         $onInit() {
@@ -30,7 +31,9 @@ export const UsersComponent = {
                 name: '',
                 userName: '',
                 password: '',
-                confirmPassword: ''
+                confirmPassword: '',
+                idUserType: 3,
+                status: true
             };
         }
 
@@ -51,10 +54,13 @@ export const UsersComponent = {
                         this.selectedUser = null;
                         return;
                     }
+                    if (!this.isEditing) {
+                        delete user.status;
+                    }
                     this.UsersService[method](user).then(response => {
                         this.ResponseHandler.success(response);
                         this.selectedUser = this.getNewUser();
-                        this.getUsers(true);
+                        this.getUsers();
                     });
                 })
                 .catch(() => {
