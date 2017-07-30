@@ -80,7 +80,7 @@ export class CollectivesService {
 
     format(collective) {
         const collectiveToRegister = angular.copy(collective);
-        collectiveToRegister.idComunarrProjects = collectiveToRegister.comunarrProjects.map(project => project.id);
+        collectiveToRegister.idComunarrProject = collectiveToRegister.comunarrProjects.map(project => project.id);
         delete collectiveToRegister.comunarrProjects;
         return collectiveToRegister;
     }

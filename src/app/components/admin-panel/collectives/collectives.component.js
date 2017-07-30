@@ -103,6 +103,11 @@ export const CollectivesComponent = {
                         this.selectedCollective = null;
                         return;
                     }
+
+                    if (!this.isEditing) {
+                        delete collective.id;
+                        delete collective.status;
+                    }
                     this.CollectivesService[method](collective).then(response => {
                         this.ResponseHandler.success(response);
                         this.selectedCollective = this.getNewCollective();
