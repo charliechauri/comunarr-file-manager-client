@@ -53,13 +53,12 @@ export class UsersService {
     edit(user) {
         return this.$http.put(this.URL, user).then(response => {
             let usersData = this.usersCache.get(this.cacheKey);
-            usersData.some(item => {
-                const isCurrent = item.id === response.data.item.id;
-
-                item = isCurrent ? response.data.item : item;
-
-                return isCurrent;
-            });
+            for (let index = 0; index < usersData.length; index++) {
+                if (usersData[index].id === response.data.item.id) {
+                    usersData[index] = response.data.item;
+                    break;
+                }
+            }
 
             this.usersCache.put(this.cacheKey, usersData);
             return response.data;
