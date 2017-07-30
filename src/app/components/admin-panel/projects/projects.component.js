@@ -41,9 +41,13 @@ export const ProjectsComponent = {
                         this.selectedProject = null;
                         return;
                     }
+                    if (!this.isEditing) {
+                        delete project.id;
+                        delete project.status;
+                    }
                     this.ProjectsService[method](project).then(response => {
                         this.ResponseHandler.success(response);
-                        this.getProjects(true);
+                        this.getProjects();
                     });
                 })
                 .catch(() => {

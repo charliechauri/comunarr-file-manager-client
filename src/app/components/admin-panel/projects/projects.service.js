@@ -12,6 +12,7 @@ export class ProjectsService {
         this.URL = `${EnvironmentService.getCurrent().BASE_URL}/comunarr-project`;
 
         this.projectsCache = CacheFactory.get('projectsCache');
+        this.cacheKey = 'projects';
     }
 
     /**
@@ -20,14 +21,13 @@ export class ProjectsService {
      */
     get(forceRefresh) {
         let deferred = this.$q.defer(),
-            cacheKey = 'projects',
-            projectsData = forceRefresh ? null : this.projectsCache.get(cacheKey);
+            projectsData = forceRefresh ? null : this.projectsCache.get(this.cacheKey);
 
         if (projectsData) {
             deferred.resolve(projectsData);
         } else {
             this.$http.get(this.URL).then(response => {
-                this.projectsCache.put(cacheKey, response.data);
+                this.projectsCache.put(this.cacheKey, response.data);
                 deferred.resolve(response.data);
             });
         }
@@ -41,7 +41,13 @@ export class ProjectsService {
      * @return {any}
      */
     add(project) {
-        return this.$http.post(this.URL, project).then(response => response.data);
+        return this.$http.post(this.URL, project).then(response => {
+            let projectsData = this.projectsCache.get(this.cacheKey);
+            projectsData.push(response.data.item);
+            this.usersCache.put(this.cacheKey, projectsData);
+
+            return response.data;
+        });
     }
 
     /**
@@ -50,6 +56,23 @@ export class ProjectsService {
      * @return {any}
      */
     edit(project) {
-        return this.$http.put(this.URL, project).then(response => response.data);
+        return this.$http.put(this.URL, project).then(response => {
+
+            let projectsData = this.projectsCache.get(this.cacheKey);
+            projectsData.some(item => {
+                const isCurrent = item.id === response.data.item.id;
+
+                if(isCurrent){
+                    debugger;
+                    item = response.data.item;
+                }
+
+                return isCurrent;
+            });
+
+            this.projectsCache.put(this.cacheKey, projectsData);
+
+            return response.data;
+        });
     }
 }
