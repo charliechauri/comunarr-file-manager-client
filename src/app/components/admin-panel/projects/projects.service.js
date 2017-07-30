@@ -59,16 +59,13 @@ export class ProjectsService {
         return this.$http.put(this.URL, project).then(response => {
 
             let projectsData = this.projectsCache.get(this.cacheKey);
-            projectsData.some(item => {
-                const isCurrent = item.id === response.data.item.id;
-
-                if(isCurrent){
-                    debugger;
-                    item = response.data.item;
+            debugger;
+            for (let index = 0, length = projectsData.length; index < length; index++) {
+                if (projectsData[index].id === response.data.item.id) {
+                    projectsData[index] = response.data.item;
+                    break;
                 }
-
-                return isCurrent;
-            });
+            }
 
             this.projectsCache.put(this.cacheKey, projectsData);
 
