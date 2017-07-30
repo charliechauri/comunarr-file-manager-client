@@ -9,7 +9,7 @@
         </div>
     </header>
 
-    <section>
+    <section ng-if="$ctrl.specificTopics.length > 0">
         <header layout="row">
             <h2 flex="40" layout-margin>Nombre</h2>
             <h2 flex layout-margin>Temas generales</h2>
@@ -43,4 +43,6 @@
             <md-divider></md-divider>
         </article>
     </section>
+
+    <no-registers-found ng-if="$ctrl.specificTopics.length === 0" type-of-registers="temas específicos"></no-registers-found>
 </md-content>

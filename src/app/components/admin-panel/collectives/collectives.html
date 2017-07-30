@@ -9,7 +9,7 @@
         </div>
     </header>
 
-    <section>
+    <section ng-if="$ctrl.collectives.length > 0">
         <header layout="row">
             <h2 flex="40" layout-margin>Nombre</h2>
             <h2 flex layout-margin>Proyectos</h2>
@@ -43,4 +43,6 @@
             <md-divider></md-divider>
         </article>
     </section>
+
+    <no-registers-found type-of-registers="colectivos" ng-if="$ctrl.collectives.length === 0"></no-registers-found>
 </md-content>

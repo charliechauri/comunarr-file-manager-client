@@ -9,7 +9,7 @@
         </div>
     </header>
 
-    <section>
+    <section ng-if="$ctrl.contentTypes.length > 0">
         <header layout="row">
             <h2 flex="50" layout-margin>Nombre</h2>
             <h2 flex layout-margin>Estatus</h2>
@@ -37,4 +37,6 @@
             <md-divider></md-divider>
         </article>
     </section>
+
+    <no-registers-found ng-if="$ctrl.contentTypes.length === 0" type-of-registers="tipos de contenido"></no-registers-found>
 </md-content>
