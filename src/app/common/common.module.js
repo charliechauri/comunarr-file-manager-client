@@ -9,10 +9,12 @@ import { AuthFactory } from './services/auth.factory';
 import { ActiveFilter } from './filters/active.filter';
 import { UserTypeFilter } from './filters/user-type.filter';
 import { PasswordHandlerModule } from './components/password-handler/password-handler.module';
+import { NoRegistersFoundModule } from './components/no-registers-found/no-registers-found.module';
 
 export const CommonModule = angular
     .module('co-file-manager-client.common', [
-        PasswordHandlerModule
+        PasswordHandlerModule,
+        NoRegistersFoundModule
     ])
     .service('EnvironmentService', EnvironmentService)
     .service('MenuService', MenuService)
