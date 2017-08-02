@@ -35,6 +35,8 @@ export const FilesComponent = {
                 this.$state.go(this.$state.current, { prevState: 'files' }, { reload: true });
                 return;
             }
+
+            this.fileTypes = ['avi', 'doc', 'jpg', 'mov', 'mp3', 'mpg', 'pdf', 'png', 'ppt', 'txt', 'wmv', 'xls', 'zip'];
             this.userInfo = this.localStorageService.get('userInfo');
             this.form = {};
 
@@ -131,11 +133,30 @@ export const FilesComponent = {
             // Hide filters UI
             if (searchType === 'simple') {
                 this.showSimpleSearchFilters = false;
-                this.FilesService.simpleSearch(filters).then(results => this.results = results);
+                this.FilesService.simpleSearch(filters).then(this.setResults);
             } else if (searchType === 'specific') {
                 this.showSpecificSearchFilters = false;
-                this.FilesService.specificSearch(filters).then(results => this.results = results);
+                this.FilesService.specificSearch(filters).then(this.setResults);
             }
+        }
+
+        /**
+         * Change all image files
+         * @param {any} data
+         */
+        setResults(data) {
+            data.forEach(item => {
+
+                item.fileTypeImage = 'default';
+                for (let index = 0, length = this.fileTypes.length; index < length; index++) {
+                    if (item.fileType.indexOf(this.fileTypes[index]) !== -1) {
+                        item.fileTypeImage = this.fileTypes[index];
+                        break;
+                    }
+                }
+            });
+
+            this.results = data;
         }
 
         /**
