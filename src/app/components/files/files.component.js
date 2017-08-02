@@ -10,10 +10,11 @@ import dialogDetailsTemplate from './files.details.dialog.html';
 export const FilesComponent = {
     bindings: {},
     controller: class FilesComponent {
-        constructor($scope, $mdToast, $mdDialog, localStorageService, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService, KeyWordsService, $stateParams, $state) {
+        constructor($scope, $window, $mdToast, $mdDialog, localStorageService, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService, KeyWordsService, $stateParams, $state) {
             'ngInject';
 
             this.$scope = $scope;
+            this.$window = $window;
             this.$mdToast = $mdToast;
             this.$mdDialog = $mdDialog;
             this.localStorageService = localStorageService;
@@ -32,7 +33,8 @@ export const FilesComponent = {
         $onInit() {
             if (this.$stateParams.prevState === 'login') {
                 // Reload state to load menús
-                this.$state.go(this.$state.current, { prevState: 'files' }, { reload: true });
+                /* this.$state.go(this.$state.current, { prevState: 'files' }, { reload: true }); */
+                this.$window.location.reload();
                 return;
             }
 
