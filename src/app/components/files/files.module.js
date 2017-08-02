@@ -11,7 +11,10 @@ export const FilesModule = angular
         $stateProvider
             .state('files', {
                 url: '/busqueda-de-archivos',
-                component: 'coFiles'
+                component: 'coFiles',
+                params: {
+                    prevState: ''
+                }
             });
     })
     .service('FilesService', FilesService)
