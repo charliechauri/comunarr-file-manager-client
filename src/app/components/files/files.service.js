@@ -17,7 +17,14 @@ export class FilesService {
      * @param {any} filters
      */
     simpleSearch(filters) {
-        return this.$http.get(this.URL, filters).then(response => response.data);
+        let queryString = `?UploadedByMe=${filters.uploadedByMe}`;
+
+        delete filters.uploadedByMe;
+
+        for (let key in filters) {
+            queryString += !!filters[key] ? `&${key}=${filters[key]}` : '';
+        }
+        return this.$http.get(this.URL + queryString).then(response => response.data);
     }
 
     /**
