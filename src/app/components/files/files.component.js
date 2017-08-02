@@ -10,7 +10,7 @@ import dialogDetailsTemplate from './files.details.dialog.html';
 export const FilesComponent = {
     bindings: {},
     controller: class FilesComponent {
-        constructor($scope, $mdToast, $mdDialog, localStorageService, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService, KeyWordsService) {
+        constructor($scope, $mdToast, $mdDialog, localStorageService, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService, KeyWordsService, $stateParams, $state) {
             'ngInject';
 
             this.$scope = $scope;
@@ -25,9 +25,16 @@ export const FilesComponent = {
             this.SpecificTopicsService = SpecificTopicsService;
             this.ContentTypesService = ContentTypesService;
             this.KeyWordsService = KeyWordsService;
+            this.$stateParams = $stateParams;
+            this.$state = $state;
         }
 
         $onInit() {
+            if (this.$stateParams.prevState === 'login') {
+                // Reload state to load menús
+                this.$state.go(this.$state.current, { prevState: 'files' }, { reload: true });
+                return;
+            }
             this.userInfo = this.localStorageService.get('userInfo');
             this.form = {};
 
@@ -59,7 +66,11 @@ export const FilesComponent = {
             this.CollectivesService.getRelatedProjects().then(relations => {
                 this.CollectivesService.get().then(collectives => {
                     collectives.forEach(collective => {
+
+                        console.log(collective);
+                        console.log(relations);
                         collective.idComunarrProject = relations.filter(relation => relation.idCollective === collective.id)[0].idComunarrProject;
+                        console.log(collective);
                     });
                     this.collectives = collectives;
                 });
