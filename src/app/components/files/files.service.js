@@ -17,7 +17,7 @@ export class FilesService {
      * @param {any} filters
      */
     simpleSearch(filters) {
-        let queryString = `?UploadedByMe=${filters.uploadedByMe}`;
+        let queryString = `?uploadedByMe=${filters.uploadedByMe}`;
 
         delete filters.uploadedByMe;
 
