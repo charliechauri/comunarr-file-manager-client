@@ -11,13 +11,13 @@
     </header>
 
     <!-- Search -->
-    <section layout-margin>
+    <section>
         <md-tabs md-stretch-tabs="always" md-dynamic-height="true">
             <!-- Simple search -->
             <md-tab label="Búsqueda simple" ng-click="$ctrl.resetResults()">
                 <br>
                 <form action="simpleSearchForm">
-                    <aside layout="row" layout-align="start center" layout-wrap ng-show="$ctrl.showSimpleSearchFilters">
+                    <aside layout="row" layout-align="start center" layout-padding layout-wrap ng-show="$ctrl.showSimpleSearchFilters">
                         <!-- Only files uploaded by self user -->
                         <section flex="15">
                             <md-checkbox class="md-primary" ng-model="$ctrl.filters.simple.uploadedByMe" aria-label="Archivos creados por mí">
