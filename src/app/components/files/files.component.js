@@ -126,6 +126,7 @@ export const FilesComponent = {
          * @todo
          */
         search(searchType) {
+            this.searchPerformed = true;
             this.results = [];
 
             const filters = searchType === 'simple' ? this.filters.simple : this.filters.specific;
@@ -291,6 +292,11 @@ export const FilesComponent = {
             }).then(() => {
                 this.form = {};
             });
+        }
+
+        resetResults() {
+            this.searchPerformed = false;
+            this.results = [];
         }
     },
     template

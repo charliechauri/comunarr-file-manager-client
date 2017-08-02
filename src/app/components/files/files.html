@@ -16,8 +16,16 @@
             <!-- Simple search -->
             <md-tab label="Búsqueda simple" ng-click="$ctrl.resetResults()">
                 <br>
+                <aside layout="row" layout-padding layout-align="start center">
+                    <div>
+                        <md-switch class="md-primary" ng-model="$ctrl.showSimpleSearchFilters" aria-label="mostrar filtros">
+                            Mostrar filtros
+                        </md-switch>
+                    </div>
+                </aside>
                 <form action="simpleSearchForm">
-                    <aside layout="row" layout-align="start center" layout-padding layout-wrap ng-show="$ctrl.showSimpleSearchFilters">
+                    <aside layout="row" class="animated" ng-class="{ 'fadeInDown': $ctrl.showSimpleSearchFilters, 'fadeOutUp': !$ctrl.showSimpleSearchFilters }"
+                        layout-align="start center" layout-padding layout-wrap ng-show="$ctrl.showSimpleSearchFilters">
                         <!-- Only files uploaded by self user -->
                         <section flex="15">
                             <md-checkbox class="md-primary" ng-model="$ctrl.filters.simple.uploadedByMe" aria-label="Archivos creados por mí">
@@ -88,11 +96,6 @@
                     </aside>
 
                     <aside layout="row" layout-padding layout-align="start center">
-                        <div>
-                            <md-checkbox class="md-primary" ng-model="$ctrl.showSimpleSearchFilters" aria-label="mostrar filtros">
-                                Mostrar filtros
-                            </md-checkbox>
-                        </div>
                         <span flex></span>
                         <div>
                             <md-button class="md-primary md-raised" ng-click="$ctrl.search('simple')" ng-disabled="!$ctrl.isAtLeastOneFilterSelected($ctrl.filters.simple)">
@@ -105,8 +108,15 @@
             <!-- Specific search -->
             <md-tab label="Búsqueda específica" ng-click="$ctrl.resetResults()">
                 <br>
+                <aside layout="row" layout-margin layout-align="start center">
+                    <div>
+                        <md-switch class="md-primary" ng-model="$ctrl.showSpecificSearchFilters" aria-label="mostrar filtros">
+                            Mostrar filtros
+                        </md-switch>
+                    </div>
+                </aside>
                 <form name="specificSearchForm">
-                    <aside layout="row" ng-show="$ctrl.showSpecificSearchFilters" layout-wrap>
+                    <aside layout="row" ng-show="$ctrl.showSpecificSearchFilters" layout-wrap class="animated" ng-class="{ 'fadeInDown': $ctrl.showSpecificSearchFilters, 'fadeOutUp': !$ctrl.showSpecificSearchFilters }">
 
                         <!-- Title -->
                         <section flex="33">
@@ -628,11 +638,6 @@
                     </aside>
 
                     <aside layout="row" layout-margin layout-align="start center">
-                        <div>
-                            <md-checkbox class="md-primary" ng-model="$ctrl.showSpecificSearchFilters" aria-label="mostrar filtros">
-                                Mostrar filtros
-                            </md-checkbox>
-                        </div>
                         <span flex></span>
                         <div>
                             <md-button class="md-primary md-raised" ng-click="$ctrl.search('specific')" ng-disabled="specificSearchForm.$invalid"> Buscar </md-button>
@@ -684,4 +689,6 @@
             </div>
         </div>
     </section>
+
+    <no-registers-found type-of-registers="archivos" ng-if="$ctrl.results.length === 0 && $ctrl.searchPerformed"></no-registers-found>
 </md-content>
