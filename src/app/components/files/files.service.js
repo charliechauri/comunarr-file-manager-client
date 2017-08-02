@@ -27,7 +27,7 @@ export class FilesService {
     specificSearch(filters) {
         // @todo Filter each filter's property if an element doesn't have a value (.length > 0) or a numeric id (id !== null)
         console.log(filters);
-        return this.$http.get(this.URL, filters).then(response => response.data);
+        return this.$http.post(this.URL, filters).then(response => response.data);
     }
 
     /**
