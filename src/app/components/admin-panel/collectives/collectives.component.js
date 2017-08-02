@@ -39,8 +39,8 @@ export const CollectivesComponent = {
 
         assignProjectIdIntoCollectives(forceRefresh) {
             this.CollectivesService.getRelatedProjects(forceRefresh).then(relations => {
-                this.getCollectives(forceRefresh).then(() => {
-                    this.getProjects(forceRefresh).then(() => {
+                this.getCollectives().then(() => {
+                    this.getProjects().then(() => {
                         this.collectives.forEach(collective => {
                             collective.comunarrProjects = [];
 
