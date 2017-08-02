@@ -133,162 +133,164 @@ export const FilesComponent = {
             // Hide filters UI
             if (searchType === 'simple') {
                 this.showSimpleSearchFilters = false;
-                this.FilesService.simpleSearch(filters).then(this.setResults);
+                this.FilesService.simpleSearch(filters).then(data => {
+                    this.setResults(data, this);
+                });
             } else if (searchType === 'specific') {
                 this.showSpecificSearchFilters = false;
-                this.FilesService.specificSearch(filters).then(this.setResults);
+                this.FilesService.specificSearch(filters).then(data => {
+                    this.setResults(data, this);
+                });
             }
-        }
 
-        /**
-         * Change all image files
-         * @param {any} data
-         */
-        setResults(data) {
-            data.forEach(item => {
-
-                item.fileTypeImage = 'default';
-                for (let index = 0, length = this.fileTypes.length; index < length; index++) {
-                    if (item.fileType.indexOf(this.fileTypes[index]) !== -1) {
-                        item.fileTypeImage = this.fileTypes[index];
-                        break;
+            /**
+             * Change all image files
+             * @param {any} data
+             */
+            setResults(data, ctrl) {
+                data.forEach(item => {
+                    item.fileTypeImage = 'default';
+                    for (let index = 0, length = ctrl.fileTypes.length; index < length; index++) {
+                        if (item.fileType.indexOf(ctrl.fileTypes[index]) !== -1) {
+                            item.fileTypeImage = ctrl.fileTypes[index];
+                            break;
+                        }
                     }
-                }
-            });
+                });
 
-            this.results = data;
-        }
-
-        /**
-         * Display file selection
-         */
-        showSelectFile() {
-            const inputFile = angular.element(document.querySelector('#fileInput'))[0];
-            inputFile.click();
-        }
-
-        /**
-         * Add or edit a file
-         * @param {any} targetEvent
-         * @param {string} method
-         * @param {any} file Only on edition
-         */
-        addOrEditFile(targetEvent, method, file) {
-            if (method === 'edit') {
-                this.selectedKeyWord = null;
-                this.searchText = '';
-                this.isEditing = true;
-                this.form = angular.copy(file);
-
-                this.form.keyWords = file.idKeyWord && file.idKeyWord.length > 0 ? file.idKeyWord.map(id => {
-                    return this.keyWords.find(keyWord => keyWord.id === id);
-                }) : [];
-
-                file.keyWords = angular.copy(this.form.keyWords);
-            } else {
-                this.form = {};
-                this.form.keyWords = [];
+                ctrl.results = data;
             }
-            this.$mdDialog
-                .show({
-                    escapeToClose: false,
-                    preserveScope: true,
-                    scope: this.$scope,
-                    targetEvent,
-                    template: dialogFormTemplate
-                })
-                .then(formData => {
-                    formData.keyWords = formData.keyWords.map(keyWord => keyWord.name);
 
-                    this.FilesService.post(formData).then(() => {
-                        this.$mdToast.show(this.$ctrl.$mdToast.simple()
-                            .textContent('Éxito: se subió de forma correcta el archivo')
-                            .position('top right')
-                        );
+            /**
+             * Display file selection
+             */
+            showSelectFile() {
+                const inputFile = angular.element(document.querySelector('#fileInput'))[0];
+                inputFile.click();
+            }
+
+            /**
+             * Add or edit a file
+             * @param {any} targetEvent
+             * @param {string} method
+             * @param {any} file Only on edition
+             */
+            addOrEditFile(targetEvent, method, file) {
+                if (method === 'edit') {
+                    this.selectedKeyWord = null;
+                    this.searchText = '';
+                    this.isEditing = true;
+                    this.form = angular.copy(file);
+
+                    this.form.keyWords = file.idKeyWord && file.idKeyWord.length > 0 ? file.idKeyWord.map(id => {
+                        return this.keyWords.find(keyWord => keyWord.id === id);
+                    }) : [];
+
+                    file.keyWords = angular.copy(this.form.keyWords);
+                } else {
+                    this.form = {};
+                    this.form.keyWords = [];
+                }
+                this.$mdDialog
+                    .show({
+                        escapeToClose: false,
+                        preserveScope: true,
+                        scope: this.$scope,
+                        targetEvent,
+                        template: dialogFormTemplate
+                    })
+                    .then(formData => {
+                        formData.keyWords = formData.keyWords.map(keyWord => keyWord.name);
+
+                        this.FilesService.post(formData).then(() => {
+                            this.$mdToast.show(this.$ctrl.$mdToast.simple()
+                                .textContent('Éxito: se subió de forma correcta el archivo')
+                                .position('top right')
+                            );
+                            this.form = {};
+                            this.isEditing = false;
+                        });
+                    })
+                    .catch(() => {
                         this.form = {};
                         this.isEditing = false;
                     });
-                })
-                .catch(() => {
-                    this.form = {};
-                    this.isEditing = false;
-                });
-        }
-
-        /**
-         * Add keyword to file editing or creating
-         * @param {any} $chip
-         */
-        addKeyWord($chip) {
-            return (typeof $chip === 'object') ? $chip : { name: $chip };
-        }
-
-        /**
-         * Add filter element
-         * @param {string} key
-         * @param {string} type
-         */
-        addFilter(key, type) {
-            if (this.filters.specific[key].length <= 5) {
-                this.filters.specific[key].push(type === 'value' ? { value: '', op: 'OR' } : { id: null, op: 'OR' });
             }
-        }
 
-        /**
-         * Delete filter element
-         * @param {string} key
-         * @param {string} type
-         * @param {any} item
-         */
-        deleteFilter(key, type, item) {
-            this.filters.specific[key].splice(this.filters.specific[key].map(filter => filter.value).indexOf(item[type]), 1);
-        }
+            /**
+             * Add keyword to file editing or creating
+             * @param {any} $chip
+             */
+            addKeyWord($chip) {
+                return (typeof $chip === 'object') ? $chip : { name: $chip };
+            }
 
-        /**
-         * If a collective is present in the selected projects filter returns true
-         * @param {any} comunarrProjectFilters
-         * @return {boolean}
-         */
-        filterCollective(comunarrProjectFilters) {
-            return collective => {
-                return comunarrProjectFilters.some(filter => filter.id === collective.idComunarrProject);
-            };
-        }
+            /**
+             * Add filter element
+             * @param {string} key
+             * @param {string} type
+             */
+            addFilter(key, type) {
+                if (this.filters.specific[key].length <= 5) {
+                    this.filters.specific[key].push(type === 'value' ? { value: '', op: 'OR' } : { id: null, op: 'OR' });
+                }
+            }
 
-        /**
-         * If a specific topic is present in the selected general topics filter returns true
-         * @param {any} generalTopicFilters
-         * @return {boolean}
-         */
-        filterSpecificTopic(generalTopicFilters) {
-            return specificTopic => {
-                return generalTopicFilters.some(filter => filter.id === specificTopic.idGeneralTopic);
-            };
-        }
+            /**
+             * Delete filter element
+             * @param {string} key
+             * @param {string} type
+             * @param {any} item
+             */
+            deleteFilter(key, type, item) {
+                this.filters.specific[key].splice(this.filters.specific[key].map(filter => filter.value).indexOf(item[type]), 1);
+            }
 
-        /**
-         * Mostrar detalle de resultado
-         * @param {any} result
-         * @param {any} targetEvent
-         */
-        showDetail(result, targetEvent) {
-            this.form = angular.copy(result);
+            /**
+             * If a collective is present in the selected projects filter returns true
+             * @param {any} comunarrProjectFilters
+             * @return {boolean}
+             */
+            filterCollective(comunarrProjectFilters) {
+                return collective => {
+                    return comunarrProjectFilters.some(filter => filter.id === collective.idComunarrProject);
+                };
+            }
 
-            this.form.keyWords = result.idKeyWord && result.idKeyWord.length > 0 ? result.idKeyWord.map(id => {
-                return this.keyWords.find(keyWord => keyWord.id === id);
-            }) : [];
+            /**
+             * If a specific topic is present in the selected general topics filter returns true
+             * @param {any} generalTopicFilters
+             * @return {boolean}
+             */
+            filterSpecificTopic(generalTopicFilters) {
+                return specificTopic => {
+                    return generalTopicFilters.some(filter => filter.id === specificTopic.idGeneralTopic);
+                };
+            }
 
-            console.log(this.form.keyWords);
+            /**
+             * Mostrar detalle de resultado
+             * @param {any} result
+             * @param {any} targetEvent
+             */
+            showDetail(result, targetEvent) {
+                this.form = angular.copy(result);
 
-            this.$mdDialog.show({
-                preserveScope: true,
-                scope: this.$scope,
-                targetEvent,
-                template: dialogDetailsTemplate
-            }).then(() => {
-                this.form = {};
-            });
-        }
-    },
-    template
-};
+                this.form.keyWords = result.idKeyWord && result.idKeyWord.length > 0 ? result.idKeyWord.map(id => {
+                    return this.keyWords.find(keyWord => keyWord.id === id);
+                }) : [];
+
+                console.log(this.form.keyWords);
+
+                this.$mdDialog.show({
+                    preserveScope: true,
+                    scope: this.$scope,
+                    targetEvent,
+                    template: dialogDetailsTemplate
+                }).then(() => {
+                    this.form = {};
+                });
+            }
+        },
+        template
+    };
