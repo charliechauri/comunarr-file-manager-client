@@ -12,93 +12,82 @@
 
     <!-- Search -->
     <section layout-margin>
-        <md-tabs md-stretch-tabs="always" md-whiteframe md-dynamic-height="true">
+        <md-tabs md-stretch-tabs="always" md-dynamic-height="true">
             <!-- Simple search -->
             <md-tab label="Búsqueda simple" ng-click="$ctrl.resetResults()">
                 <br>
                 <form action="simpleSearchForm">
                     <aside layout="row" layout-align="start center" layout-wrap ng-show="$ctrl.showSimpleSearchFilters">
-                        <section flex>
-                            <div layout-margin>
-                                <md-checkbox class="md-primary" ng-model="$ctrl.filters.simple.uploadedByMe" aria-label="Archivos creados por mí">
-                                   Sólo archivos subidos por mí
-                                </md-checkbox>
-                            </div>
+                        <!-- Only files uploaded by self user -->
+                        <section flex="15">
+                            <md-checkbox class="md-primary" ng-model="$ctrl.filters.simple.uploadedByMe" aria-label="Archivos creados por mí">
+                                Sólo archivos subidos por mí
+                            </md-checkbox>
                         </section>
 
                         <!-- Title -->
                         <section flex="20">
-                            <div layout="row" layout-margin layout-align="start start">
-                                <md-input-container class="md-block" flex>
-                                    <label>Título</label>
-                                    <input ng-model="$ctrl.filters.simple.name" name="name" md-maxlength="100" minlength="4">
-                                    <div ng-messages="simpleSearchForm.name.$error">
-                                        <div ng-message="minlength">Mínimo 4 caracteres</div>
-                                        <div ng-message="md-maxlength">Máximo 100 caracteres</div>
-                                    </div>
-                                </md-input-container>
-                            </div>
+                            <md-input-container class="md-block">
+                                <label>Título</label>
+                                <input ng-model="$ctrl.filters.simple.name" name="name" md-maxlength="100" minlength="4">
+                                <div ng-messages="simpleSearchForm.name.$error">
+                                    <div ng-message="minlength">Mínimo 4 caracteres</div>
+                                    <div ng-message="md-maxlength">Máximo 100 caracteres</div>
+                                </div>
+                            </md-input-container>
                         </section>
 
                         <!-- Author -->
                         <section flex="20">
-                            <div layout="row" layout-margin layout-align="start start">
-                                <md-input-container class="md-block" flex>
-                                    <label>Autor</label>
-                                    <input ng-model="$ctrl.filters.simple.author" name="author" md-maxlength="100" minlength="4">
-                                    <div ng-messages="simpleSearchForm.author.$error">
-                                        <div ng-message="minlength">Mínimo 4 caracteres</div>
-                                        <div ng-message="md-maxlength">Máximo 100 caracteres</div>
-                                    </div>
-                                </md-input-container>
-                            </div>
+                            <md-input-container class="md-block">
+                                <label>Autor</label>
+                                <input ng-model="$ctrl.filters.simple.author" name="author" md-maxlength="100" minlength="4">
+                                <div ng-messages="simpleSearchForm.author.$error">
+                                    <div ng-message="minlength">Mínimo 4 caracteres</div>
+                                    <div ng-message="md-maxlength">Máximo 100 caracteres</div>
+                                </div>
+                            </md-input-container>
                         </section>
 
                         <!-- Project -->
                         <section flex="15">
-                            <div layout="row" layout-margin layout-align="start start">
-                                <md-input-container class="md-block" flex>
-                                    <label>Proyecto</label>
-                                    <md-select ng-model="$ctrl.filters.simple.idComunarrProject">
-                                        <md-option ng-repeat="project in $ctrl.comunarrProjects" ng-value="{{ project.id }}">
-                                            {{ project.name }}
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-                            </div>
+                            <md-input-container class="md-block">
+                                <label>Proyecto</label>
+                                <md-select ng-model="$ctrl.filters.simple.idComunarrProject">
+                                    <md-option ng-repeat="project in $ctrl.comunarrProjects" ng-value="{{ project.id }}">
+                                        {{ project.name }}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
                         </section>
 
                         <!-- Collective -->
                         <section flex="15">
-                            <div layout="row" layout-margin layout-align="start start">
-                                <md-input-container class="md-block" flex>
-                                    <label>Colectivo</label>
-                                    <md-select ng-model="$ctrl.filters.simple.idCollective" ng-disabled="!$ctrl.filters.simple.idComunarrProject">
-                                        <md-option ng-repeat="collective in $ctrl.collectives | filter: { idComunarrProject: $ctrl.filters.simple.idComunarrProject }"
-                                            ng-value="{{ collective.id }}">
-                                            {{ collective.name }}
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-                            </div>
+                            <md-input-container class="md-block">
+                                <label>Colectivo</label>
+                                <md-select ng-model="$ctrl.filters.simple.idCollective" ng-disabled="!$ctrl.filters.simple.idComunarrProject">
+                                    <md-option ng-repeat="collective in $ctrl.collectives | filter: { idComunarrProject: $ctrl.filters.simple.idComunarrProject }"
+                                        ng-value="{{ collective.id }}">
+                                        {{ collective.name }}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
                         </section>
 
                         <!-- General topics -->
                         <section flex="15">
-                            <div layout="row" layout-margin layout-align="start start">
-                                <md-input-container class="md-block" flex>
-                                    <label>Tema general</label>
-                                    <md-select ng-model="$ctrl.filters.simple.idGeneralTopic">
-                                        <md-option ng-repeat="generalTopic in $ctrl.generalTopics" ng-value="{{ generalTopic.id }}">
-                                            {{ generalTopic.name }}
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-                            </div>
+                            <md-input-container class="md-block">
+                                <label>Tema general</label>
+                                <md-select ng-model="$ctrl.filters.simple.idGeneralTopic">
+                                    <md-option ng-repeat="generalTopic in $ctrl.generalTopics" ng-value="{{ generalTopic.id }}">
+                                        {{ generalTopic.name }}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
                         </section>
                     </aside>
 
-                    <aside layout="row" layout-margin layout-align="start center">
+                    <aside layout="row" layout-padding layout-align="start center">
                         <div>
                             <md-checkbox class="md-primary" ng-model="$ctrl.showSimpleSearchFilters" aria-label="mostrar filtros">
                                 Mostrar filtros
@@ -106,7 +95,8 @@
                         </div>
                         <span flex></span>
                         <div>
-                            <md-button class="md-primary md-raised" ng-click="$ctrl.search('simple')" ng-disabled="!$ctrl.isAtLeastOneFilterSelected($ctrl.filters.simple)"> Buscar </md-button>
+                            <md-button class="md-primary md-raised" ng-click="$ctrl.search('simple')" ng-disabled="!$ctrl.isAtLeastOneFilterSelected($ctrl.filters.simple)">
+                                Buscar </md-button>
                         </div>
                     </aside>
                 </form>
