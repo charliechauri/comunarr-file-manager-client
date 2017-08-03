@@ -19,7 +19,7 @@
 
         <md-input-container>
             <label>Contraseña</label>
-            <input ng-model="$ctrl.credentials.password" name="pass" type="password" required>
+            <input ng-model="$ctrl.credentials.password" name="pass" type="password" required ng-keydown="$event.keyCode === 13 && !loginForm.$invalid && $ctrl.login($ctrl.credentials)">
             <div ng-messages="loginForm.pass.$error">
                 <div ng-message="required">Ingresa tu contraseña</div>
             </div>
