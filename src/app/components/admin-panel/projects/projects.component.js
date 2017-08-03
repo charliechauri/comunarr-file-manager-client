@@ -5,11 +5,10 @@ import dialogTemplate from './projects.dialog.html';
 export const ProjectsComponent = {
     bindings: {},
     controller: class ProjectsComponent {
-        constructor($scope, $mdDialog, $mdToast, ProjectsService, ResponseHandler, Validator) {
+        constructor($scope, $mdDialog, ProjectsService, ResponseHandler, Validator) {
             'ngInject';
             this.$scope = $scope;
             this.$mdDialog = $mdDialog;
-            this.$mdToast = $mdToast;
             this.ProjectsService = ProjectsService;
             this.ResponseHandler = ResponseHandler;
             this.Validator = Validator;
