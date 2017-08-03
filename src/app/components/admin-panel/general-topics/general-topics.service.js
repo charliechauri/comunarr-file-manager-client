@@ -12,6 +12,8 @@ export class GeneralTopicsService {
         this.URL = `${EnvironmentService.getCurrent().BASE_URL}/general-topic`;
 
         this.generalTopicsCache = CacheFactory.get('generalTopicsCache');
+
+        this.cacheKey = 'generalTopics';
     }
 
     /**
@@ -20,14 +22,13 @@ export class GeneralTopicsService {
      */
     get(forceRefresh) {
         let deferred = this.$q.defer(),
-            cacheKey = 'generalTopics',
-            generalTopicsData = forceRefresh ? null : this.generalTopicsCache.get(cacheKey);
+            generalTopicsData = forceRefresh ? null : this.generalTopicsCache.get(this.cacheKey);
 
         if (generalTopicsData) {
             deferred.resolve(generalTopicsData);
         } else {
             this.$http.get(this.URL).then(response => {
-                this.generalTopicsCache.put(cacheKey, response.data);
+                this.generalTopicsCache.put(this.cacheKey, response.data);
                 deferred.resolve(response.data);
             });
         }
@@ -41,7 +42,13 @@ export class GeneralTopicsService {
      * @return {any}
      */
     add(generalTopic) {
-        return this.$http.post(this.URL, generalTopic).then(response => response.data);
+        return this.$http.post(this.URL, generalTopic).then(response => {
+            let generalTopicsData = this.generalTopicsCache.get(this.cacheKey);
+            generalTopicsData.push(response.data.item);
+            this.generalTopicsCache.put(this.cacheKey, generalTopicsData);
+
+            return response.data;
+        });
     }
 
     /**
@@ -50,6 +57,18 @@ export class GeneralTopicsService {
      * @return {any}
      */
     edit(generalTopic) {
-        return this.$http.put(this.URL, generalTopic).then(response => response.data);
+        return this.$http.put(this.URL, generalTopic).then(response => {
+            let generalTopicsData = this.generalTopicsCache.get(this.cacheKey);
+            for (let index = 0, length = generalTopicsData.length; index < length; index++) {
+                if (generalTopicsData[index].id === response.data.item.id) {
+                    generalTopicsData[index] = response.data.item;
+                    break;
+                }
+            }
+
+            this.generalTopicsCache.put(this.cacheKey, generalTopicsData);
+
+            return response.data;
+        });
     }
 }

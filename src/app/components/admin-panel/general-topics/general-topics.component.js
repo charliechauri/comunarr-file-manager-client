@@ -40,9 +40,15 @@ export const GeneralTopicsComponent = {
                         this.selectedGeneralTopic = null;
                         return;
                     }
+
+                    if(!this.isEditing){
+                        delete generalTopic.id;
+                        delete generalTopic.status;
+                    }
+
                     this.GeneralTopicsService[method](generalTopic).then(response => {
                         this.ResponseHandler.success(response);
-                        this.getGeneralTopics(true);
+                        this.getGeneralTopics();
                     });
                 })
                 .catch(() => {
