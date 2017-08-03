@@ -12,7 +12,8 @@ export const ResponseHandler = $mdToast => {
     const success = response => {
         $mdToast.show($mdToast.simple()
             .textContent(response.message)
-            .position('top right')
+            .theme('success-toast')
+            .position('top')
         );
     };
 
@@ -22,8 +23,9 @@ export const ResponseHandler = $mdToast => {
      */
     const error = response => {
         $mdToast.show($mdToast.simple()
+            .theme('error-toast')
             .textContent(response.message)
-            .position('top right')
+            .position('top')
         );
     };
 
