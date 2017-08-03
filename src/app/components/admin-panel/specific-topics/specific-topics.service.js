@@ -15,6 +15,8 @@ export class SpecificTopicsService {
 
         this.specificTopicsCache = CacheFactory.get('specificTopicsCache');
         this.specificTopicGeneralTopicsCache = CacheFactory.get('specificTopicGeneralTopicsCache');
+
+        this.cacheKey = 'specificTopics';
     }
 
     /**
@@ -23,14 +25,13 @@ export class SpecificTopicsService {
      */
     get(forceRefresh) {
         let deferred = this.$q.defer(),
-            cacheKey = 'specificTopics',
-            specificTopicsData = forceRefresh ? null : this.specificTopicsCache.get(cacheKey);
+            specificTopicsData = forceRefresh ? null : this.specificTopicsCache.get(this.cacheKey);
 
         if (specificTopicsData) {
             deferred.resolve(specificTopicsData);
         } else {
             this.$http.get(this.URL).then(response => {
-                this.specificTopicsCache.put(cacheKey, response.data);
+                this.specificTopicsCache.put(this.cacheKey, response.data);
                 deferred.resolve(response.data);
             });
         }
@@ -65,7 +66,12 @@ export class SpecificTopicsService {
      * @return {any}
      */
     add(specificTopic) {
-        return this.$http.post(this.URL, this.format(specificTopic)).then(response => response.data);
+        return this.$http.post(this.URL, this.format(specificTopic)).then(response => {
+            let specificTopicsData = this.specificTopicsCache.get(this.cacheKey);
+            specificTopicsData.push(response.data.item);
+            this.specificTopicsCache.put(this.cacheKey, specificTopicsData);
+            return response.data;
+        });
     }
 
     /**
@@ -75,12 +81,23 @@ export class SpecificTopicsService {
      */
     edit(specificTopic) {
         const specificTopicToRegister = this.format(specificTopic);
-        return this.$http.put(this.URL, specificTopicToRegister).then(response => response.data);
+        return this.$http.put(this.URL, specificTopicToRegister).then(response => {
+            let specificTopicsData = this.specificTopics.get(this.cacheKey);
+            for (let index = 0, length = specificTopicsData.length; index < length; index++) {
+                if (specificTopicsData[index].id === response.data.item.id) {
+                    specificTopicsData[index] = response.data.item;
+                    break;
+                }
+            }
+
+            this.projectsCache.put(this.cacheKey, specificTopicsData);
+            return response.data;
+        });
     }
 
     format(specificTopic) {
         const specificTopicToRegister = angular.copy(specificTopic);
-        specificTopicToRegister.idGeneralTopics = specificTopicToRegister.generalTopics.map(generalTopic => generalTopic.id);
+        specificTopicToRegister.idGeneralTopic = specificTopicToRegister.generalTopics.map(generalTopic => generalTopic.id);
         delete specificTopicToRegister.generalTopics;
         return specificTopicToRegister;
     }
