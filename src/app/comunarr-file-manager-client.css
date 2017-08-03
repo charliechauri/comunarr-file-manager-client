@@ -55,3 +55,15 @@ body {
 .full-width {
     width: 100%;
 }
+
+md-toast.md-success-toast-theme .md-toast-content {
+    background-color: green;
+}
+
+md-toast.md-error-toast-theme .md-toast-content {
+    background-color: maroon;
+}
+
+md-toast {
+	left: calc(50vw - 150px);
+}
