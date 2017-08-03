@@ -35,8 +35,9 @@ export const PasswordHandlerComponent = {
                         .change(form)
                         .then(response => {
                             this.ResponseHandler.success(response);
-                            if (!this.isAdmin) {
-                                let user = this.localStorageService.get('user');
+                            let user = this.localStorageService.get('user');
+
+                            if (user.id === this.user.id || !this.isAdmin) {
                                 user.password = form.newPassword;
                                 this.localStorageService.set('user', user);
                             }
