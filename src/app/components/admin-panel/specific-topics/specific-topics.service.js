@@ -82,7 +82,7 @@ export class SpecificTopicsService {
     edit(specificTopic) {
         const specificTopicToRegister = this.format(specificTopic);
         return this.$http.put(this.URL, specificTopicToRegister).then(response => {
-            let specificTopicsData = this.specificTopics.get(this.cacheKey);
+            let specificTopicsData = this.specificTopicsCache.get(this.cacheKey);
             for (let index = 0, length = specificTopicsData.length; index < length; index++) {
                 if (specificTopicsData[index].id === response.data.item.id) {
                     specificTopicsData[index] = response.data.item;
