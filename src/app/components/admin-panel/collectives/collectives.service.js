@@ -95,6 +95,8 @@ export class CollectivesService {
                 }
             }
 
+            this.collectivesCache.put(this.cacheKey, collectivesData);
+
             return response.data;
         });
     }
