@@ -103,6 +103,12 @@ export const SpecificTopicsComponent = {
                         this.selectedSpecificTopic = null;
                         return;
                     }
+
+                    if (!this.isEditing) {
+                        delete specificTopic.id;
+                        delete specificTopic.status;
+                    }
+
                     this.SpecificTopicsService[method](specificTopic).then(response => {
                         this.ResponseHandler.success(response);
                         this.selectedSpecificTopic = this.getNewSpecificTopic();
