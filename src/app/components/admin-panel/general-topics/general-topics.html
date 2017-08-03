@@ -18,7 +18,7 @@
 
         <md-divider></md-divider>
 
-        <article ng-repeat="generalTopic in $ctrl.generalTopics">
+        <article ng-repeat="generalTopic in $ctrl.generalTopics | orderBy: 'name'">
             <div layout="row">
                 <p flex="50" layout-margin> {{ generalTopic.name }} </p>
                 <p flex layout-margin>
