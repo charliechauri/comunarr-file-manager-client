@@ -29,14 +29,14 @@ export const PasswordHandlerComponent = {
                     template: dialogTemplate,
                     targetEvent
                 }).then(form => {
-                    let user = this.localStorageService.get('user');
-                    form.id = user.id;
+                    form.id = this.isAdmin ? this.user.id : this.localStorageService.get('user').id;
                     form.password = !this.isAdmin ? form.password : undefined;
                     this.PasswordHandler
                         .change(form)
                         .then(response => {
                             this.ResponseHandler.success(response);
                             if (!this.isAdmin) {
+                                let user = this.localStorageService.get('user');
                                 user.password = form.newPassword;
                                 this.localStorageService.set('user', user);
                             }
