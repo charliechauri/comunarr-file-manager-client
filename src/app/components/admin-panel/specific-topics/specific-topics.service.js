@@ -90,7 +90,7 @@ export class SpecificTopicsService {
                 }
             }
 
-            this.projectsCache.put(this.cacheKey, specificTopicsData);
+            this.specificTopicsCache.put(this.cacheKey, specificTopicsData);
             return response.data;
         });
     }

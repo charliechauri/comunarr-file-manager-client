@@ -44,7 +44,7 @@ export class ProjectsService {
         return this.$http.post(this.URL, project).then(response => {
             let projectsData = this.projectsCache.get(this.cacheKey);
             projectsData.push(response.data.item);
-            this.usersCache.put(this.cacheKey, projectsData);
+            this.projectsCache.put(this.cacheKey, projectsData);
 
             return response.data;
         });
