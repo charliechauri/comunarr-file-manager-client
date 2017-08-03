@@ -16,18 +16,18 @@
     <section ng-if="$ctrl.collectives.length > 0">
         <header layout="row">
             <h2 flex="40" layout-margin>Nombre</h2>
-            <h2 flex layout-margin>Proyectos</h2>
+            <h2 flex layout-margin>Proyectos relacionados</h2>
             <h2 flex layout-margin>Estatus</h2>
             <span flex></span>
         </header>
 
         <md-divider></md-divider>
 
-        <article ng-repeat="collective in $ctrl.collectives">
+        <article ng-repeat="collective in $ctrl.collectives | orderBy: 'name'">
             <div layout="row" layout-align="start center">
                 <p flex="40" layout-margin> {{ collective.name }} </p>
                 <ul flex layout-margin>
-                    <li ng-repeat="project in collective.comunarrProjects | filter: { status: true }">
+                    <li ng-repeat="project in collective.comunarrProjects | filter: { status: true } | orderBy: 'name'">
                         {{ project.name }}
                     </li>
                 </ul>
