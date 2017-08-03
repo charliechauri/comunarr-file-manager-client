@@ -23,7 +23,7 @@
 
         <md-divider></md-divider>
 
-        <article ng-repeat="specificTopic in $ctrl.specificTopics">
+        <article ng-repeat="specificTopic in $ctrl.specificTopics | orderBy: 'name'">
             <div layout="row" layout-align="start center">
                 <p flex="40" layout-margin> {{ specificTopic.name }} </p>
                 <ul flex layout-margin>

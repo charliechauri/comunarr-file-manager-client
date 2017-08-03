@@ -20,7 +20,7 @@
 
         <md-divider></md-divider>
 
-        <article layout="row" layout-align="start center" ng-repeat="user in $ctrl.users">
+        <article layout="row" layout-align="start center" ng-repeat="user in $ctrl.users | orderBy: 'name'">
             <p flex="30" layout-margin> {{ user.name }} </p>
             <p flex="15" layout-margin>
                 {{ user.userName }}

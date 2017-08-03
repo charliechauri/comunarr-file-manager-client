@@ -18,7 +18,7 @@
 
         <md-divider></md-divider>
 
-        <article ng-repeat="project in $ctrl.projects">
+        <article ng-repeat="project in $ctrl.projects | orderBy: 'name'">
             <div layout="row">
                 <p flex="50" layout-margin> {{ project.name }} </p>
                 <p flex layout-margin>

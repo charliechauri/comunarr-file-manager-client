@@ -18,7 +18,7 @@
 
         <md-divider></md-divider>
 
-        <article ng-repeat="contentType in $ctrl.contentTypes">
+        <article ng-repeat="contentType in $ctrl.contentTypes | orderBy: 'name'">
             <div layout="row">
                 <p flex="50" layout-margin> {{ contentType.name }} </p>
                 <p flex layout-margin>
