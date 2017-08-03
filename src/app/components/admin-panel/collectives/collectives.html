@@ -9,6 +9,10 @@
         </div>
     </header>
 
+    <aside>
+        <small>* Sólo se muestran los proyectos marcados como activos</small>
+    </aside>
+
     <section ng-if="$ctrl.collectives.length > 0">
         <header layout="row">
             <h2 flex="40" layout-margin>Nombre</h2>
@@ -23,7 +27,7 @@
             <div layout="row" layout-align="start center">
                 <p flex="40" layout-margin> {{ collective.name }} </p>
                 <ul flex layout-margin>
-                    <li ng-repeat="project in collective.comunarrProjects">
+                    <li ng-repeat="project in collective.comunarrProjects | filter: { status: true }">
                         {{ project.name }}
                     </li>
                 </ul>
