@@ -12,6 +12,7 @@ export class ContentTypesService {
         this.URL = `${EnvironmentService.getCurrent().BASE_URL}/content-type`;
 
         this.contentTypesCache = CacheFactory.get('contentTypesCache');
+        this.cacheKey = 'contentTypes';
     }
 
     /**
@@ -21,14 +22,13 @@ export class ContentTypesService {
     get(forceRefresh) {
 
         let deferred = this.$q.defer(),
-            cacheKey = 'projects',
-            contentTypesData = forceRefresh ? null : this.contentTypesCache.get(cacheKey);
+            contentTypesData = forceRefresh ? null : this.contentTypesCache.get(this.cacheKey);
 
         if (contentTypesData) {
             deferred.resolve(contentTypesData);
         } else {
             this.$http.get(this.URL).then(response => {
-                this.contentTypesCache.put(cacheKey, response.data);
+                this.contentTypesCache.put(this.cacheKey, response.data);
                 deferred.resolve(response.data);
             });
         }
@@ -42,7 +42,13 @@ export class ContentTypesService {
      * @return {any}
      */
     add(contentType) {
-        return this.$http.post(this.URL, contentType).then(response => response.data);
+        return this.$http.post(this.URL, contentType).then(response => {
+            let contentTypesData = this.contentTypesCache.get(this.cacheKey);
+            contentTypesData.push(response.data.item);
+            this.contentTypesCache.put(this.cacheKey, contentTypesData);
+
+            return response.data;
+        });
     }
 
     /**
@@ -51,6 +57,17 @@ export class ContentTypesService {
      * @return {any}
      */
     edit(contentType) {
-        return this.$http.put(this.URL, contentType).then(response => response.data);
+        return this.$http.put(this.URL, contentType).then(response => {
+            let contentTypesData = this.contentTypesCache.get(this.cacheKey);
+            for (let index = 0, length = contentTypesData.length; index < length; index++) {
+                if (contentTypesData[index].id === response.data.item.id) {
+                    contentTypesData[index] = response.data.item;
+                    break;
+                }
+            }
+
+            this.contentTypesCache.put(this.cacheKey, contentTypesData);
+            return response.data;
+        });
     }
 }

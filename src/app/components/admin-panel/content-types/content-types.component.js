@@ -57,6 +57,12 @@ export const ContentTypesComponent = {
                         this.selectedContentType = null;
                         return;
                     }
+
+                    if (!this.isEditing) {
+                        delete contentType.id;
+                        delete contentType.status;
+                    }
+
                     this.ContentTypesService[method](contentType).then(response => {
                         this.ResponseHandler.success(response);
                         this.selectedContentType = this.getNewContentType();
