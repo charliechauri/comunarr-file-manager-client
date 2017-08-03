@@ -59,7 +59,6 @@ export class ProjectsService {
         return this.$http.put(this.URL, project).then(response => {
 
             let projectsData = this.projectsCache.get(this.cacheKey);
-            debugger;
             for (let index = 0, length = projectsData.length; index < length; index++) {
                 if (projectsData[index].id === response.data.item.id) {
                     projectsData[index] = response.data.item;
