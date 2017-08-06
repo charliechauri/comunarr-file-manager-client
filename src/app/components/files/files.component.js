@@ -53,9 +53,9 @@ export const FilesComponent = {
                 simple: {
                     name: '',
                     author: '',
-                    idComunarrProject: null,
-                    idCollective: null,
-                    idGeneralTopic: null,
+                    idComunarrProject: undefined,
+                    idCollective: undefined,
+                    idGeneralTopic: undefined,
                     uploadedByMe: false
                 }
             };
@@ -70,11 +70,7 @@ export const FilesComponent = {
             this.CollectivesService.getRelatedProjects().then(relations => {
                 this.CollectivesService.get().then(collectives => {
                     collectives.forEach(collective => {
-
-                        console.log(collective);
-                        console.log(relations);
                         collective.idComunarrProject = relations.filter(relation => relation.idCollective === collective.id)[0].idComunarrProject;
-                        console.log(collective);
                     });
                     this.collectives = collectives;
                 });
@@ -100,7 +96,7 @@ export const FilesComponent = {
         isAtLeastOneFilterSelected(filters) {
             let { name, author, idComunarrProject, idCollective, idGeneralTopic, uploadedByMe } = filters;
 
-            return uploadedByMe || (name && name.length > 0) || (author && author.length) || !!idComunarrProject || !!idCollective || !!idGeneralTopic;
+            return uploadedByMe || (name && name.length > 0) || (author && author.length > 0) || !!idComunarrProject || !!idCollective || !!idGeneralTopic;
         }
 
         /**
@@ -135,7 +131,6 @@ export const FilesComponent = {
 
             // Hide filters UI
             if (searchType === 'simple') {
-                this.showSimpleSearchFilters = false;
                 this.FilesService.simpleSearch(filters).then(data => {
                     this.setResults(data, this);
                 });
@@ -283,8 +278,6 @@ export const FilesComponent = {
             this.form.keyWords = result.idKeyWord && result.idKeyWord.length > 0 ? result.idKeyWord.map(id => {
                 return this.keyWords.find(keyWord => keyWord.id === id);
             }) : [];
-
-            console.log(this.form.keyWords);
 
             this.$mdDialog.show({
                 preserveScope: true,

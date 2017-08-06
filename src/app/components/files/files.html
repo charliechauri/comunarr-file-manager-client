@@ -62,7 +62,8 @@
                             <md-input-container class="md-block">
                                 <label>Proyecto</label>
                                 <md-select ng-model="$ctrl.filters.simple.idComunarrProject">
-                                    <md-option ng-repeat="project in $ctrl.comunarrProjects" ng-value="{{ project.id }}">
+                                    <md-option ng-value="undefined">Todos</md-option>
+                                    <md-option ng-repeat="project in $ctrl.comunarrProjects | filter: { status: true }" ng-value="{{ project.id }}">
                                         {{ project.name }}
                                     </md-option>
                                 </md-select>
@@ -73,8 +74,9 @@
                         <section flex="15">
                             <md-input-container class="md-block">
                                 <label>Colectivo</label>
-                                <md-select ng-model="$ctrl.filters.simple.idCollective" ng-disabled="!$ctrl.filters.simple.idComunarrProject">
-                                    <md-option ng-repeat="collective in $ctrl.collectives | filter: { idComunarrProject: $ctrl.filters.simple.idComunarrProject }"
+                                <md-select ng-model="$ctrl.filters.simple.idCollective">
+                                    <md-option ng-value="undefined">Todos</md-option>
+                                    <md-option ng-repeat="collective in $ctrl.collectives | filter: { idComunarrProject: $ctrl.filters.simple.idComunarrProject, status: true }"
                                         ng-value="{{ collective.id }}">
                                         {{ collective.name }}
                                     </md-option>
@@ -87,7 +89,8 @@
                             <md-input-container class="md-block">
                                 <label>Tema general</label>
                                 <md-select ng-model="$ctrl.filters.simple.idGeneralTopic">
-                                    <md-option ng-repeat="generalTopic in $ctrl.generalTopics" ng-value="{{ generalTopic.id }}">
+                                    <md-option ng-value="undefined">Todos</md-option>
+                                    <md-option ng-repeat="generalTopic in $ctrl.generalTopics | filter: { status: true }" ng-value="{{ generalTopic.id }}">
                                         {{ generalTopic.name }}
                                     </md-option>
                                 </md-select>
