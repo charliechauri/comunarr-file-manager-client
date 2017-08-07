@@ -3,6 +3,7 @@
  */
 
 import angular from 'angular';
+import FileSaver from 'file-saver';
 
 export class FilesService {
     constructor($http, EnvironmentService) {
@@ -125,9 +126,19 @@ export class FilesService {
     /**
      * Download a file
      * @param {number} id
-     * @todo
+     * @return {any} file
      */
     download(id) {
-
+        return this.$http.get(`${this.URL}/${id}`, { responseType: 'blob' }).then(response => {
+            try {
+                let fileName = response.headers('X-filename');
+                let blob = new Blob([response.data], { type: response.headers('Content-Type') });
+                FileSaver.saveAs(blob, fileName);
+                return response;
+            } catch (ex) {
+                // Fallback to download file directly from server
+                window.open(`${this.URL}/${id}`);
+            }
+        });
     }
 }
