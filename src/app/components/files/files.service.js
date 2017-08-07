@@ -43,7 +43,15 @@ export class FilesService {
      */
     post(form) {
         let fd = new FormData();
-        for (const prop in form) { fd.append(prop, form[prop]); }
+        for (const prop in form) {
+            if (prop !== 'keyWords') {
+                fd.append(prop, form[prop]);
+            } else {
+                for (let index = 0, length = form[prop].length; index < length; index++) {
+                    fd.append(prop, form[prop][index]);
+                }
+            }
+        }
 
         const config = {
             transformRequest: angular.identity,
