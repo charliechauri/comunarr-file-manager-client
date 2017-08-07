@@ -4,6 +4,8 @@ export const UserTypeFilter = UserTypesService => {
     let typesOfUser = UserTypesService.get();
 
     return typeId => {
-        return typesOfUser.filter(type => type.id === typeId)[0].name || typesOfUser[2].name;
+        let types = typesOfUser.filter(type => type.id === typeId);
+
+        return types.length > 0 ? types[0].name : typesOfUser[2].name;
     };
 };
