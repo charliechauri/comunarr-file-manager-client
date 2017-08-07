@@ -10,7 +10,7 @@ import dialogDetailsTemplate from './files.details.dialog.html';
 export const FilesComponent = {
     bindings: {},
     controller: class FilesComponent {
-        constructor($scope, $window, $mdToast, $mdDialog, localStorageService, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService, KeyWordsService, $stateParams, $state) {
+        constructor($scope, $window, $mdToast, $mdDialog, localStorageService, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService, KeyWordsService, $stateParams, $state, ResponseHandler) {
             'ngInject';
 
             this.$scope = $scope;
@@ -28,6 +28,7 @@ export const FilesComponent = {
             this.KeyWordsService = KeyWordsService;
             this.$stateParams = $stateParams;
             this.$state = $state;
+            this.ResponseHandler = ResponseHandler;
         }
 
         $onInit() {
@@ -299,10 +300,12 @@ export const FilesComponent = {
             this.results = [];
         }
 
-        download(file) {
-            this.FilesService.download(file.id).then(file => {
-                console.log(file);
-            });
+        /**
+         * Download physical file from server
+         * @param {*} fileResult
+         */
+        download(fileResult) {
+            this.FilesService.download(fileResult.id).then(this.ResponseHandler.success);
         }
     },
     template
