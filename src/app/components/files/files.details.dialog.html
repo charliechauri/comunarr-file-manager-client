@@ -50,7 +50,7 @@
                     <span class="md-subhead"><strong>Tipo de contenido:</strong> {{ $ctrl.form.contentType }}</span>
                 </div>
                 <div flex="33">
-                    <span class="md-subhead"> <strong>Lugar:</strong> {{ $ctrl.form.place }}</span>
+                    <span class="md-subhead"> <strong>Lugar:</strong> {{ $ctrl.form.place }} <label ng-if="$ctrl.form.place.length > 0"> - </label> </span>
                 </div>
                 <div flex="33">
                     <span class="md-subhead"> <strong>Creado por:</strong> {{ $ctrl.form.uploadedBy }}</span>
@@ -70,13 +70,12 @@
             </div>
 
             <div>
-                <span class="md-subhead"> <strong>Palabras clave: </strong>
+                <span class="md-subhead"> <strong>Palabras clave: </strong></span> <span ng-if="$ctrl.form.keyWords.length === 0"> - - </span>
                 <md-chips ng-model="$ctrl.form.keyWords" readonly="true" ng-if="$ctrl.form.keyWords.length >= 0">
                     <md-chip-template>
                         {{ $chip.name }}
                     </md-chip-template>
-                </md-chips> 
-                <span ng-if="$ctrl.form.keyWords.length === 0"> - - </span> 
+                </md-chips>
             </div>
 
         </md-content>
