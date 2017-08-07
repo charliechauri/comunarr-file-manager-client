@@ -56,10 +56,10 @@ export const FilesComponent = {
                     idComunarrProject: undefined,
                     idCollective: undefined,
                     idGeneralTopic: undefined,
-                    uploadedByMe: false
-                }
+                    uploadedByMe: undefined
+                },
+                specific: this.FilesService.getSpecificFilters()
             };
-            this.filters.specific = this.FilesService.getSpecificFilters();
             this.results = [];
 
             this.$scope.fileChanged = this.fileChanged;
@@ -93,10 +93,15 @@ export const FilesComponent = {
             this.getKeyWords(false);
         }
 
+        /**
+         * Validate if at least one of the simple filters is selected or has been selected once
+         * @param {any} filters 
+         * @return {bool}
+         */
         isAtLeastOneFilterSelected(filters) {
             let { name, author, idComunarrProject, idCollective, idGeneralTopic, uploadedByMe } = filters;
 
-            return uploadedByMe || (name && name.length > 0) || (author && author.length > 0) || !!idComunarrProject || !!idCollective || !!idGeneralTopic;
+            return (uploadedByMe === false || uploadedByMe === true) || (name && name.length > 0) || (author && author.length > 0) || !!idComunarrProject || !!idCollective || !!idGeneralTopic;
         }
 
         /**
@@ -292,6 +297,12 @@ export const FilesComponent = {
         resetResults() {
             this.searchPerformed = false;
             this.results = [];
+        }
+
+        download(file) {
+            this.FilesService.download(file.id).then(file => {
+                console.log(file);
+            });
         }
     },
     template
