@@ -3,7 +3,7 @@
         <h1>Búsqueda de archivos</h1>
         <span flex></span>
         <div>
-            <md-button class="md-primary md-raised" ng-click="$ctrl.addOrEditFile($event, 'add')" ng-if="$ctrl.userInfo.privacyType === 1 || $ctrl.userInfo.privacyType === 2">
+            <md-button class="md-primary md-raised" ng-click="$ctrl.addOrEditFile($event, 'add')" ng-if="$ctrl.user.idUserType === 1 || $ctrl.user.idUserType === 2">
                 Subir archivo
                 <md-icon>add</md-icon>
             </md-button>
@@ -673,7 +673,7 @@
                         </md-tooltip>
                     </md-button>
                 </div>
-                <div ng-if="$ctrl.userInfo.privacyType === 1 || $ctrl.userInfo.id === result.idUser">
+                <div ng-if="$ctrl.user.idUserType === 1 || $ctrl.user.id === result.idUser">
                     <md-button class="md-fab md-primary md-mini" ng-click="$ctrl.addOrEditFile($event, 'edit', result)">
                         <md-icon>edit</md-icon>
                         <md-tooltip>

@@ -40,7 +40,7 @@ export const FilesComponent = {
             }
 
             this.fileTypes = ['avi', 'doc', 'jpg', 'mov', 'mp3', 'mpg', 'pdf', 'png', 'ppt', 'txt', 'wmv', 'xls', 'zip'];
-            this.userInfo = this.localStorageService.get('userInfo');
+            this.user = this.localStorageService.get('user');
             this.form = {};
 
             this.privacyTypes = [
