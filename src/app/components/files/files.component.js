@@ -211,7 +211,7 @@ export const FilesComponent = {
                 .then(formData => {
                     formData.keyWords = formData.keyWords.map(keyWord => keyWord.name);
 
-                    this.FilesService.post(formData).then(() => {
+                    this.FilesService[method](formData).then(() => {
                         this.$mdToast.show(this.$ctrl.$mdToast.simple()
                             .textContent('Éxito: se subió de forma correcta el archivo')
                             .position('top right')
@@ -233,6 +233,21 @@ export const FilesComponent = {
          */
         addKeyWord($chip) {
             return (typeof $chip === 'object') ? $chip : { name: $chip };
+        }
+
+        /**
+         * Validate that chip's name has a length > 4
+         * @param {any} $chip { name: string }
+         */
+        validateChip($chip) {
+            debugger;
+            if (typeof $chip === 'object' && $chip.name.length < 4) {
+                this.$mdToast.show(this.$mdToast.simple()
+                    .textContent('Cada palabra clave debe tener una longitud mayor a 4')
+                    .position('top right')
+                );
+                this.form.keyWords.pop();
+            }
         }
 
         /**

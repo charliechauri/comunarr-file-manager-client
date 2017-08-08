@@ -41,7 +41,7 @@ export class FilesService {
     /**
      * @param {any} form
      */
-    post(form) {
+    add(form) {
         let fd = new FormData();
         for (const prop in form) {
             if (prop !== 'keyWords') {
@@ -60,6 +60,30 @@ export class FilesService {
 
         return this.$http.post(this.URL, fd, config).then(response => response.data);
 
+    }
+
+    /**
+     * Updates file
+     * @param {any} form
+     */
+    edit(form) {
+        let fd = new FormData();
+        for (const prop in form) {
+            if (prop !== 'keyWords') {
+                fd.append(prop, form[prop]);
+            } else {
+                for (let index = 0, length = form[prop].length; index < length; index++) {
+                    fd.append(prop, form[prop][index]);
+                }
+            }
+        }
+
+        const config = {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        };
+
+        return this.$http.put(this.URL, fd, config).then(response => response.data);
     }
 
     /**

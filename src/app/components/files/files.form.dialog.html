@@ -138,7 +138,7 @@
 
                 <!-- Key words -->
                 <div layout="row" layout-padding>
-                    <md-chips flex ng-model="$ctrl.form.keyWords" md-transform-chip="$ctrl.addKeyWord($chip)" md-require-match="false">
+                    <md-chips flex ng-model="$ctrl.form.keyWords" md-on-add="$ctrl.validateChip($chip)" md-transform-chip="$ctrl.addKeyWord($chip)" md-require-match="false">
                         <md-autocomplete md-selected-item="$ctrl.selectedKeyWord.name" md-search-text="$ctrl.searchText" md-items="keyWord in $ctrl.filterKeyWords($ctrl.searchText)"
                             md-item-text="keyWord.name" placeholder="Palabras clave">
                             <span md-highlight-text="$ctrl.searchText"> {{ keyWord.name }} </span>
@@ -159,7 +159,7 @@
             <md-button md-no-ink class="md-primary" ng-click="$ctrl.$mdDialog.cancel()">
                 Cancelar
             </md-button>
-            <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.form)" ng-if="$ctrl.isEditing" ng-disabled="fileForm.$invalid || !$ctrl.form.file">
+            <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.form)" ng-if="$ctrl.isEditing" ng-disabled="fileForm.$invalid || (!$ctrl.form.file && !$ctrl.isEditing)">
                 Editar
             </md-button>
             <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.form)" ng-if="!$ctrl.isEditing" ng-disabled="fileForm.$invalid || !$ctrl.form.file">
