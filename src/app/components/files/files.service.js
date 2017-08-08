@@ -67,7 +67,7 @@ export class FilesService {
      * @param {any} form
      */
     edit(form) {
-        this.form = this.deleteUnnecessaryProperties(this.form);
+        form = this.deleteUnnecessaryProperties(form);
         let fd = new FormData();
         for (const prop in form) {
             if (prop !== 'keyWords') {
@@ -94,18 +94,18 @@ export class FilesService {
      */
     deleteUnnecessaryProperties(form) {
         [
-            'Collective',
-            'ComunarrProject',
-            'GeneralTopic',
-            'SpecificTopic',
-            'Privacytype',
-            'Contenttype',
-            'Filetype',
-            'Update date',
-            'Uploadedby',
-            'Iduser',
-            'Idkeyword',
-            'Filetypeimage',
+            'collective',
+            'comunarrProject',
+            'generalTopic',
+            'specificTopic',
+            'privacyType',
+            'contentType',
+            'fileType',
+            'updateDate',
+            'uploadedBy',
+            'idUser',
+            'idKeyWord',
+            'fileTypeImage',
             'relatedDate'
         ].forEach(key => {
             delete form[key];
