@@ -213,7 +213,7 @@ export const FilesComponent = {
                     formData.keyWords = formData.keyWords.map(keyWord => keyWord.name);
 
                     this.FilesService[method](formData).then(() => {
-                        this.$mdToast.show(this.$ctrl.$mdToast.simple()
+                        this.$mdToast.show(this.$mdToast.simple()
                             .textContent('Éxito: se subió de forma correcta el archivo')
                             .position('top right')
                         );
