@@ -43,7 +43,7 @@ export const AuthFactory = ($injector, EnvironmentService, localStorageService) 
 
         $injector.get('$mdToast').show($injector.get('$mdToast').simple()
             .textContent(err.message)
-            .position('top')
+            .position('top right')
         );
 
         return $injector.get('$q').reject(response);

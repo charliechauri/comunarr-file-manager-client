@@ -31,7 +31,7 @@ export const LoginComponent = {
                     this.localStorageService.set('user', user);
                     this.$mdToast.show(this.$mdToast.simple()
                         .textContent('¡Bienvenido!')
-                        .position('top')
+                        .position('top right')
                     );
                     this.$state.go('files', { prevState: 'login' });
                 });
