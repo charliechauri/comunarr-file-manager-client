@@ -149,4 +149,13 @@ export class FilesService {
             }
         });
     }
+
+    /**
+     * Get all file types
+     * This method does not implement cache because it creates automatically everytime a new file is added and it is a new type of file
+     * @return {any} promise
+     */
+    getFileTypes() {
+        return this.$http.get(`${this.URL}-type`).then(response => response.data);
+    }
 }

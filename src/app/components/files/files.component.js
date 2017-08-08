@@ -57,7 +57,7 @@ export const FilesComponent = {
                     idComunarrProject: undefined,
                     idCollective: undefined,
                     idGeneralTopic: undefined,
-                    uploadedByMe: undefined
+                    uploadedByMe: true
                 },
                 specific: this.FilesService.getSpecificFilters()
             };
@@ -92,6 +92,8 @@ export const FilesComponent = {
 
             this.keyWords = [];
             this.getKeyWords(false);
+
+            this.FilesService.getFileTypes().then(fileTypesCatalog => this.fileTypesCatalog = fileTypesCatalog);
         }
 
         /**
@@ -101,8 +103,8 @@ export const FilesComponent = {
          */
         isAtLeastOneFilterSelected(filters) {
             let { name, author, idComunarrProject, idCollective, idGeneralTopic, uploadedByMe } = filters;
-
-            return (uploadedByMe === false || uploadedByMe === true) || (name && name.length > 0) || (author && author.length > 0) || !!idComunarrProject || !!idCollective || !!idGeneralTopic;
+            return (uploadedByMe) ||
+                (uploadedByMe === false && (name && name.length > 0) || (author && author.length > 0) || !!idComunarrProject || !!idCollective || !!idGeneralTopic);
         }
 
         /**
