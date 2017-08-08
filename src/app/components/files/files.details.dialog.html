@@ -50,7 +50,7 @@
                     <span class="md-subhead"><strong>Tipo de contenido:</strong> {{ $ctrl.form.contentType }}</span>
                 </div>
                 <div flex="33">
-                    <span class="md-subhead"> <strong>Lugar:</strong> {{ $ctrl.form.place }} <label ng-if="$ctrl.form.place.length > 0"> - </label> </span>
+                    <span class="md-subhead"> <strong>Lugar:</strong> {{ $ctrl.form.place }} <label ng-if="!$ctrl.form.place || $ctrl.form.place.length === 0"> -- </label> </span>
                 </div>
                 <div flex="33">
                     <span class="md-subhead"> <strong>Creado por:</strong> {{ $ctrl.form.uploadedBy }}</span>
@@ -59,7 +59,7 @@
 
             <div layout="row">
                 <div flex="33">
-                    <span class="md-subhead"> <strong>Fecha del documento:</strong> {{ $ctrl.form.relatedDate | date: 'dd/MM/yyyy' }}</span>
+                    <span class="md-subhead"> <strong>Fecha del documento:</strong> {{ $ctrl.form.relatedDate | date: 'dd/MM/yyyy' }} <label ng-if="!$ctrl.form.relatedDate || $ctrl.form.relatedDate.length === 0"> -- </label></span>
                 </div>
                 <div flex="33">
                     <span class="md-subhead"> <strong>Fecha de actualización:</strong> {{ $ctrl.form.updateDate | date: 'dd/MM/yyyy' }}</span>
