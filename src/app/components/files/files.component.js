@@ -71,7 +71,8 @@ export const FilesComponent = {
             this.CollectivesService.getRelatedProjects().then(relations => {
                 this.CollectivesService.get().then(collectives => {
                     collectives.forEach(collective => {
-                        collective.idComunarrProject = relations.filter(relation => relation.idCollective === collective.id)[0].idComunarrProject;
+                        const relation = relations.filter(relation => relation.idCollective === collective.id);
+                        collective.idComunarrProject = relation.length > 0 ? relation[0].idComunarrProject : null;
                     });
                     this.collectives = collectives;
                 });
@@ -83,7 +84,8 @@ export const FilesComponent = {
             this.SpecificTopicsService.getRelatedGeneralTopics().then(relations => {
                 this.SpecificTopicsService.get().then(specificTopics => {
                     specificTopics.forEach(specificTopic => {
-                        specificTopic.idGeneralTopic = relations.filter(relation => relation.idSpecificTopic === specificTopic.id)[0].idGeneralTopic;
+                        const relation = relations.filter(relation => relation.idSpecificTopic === specificTopic.id);
+                        specificTopic.idGeneralTopic = relation.length > 0 ? relation[0].idGeneralTopic : null;
                     });
                     this.specificTopics = specificTopics;
                 });
@@ -216,6 +218,7 @@ export const FilesComponent = {
                         );
                         this.form = {};
                         this.isEditing = false;
+                        this.getKeyWords(true);
                     });
                 })
                 .catch(() => {
