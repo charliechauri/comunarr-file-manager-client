@@ -202,6 +202,7 @@ export const FilesComponent = {
             }
             this.$mdDialog
                 .show({
+                    autoWrap:false,
                     escapeToClose: false,
                     preserveScope: true,
                     scope: this.$scope,
@@ -221,7 +222,7 @@ export const FilesComponent = {
                         this.getKeyWords(true);
                     });
                 })
-                .catch(() => {
+                .catch(err => {
                     this.form = {};
                     this.isEditing = false;
                 });
@@ -240,7 +241,6 @@ export const FilesComponent = {
          * @param {any} $chip { name: string }
          */
         validateChip($chip) {
-            debugger;
             if (typeof $chip === 'object' && $chip.name.length < 4) {
                 this.$mdToast.show(this.$mdToast.simple()
                     .textContent('Cada palabra clave debe tener una longitud mayor a 4')
