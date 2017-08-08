@@ -202,7 +202,7 @@ export const FilesComponent = {
             }
             this.$mdDialog
                 .show({
-                    autoWrap:false,
+                    autoWrap: false,
                     escapeToClose: false,
                     preserveScope: true,
                     scope: this.$scope,
@@ -220,6 +220,7 @@ export const FilesComponent = {
                         this.form = {};
                         this.isEditing = false;
                         this.getKeyWords(true);
+                        this.search(this.selectedTabIndex === 1 ? 'specific' : 'simple');
                     });
                 })
                 .catch(err => {
