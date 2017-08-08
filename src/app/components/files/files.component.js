@@ -135,7 +135,7 @@ export const FilesComponent = {
             this.searchPerformed = true;
             this.results = [];
 
-            const filters = searchType === 'simple' ? this.filters.simple : this.filters.specific;
+            const filters = searchType === 'simple' ? angular.copy(this.filters.simple) : angular.copy(this.filters.specific);
 
             // Hide filters UI
             if (searchType === 'simple') {
