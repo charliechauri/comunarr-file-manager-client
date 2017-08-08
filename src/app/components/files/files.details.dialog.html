@@ -65,7 +65,9 @@
                     <span class="md-subhead"> <strong>Fecha de actualización:</strong> {{ $ctrl.form.updateDate | date: 'dd/MM/yyyy' }}</span>
                 </div>
                 <div flex="33">
-                    <span class="md-subhead"> <strong>Nivel de acceso:</strong> {{ $ctrl.form.idPrivacyType | UserTypeFilter }}</span>
+                    <span class="md-subhead">
+                        <strong>¿Quién lo puede ver?:</strong> {{ $ctrl.form.privacyType }}
+                    </span>
                 </div>
             </div>
 
