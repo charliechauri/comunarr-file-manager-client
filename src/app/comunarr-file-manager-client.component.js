@@ -59,7 +59,6 @@ export const ComunarrFileManagerClientComponent = {
         logOut() {
             this.$mdToast.show(this.$mdToast.simple()
                 .textContent('Has finalizado tu sesión')
-                .theme('success-toast')
                 .position('top')
             );
 

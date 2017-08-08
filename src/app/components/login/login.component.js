@@ -30,7 +30,6 @@ export const LoginComponent = {
                 .then(user => {
                     this.localStorageService.set('user', user);
                     this.$mdToast.show(this.$mdToast.simple()
-                        .theme('success-toast')
                         .textContent('¡Bienvenido!')
                         .position('top')
                     );

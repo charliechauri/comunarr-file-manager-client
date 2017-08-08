@@ -42,7 +42,6 @@ export const AuthFactory = ($injector, EnvironmentService, localStorageService) 
         const err = response.data;
 
         $injector.get('$mdToast').show($injector.get('$mdToast').simple()
-            .theme('error-toast')
             .textContent(err.message)
             .position('top')
         );
