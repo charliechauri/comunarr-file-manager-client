@@ -67,6 +67,7 @@ export class FilesService {
      * @param {any} form
      */
     edit(form) {
+        this.form = this.deleteUnnecessaryProperties(this.form);
         let fd = new FormData();
         for (const prop in form) {
             if (prop !== 'keyWords') {
@@ -84,6 +85,33 @@ export class FilesService {
         };
 
         return this.$http.put(this.URL, fd, config).then(response => response.data);
+    }
+
+    /**
+     * Delete properties that the get method return in each register for edition purposes
+     * @param {any} form
+     * @return {any}
+     */
+    deleteUnnecessaryProperties(form) {
+        [
+            'Collective',
+            'ComunarrProject',
+            'GeneralTopic',
+            'SpecificTopic',
+            'Privacytype',
+            'Contenttype',
+            'Filetype',
+            'Update date',
+            'Uploadedby',
+            'Iduser',
+            'Idkeyword',
+            'Filetypeimage',
+            'relatedDate'
+        ].forEach(key => {
+            delete form[key];
+        });
+
+        return form;
     }
 
     /**
