@@ -250,89 +250,91 @@
                             </div>
                         </section>
 
-                        <!-- Project -->
-                        <section flex="33">
-                            <div layout-padding layout-margin md-whiteframe="1">
-                                <div layout="row" layout-align="start start" ng-repeat="filterProject in $ctrl.filters.specific.idComunarrProject">
-                                    <md-input-container class="md-block" ng-hide="$first">
-                                        <label>Operador</label>
-                                        <md-select ng-model="filterProject.op" ng-disabled="$first">
-                                            <md-option ng-value="'OR'" ng-if="$first"> OR </md-option>
-                                            <md-option ng-value="'AND'" ng-selected="!$first"> AND </md-option>
-                                            <md-option ng-value="'NOT'"> NOT </md-option>
-                                        </md-select>
-                                    </md-input-container>
+                        <!-- Project & collective -->
+                        <section flex="66">
+                            <div layout="row" layout-padding layout-margin md-whiteframe="1">
+                                <!-- Project -->
+                                <div flex="50">
+                                    <div layout="row" layout-align="start start" ng-repeat="filterProject in $ctrl.filters.specific.idComunarrProject">
+                                        <md-input-container class="md-block" ng-hide="$first">
+                                            <label>Operador</label>
+                                            <md-select ng-model="filterProject.op" ng-disabled="$first">
+                                                <md-option ng-value="'OR'" ng-if="$first"> OR </md-option>
+                                                <md-option ng-value="'AND'" ng-selected="!$first"> AND </md-option>
+                                                <md-option ng-value="'NOT'"> NOT </md-option>
+                                            </md-select>
+                                        </md-input-container>
 
-                                    <md-input-container class="md-block" flex>
-                                        <label>Proyecto</label>
-                                        <md-select ng-model="filterProject.id">
-                                            <md-option ng-repeat="project in $ctrl.comunarrProjects" ng-value="{{ project.id }}">
-                                                {{ project.name }}
-                                            </md-option>
-                                        </md-select>
-                                    </md-input-container>
+                                        <md-input-container class="md-block" flex>
+                                            <label>Proyecto</label>
+                                            <md-select ng-model="filterProject.id">
+                                                <md-option ng-repeat="project in $ctrl.comunarrProjects" ng-value="{{ project.id }}">
+                                                    {{ project.name }}
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>
 
-                                    <div ng-if="$first">
-                                        <md-button ng-disabled="$ctrl.filters.specific.idComunarrProject.length >= 5" class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.addFilter('idComunarrProject', 'id')">
-                                            <md-icon>add</md-icon>
-                                            <md-tooltip>
-                                                Añadir filtro
-                                            </md-tooltip>
-                                        </md-button>
-                                    </div>
+                                        <div ng-if="$first">
+                                            <md-button ng-disabled="$ctrl.filters.specific.idComunarrProject.length >= 5" class="md-primary md-raised md-fab md-mini"
+                                                ng-click="$ctrl.addFilter('idComunarrProject', 'id')">
+                                                <md-icon>add</md-icon>
+                                                <md-tooltip>
+                                                    Añadir filtro
+                                                </md-tooltip>
+                                            </md-button>
+                                        </div>
 
-                                    <div ng-if="!$first">
-                                        <md-button class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.deleteFilter('idComunarrProject', 'value', filterProject)">
-                                            <md-icon>delete</md-icon>
-                                            <md-tooltip>
-                                                Eliminar filtro
-                                            </md-tooltip>
-                                        </md-button>
+                                        <div ng-if="!$first">
+                                            <md-button class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.deleteFilter('idComunarrProject', 'value', filterProject)">
+                                                <md-icon>delete</md-icon>
+                                                <md-tooltip>
+                                                    Eliminar filtro
+                                                </md-tooltip>
+                                            </md-button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                                <!-- Collective -->
+                                <div flex="50">
+                                    <div layout="row" layout-align="start start" ng-repeat="filterCollective in $ctrl.filters.specific.idCollective">
+                                        <md-input-container class="md-block" ng-hide="$first">
+                                            <label>Operador</label>
+                                            <md-select ng-model="filterCollective.op" ng-disabled="$first">
+                                                <md-option ng-value="'OR'" ng-if="$first"> OR </md-option>
+                                                <md-option ng-value="'AND'" ng-selected="!$first"> AND </md-option>
+                                                <md-option ng-value="'NOT'"> NOT </md-option>
+                                            </md-select>
+                                        </md-input-container>
 
-                        <!-- Collective -->
-                        <section flex="33">
-                            <div layout-padding layout-margin md-whiteframe="1">
-                                <div layout="row" layout-align="start start" ng-repeat="filterCollective in $ctrl.filters.specific.idCollective">
-                                    <md-input-container class="md-block" ng-hide="$first">
-                                        <label>Operador</label>
-                                        <md-select ng-model="filterCollective.op" ng-disabled="$first">
-                                            <md-option ng-value="'OR'" ng-if="$first"> OR </md-option>
-                                            <md-option ng-value="'AND'" ng-selected="!$first"> AND </md-option>
-                                            <md-option ng-value="'NOT'"> NOT </md-option>
-                                        </md-select>
-                                    </md-input-container>
+                                        <md-input-container class="md-block" flex>
+                                            <label>Colectivo</label>
+                                            <md-select ng-model="filterCollective.id" ng-disabled="$ctrl.filters.specific.idComunarrProject[0].id === null">
+                                                <md-option ng-repeat="collective in $ctrl.collectives | filter:$ctrl.filterCollective($ctrl.filters.specific.idComunarrProject)"
+                                                    ng-value="{{ collective.id }}">
+                                                    {{ collective.name }}
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>
 
-                                    <md-input-container class="md-block" flex>
-                                        <label>Colectivo</label>
-                                        <md-select ng-model="filterCollective.id" ng-disabled="$ctrl.filters.specific.idComunarrProject[0].id === null">
-                                            <md-option ng-repeat="collective in $ctrl.collectives | filter:$ctrl.filterCollective($ctrl.filters.specific.idComunarrProject)"
-                                                ng-value="{{ collective.id }}">
-                                                {{ collective.name }}
-                                            </md-option>
-                                        </md-select>
-                                    </md-input-container>
+                                        <div ng-if="$first">
+                                            <md-button ng-disabled="$ctrl.filters.specific.idCollective.length >= 5" class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.addFilter('idCollective', 'id')">
+                                                <md-icon>add</md-icon>
+                                                <md-tooltip>
+                                                    Añadir filtro
+                                                </md-tooltip>
+                                            </md-button>
+                                        </div>
 
-                                    <div ng-if="$first">
-                                        <md-button ng-disabled="$ctrl.filters.specific.idCollective.length >= 5" class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.addFilter('idCollective', 'id')">
-                                            <md-icon>add</md-icon>
-                                            <md-tooltip>
-                                                Añadir filtro
-                                            </md-tooltip>
-                                        </md-button>
+                                        <div ng-if="!$first">
+                                            <md-button class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.deleteFilter('idCollective', 'value', filterCollective)">
+                                                <md-icon>delete</md-icon>
+                                                <md-tooltip>
+                                                    Eliminar filtro
+                                                </md-tooltip>
+                                            </md-button>
+                                        </div>
                                     </div>
-
-                                    <div ng-if="!$first">
-                                        <md-button class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.deleteFilter('idCollective', 'value', filterCollective)">
-                                            <md-icon>delete</md-icon>
-                                            <md-tooltip>
-                                                Eliminar filtro
-                                            </md-tooltip>
-                                        </md-button>
-                                    </div>
+                                    <small ng-if="$ctrl.filters.specific.idComunarrProject[0].id === null"> Selecciona un proyecto </small>
                                 </div>
                             </div>
                         </section>
@@ -379,90 +381,92 @@
                                 </div>
                             </div>
                         </section>
+                        
+                        <!-- General and specific topics -->
+                        <section flex="66">
+                            <div layout="row" layout-padding layout-margin md-whiteframe="1">
+                                <!-- General topics -->
+                                <div flex="50">
+                                    <div layout="row" layout-align="start start" ng-repeat="filterGeneralTopic in $ctrl.filters.specific.idGeneralTopic">
+                                        <md-input-container class="md-block" ng-hide="$first">
+                                            <label>Tema general</label>
+                                            <md-select ng-model="filterGeneralTopic.op" ng-disabled="$first">
+                                                <md-option ng-value="'OR'" ng-if="$first"> OR </md-option>
+                                                <md-option ng-value="'AND'" ng-selected="!$first"> AND </md-option>
+                                                <md-option ng-value="'NOT'"> NOT </md-option>
+                                            </md-select>
+                                        </md-input-container>
 
-                        <!-- General topics -->
-                        <section flex="33">
-                            <div layout-padding layout-margin md-whiteframe="1">
-                                <div layout="row" layout-align="start start" ng-repeat="filterGeneralTopic in $ctrl.filters.specific.idGeneralTopic">
-                                    <md-input-container class="md-block" ng-hide="$first">
-                                        <label>Tema general</label>
-                                        <md-select ng-model="filterGeneralTopic.op" ng-disabled="$first">
-                                            <md-option ng-value="'OR'" ng-if="$first"> OR </md-option>
-                                            <md-option ng-value="'AND'" ng-selected="!$first"> AND </md-option>
-                                            <md-option ng-value="'NOT'"> NOT </md-option>
-                                        </md-select>
-                                    </md-input-container>
+                                        <md-input-container class="md-block" flex>
+                                            <label>Tema general</label>
+                                            <md-select ng-model="filterGeneralTopic.id">
+                                                <md-option ng-repeat="generalTopic in $ctrl.generalTopics" ng-value="{{ generalTopic.id }}">
+                                                    {{ generalTopic.name }}
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>
 
-                                    <md-input-container class="md-block" flex>
-                                        <label>Tema general</label>
-                                        <md-select ng-model="filterGeneralTopic.id">
-                                            <md-option ng-repeat="generalTopic in $ctrl.generalTopics" ng-value="{{ generalTopic.id }}">
-                                                {{ generalTopic.name }}
-                                            </md-option>
-                                        </md-select>
-                                    </md-input-container>
+                                        <div ng-if="$first">
+                                            <md-button ng-disabled="$ctrl.filters.specific.idGeneralTopic.length >= 5" class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.addFilter('idGeneralTopic', 'id')">
+                                                <md-icon>add</md-icon>
+                                                <md-tooltip>
+                                                    Añadir filtro
+                                                </md-tooltip>
+                                            </md-button>
+                                        </div>
 
-                                    <div ng-if="$first">
-                                        <md-button ng-disabled="$ctrl.filters.specific.idGeneralTopic.length >= 5" class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.addFilter('idGeneralTopic', 'id')">
-                                            <md-icon>add</md-icon>
-                                            <md-tooltip>
-                                                Añadir filtro
-                                            </md-tooltip>
-                                        </md-button>
-                                    </div>
-
-                                    <div ng-if="!$first">
-                                        <md-button class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.deleteFilter('idGeneralTopic', 'value', filterGeneralTopic)">
-                                            <md-icon>delete</md-icon>
-                                            <md-tooltip>
-                                                Eliminar filtro
-                                            </md-tooltip>
-                                        </md-button>
+                                        <div ng-if="!$first">
+                                            <md-button class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.deleteFilter('idGeneralTopic', 'value', filterGeneralTopic)">
+                                                <md-icon>delete</md-icon>
+                                                <md-tooltip>
+                                                    Eliminar filtro
+                                                </md-tooltip>
+                                            </md-button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
 
-                        <!-- Specific topics -->
-                        <section flex="33">
-                            <div layout-padding layout-margin md-whiteframe="1">
-                                <div layout="row" layout-align="start start" ng-repeat="filterSpecificTopic in $ctrl.filters.specific.idSpecificTopic">
-                                    <md-input-container class="md-block" ng-hide="$first">
-                                        <label>Tema específico</label>
-                                        <md-select ng-model="filterSpecificTopic.op" ng-disabled="$first">
-                                            <md-option ng-value="'OR'" ng-if="$first"> OR </md-option>
-                                            <md-option ng-value="'AND'" ng-selected="!$first"> AND </md-option>
-                                            <md-option ng-value="'NOT'"> NOT </md-option>
-                                        </md-select>
-                                    </md-input-container>
+                                <!-- Specific topics -->
+                                <div flex="50">
+                                    <div layout="row" layout-align="start start" ng-repeat="filterSpecificTopic in $ctrl.filters.specific.idSpecificTopic">
+                                        <md-input-container class="md-block" ng-hide="$first">
+                                            <label>Tema específico</label>
+                                            <md-select ng-model="filterSpecificTopic.op" ng-disabled="$first">
+                                                <md-option ng-value="'OR'" ng-if="$first"> OR </md-option>
+                                                <md-option ng-value="'AND'" ng-selected="!$first"> AND </md-option>
+                                                <md-option ng-value="'NOT'"> NOT </md-option>
+                                            </md-select>
+                                        </md-input-container>
 
-                                    <md-input-container class="md-block" flex>
-                                        <label>Tema específico</label>
-                                        <md-select ng-model="filterSpecificTopic.id" ng-disabled="$ctrl.filters.specific.idSpecificTopic[0].id === null">
-                                            <md-option ng-repeat="specificTopic in $ctrl.specificTopics | filter: $ctrl.filterSpecificTopic($ctrl.filters.specific.idGeneralTopic)"
-                                                ng-value="{{ specificTopic.id }}">
-                                                {{ specificTopic.name }}
-                                            </md-option>
-                                        </md-select>
-                                    </md-input-container>
+                                        <md-input-container class="md-block" flex>
+                                            <label>Tema específico</label>
+                                            <md-select ng-model="filterSpecificTopic.id" ng-disabled="$ctrl.filters.specific.idSpecificTopic[0].id === null">
+                                                <md-option ng-repeat="specificTopic in $ctrl.specificTopics | filter: $ctrl.filterSpecificTopic($ctrl.filters.specific.idGeneralTopic)"
+                                                    ng-value="{{ specificTopic.id }}">
+                                                    {{ specificTopic.name }}
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>
 
-                                    <div ng-if="$first">
-                                        <md-button ng-disabled="$ctrl.filters.specific.idSpecificTopic.length >= 5" class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.addFilter('idSpecificTopic', 'id')">
-                                            <md-icon>add</md-icon>
-                                            <md-tooltip>
-                                                Añadir filtro
-                                            </md-tooltip>
-                                        </md-button>
+                                        <div ng-if="$first">
+                                            <md-button ng-disabled="$ctrl.filters.specific.idSpecificTopic.length >= 5" class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.addFilter('idSpecificTopic', 'id')">
+                                                <md-icon>add</md-icon>
+                                                <md-tooltip>
+                                                    Añadir filtro
+                                                </md-tooltip>
+                                            </md-button>
+                                        </div>
+
+                                        <div ng-if="!$first">
+                                            <md-button class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.deleteFilter('idSpecificTopic', 'value', filterSpecificTopic)">
+                                                <md-icon>delete</md-icon>
+                                                <md-tooltip>
+                                                    Eliminar filtro
+                                                </md-tooltip>
+                                            </md-button>
+                                        </div>
                                     </div>
-
-                                    <div ng-if="!$first">
-                                        <md-button class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.deleteFilter('idSpecificTopic', 'value', filterSpecificTopic)">
-                                            <md-icon>delete</md-icon>
-                                            <md-tooltip>
-                                                Eliminar filtro
-                                            </md-tooltip>
-                                        </md-button>
-                                    </div>
+                                    <small ng-if="$ctrl.filters.specific.idGeneralTopic[0].id === null"> Selecciona un tema general </small>
                                 </div>
                             </div>
                         </section>
