@@ -120,7 +120,7 @@ export class FilesService {
      */
     getSpecificFilters() {
         return {
-            title: [
+            name: [
                 {
                     value: '', op: 'OR'
                 }
@@ -130,52 +130,44 @@ export class FilesService {
                     value: '', op: 'OR'
                 }
             ],
-            comunarrProject: [
-                {
-                    id: null, op: 'OR'
-                }
-            ],
-            collective: [
-                {
-                    id: null, op: 'OR'
-                }
-            ],
-            generalTopic: [
-                {
-                    id: null, op: 'OR'
-                }
-            ],
-            specificTopic: [
-                {
-                    id: null, op: 'OR'
-                }
-            ],
-            contentType: [
-                {
-                    id: null, op: 'OR'
-                }
-            ],
             place: [
                 {
                     value: '', op: 'OR'
                 }
             ],
-            relatedDate: [
-                {
-                    value: '', op: 'OR'
-                }
-            ],
-            fileType: [
+            idComunarrProject: [
                 {
                     id: null, op: 'OR'
                 }
             ],
-            updateDate: [
+            idCollective: [
                 {
-                    value: '', op: 'OR'
+                    id: null, op: 'OR'
                 }
             ],
-            keyword: [
+            idGeneralTopic: [
+                {
+                    id: null, op: 'OR'
+                }
+            ],
+            idSpecificTopic: [
+                {
+                    id: null, op: 'OR'
+                }
+            ],
+            idContentType: [
+                {
+                    id: null, op: 'OR'
+                }
+            ],
+            relatedDate: [null, null],
+            idFileType: [
+                {
+                    id: null, op: 'OR'
+                }
+            ],
+            updateDate: [null, null],
+            keyWords: [
                 {
                     id: null, op: 'OR'
                 }
