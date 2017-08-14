@@ -344,13 +344,14 @@ export const FilesComponent = {
          * @param {any} filters 
          */
         isSpecificSearchFormValid(filters) {
-            let isValid = true; //
-       
-            // @todo Validate by type of filter if at least one type is valid
-            // first element of array must have id !== null
-            // first element of array must have value.length > 0
-            // relatedDate must be an array with two values !== null
-            
+            let isValid = true;
+            const textFilters = ['name', 'author', 'place'];
+            const idFilters = ['idComunarrProject', 'idCollective', 'idGeneralTopic', 'idSpecificTopic', 'idUser', 'idContentType', 'idFileType', 'keyWords'];
+            const dateFilters = ['updateDate', 'relatedDate'];
+
+
+            isValid = textFilters.some(key => filters[key][0].value.length > 0) || idFilters.some(key => filters[key][0].id !== null) || (dateFilters.some(key => filters[key][0] !== null || filters[key][1] !== null));
+
             return isValid;
         }
     },
