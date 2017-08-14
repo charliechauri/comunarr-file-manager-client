@@ -12,7 +12,7 @@ export class UsersService {
     }
 
     /**
-     * @authorize [Admin]
+     * @authorize Any registered member
      * Get all registered application users (admins, members and common users)
      * @param {boolean} forceRefresh
      */
