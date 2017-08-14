@@ -10,7 +10,7 @@ import dialogDetailsTemplate from './files.details.dialog.html';
 export const FilesComponent = {
     bindings: {},
     controller: class FilesComponent {
-        constructor($scope, $window, $mdToast, $mdDialog, localStorageService, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService, KeyWordsService, $stateParams, $state, ResponseHandler) {
+        constructor($scope, $window, $mdToast, $mdDialog, localStorageService, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService, KeyWordsService, $stateParams, $state, ResponseHandler, UsersService) {
             'ngInject';
 
             this.$scope = $scope;
@@ -29,6 +29,7 @@ export const FilesComponent = {
             this.$stateParams = $stateParams;
             this.$state = $state;
             this.ResponseHandler = ResponseHandler;
+            this.UsersService = UsersService;
         }
 
         $onInit() {
@@ -96,6 +97,7 @@ export const FilesComponent = {
             this.getKeyWords(false);
 
             this.FilesService.getFileTypes().then(fileTypesCatalog => this.fileTypesCatalog = fileTypesCatalog);
+            this.UsersService.get().then(data => this.users = data);
         }
 
         /**
@@ -335,6 +337,21 @@ export const FilesComponent = {
          */
         download(fileResult) {
             this.FilesService.download(fileResult.id).then(this.ResponseHandler.success);
+        }
+
+        /**
+         * Validate if the form is correct
+         * @param {any} filters 
+         */
+        isSpecificSearchFormValid(filters) {
+            let isValid = true; //
+       
+            // @todo Validate by type of filter if at least one type is valid
+            // first element of array must have id !== null
+            // first element of array must have value.length > 0
+            // relatedDate must be an array with two values !== null
+            
+            return isValid;
         }
     },
     template

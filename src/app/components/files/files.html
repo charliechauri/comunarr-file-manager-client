@@ -207,6 +207,49 @@
                             </div>
                         </section>
 
+                        <!-- User -->
+                        <section flex="33">
+                            <div layout-padding layout-margin md-whiteframe="1">
+                                <div layout="row" layout-align="start start" ng-repeat="filterUser in $ctrl.filters.specific.idUser">
+                                    <md-input-container class="md-block" ng-hide="$first">
+                                        <label>Subido por</label>
+                                        <md-select ng-model="filterUser.op" ng-disabled="$first">
+                                            <md-option ng-value="'OR'" ng-if="$first"> OR </md-option>
+                                            <md-option ng-value="'AND'" ng-selected="!$first"> AND </md-option>
+                                            <md-option ng-value="'NOT'"> NOT </md-option>
+                                        </md-select>
+                                    </md-input-container>
+
+                                    <md-input-container class="md-block" flex>
+                                        <label>Subido por</label>
+                                        <md-select ng-model="filterUser.id">
+                                            <md-option ng-repeat="user in $ctrl.users" ng-value="{{ user.id }}">
+                                                {{ user.name }}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+
+                                    <div ng-if="$first">
+                                        <md-button ng-disabled="$ctrl.filters.specific.idUser.length >= 5" class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.addFilter('idUser', 'id')">
+                                            <md-icon>add</md-icon>
+                                            <md-tooltip>
+                                                Añadir filtro
+                                            </md-tooltip>
+                                        </md-button>
+                                    </div>
+
+                                    <div ng-if="!$first">
+                                        <md-button class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.deleteFilter('idUser', 'value', filterUser)">
+                                            <md-icon>delete</md-icon>
+                                            <md-tooltip>
+                                                Eliminar filtro
+                                            </md-tooltip>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
                         <!-- Place -->
                         <section flex="33">
                             <div layout-padding layout-margin md-whiteframe="1">
@@ -381,7 +424,7 @@
                                 </div>
                             </div>
                         </section>
-                        
+
                         <!-- General and specific topics -->
                         <section flex="66">
                             <div layout="row" layout-padding layout-margin md-whiteframe="1">
@@ -601,7 +644,7 @@
                     <aside layout="row" layout-margin layout-align="start center">
                         <span flex></span>
                         <div>
-                            <md-button class="md-primary md-raised" ng-click="$ctrl.search('specific')" ng-disabled="specificSearchForm.$invalid"> Buscar </md-button>
+                            <md-button class="md-primary md-raised" ng-click="$ctrl.search('specific')" ng-disabled="specificSearchForm.$invalid || !$ctrl.isSpecificSearchFormValid($ctrl.filters.specific)"> Buscar </md-button>
                         </div>
                     </aside>
                 </form>
