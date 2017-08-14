@@ -212,6 +212,14 @@ export const FilesComponent = {
                 .then(formData => {
                     formData.keyWords = formData.keyWords.map(keyWord => keyWord.name);
 
+                    for (const key in formData) {
+                        if (formData.hasOwnProperty(key)) {
+                            if (formData[key] === null) {
+                                delete formData[key];
+                            }
+                        }
+                    }
+
                     this.FilesService[method](formData).then(() => {
                         this.$mdToast.show(this.$mdToast.simple()
                             .textContent('Éxito: se subió de forma correcta el archivo')
