@@ -127,6 +127,14 @@ export const SpecificTopicsComponent = {
         getNewSpecificTopic() {
             return { id: null, name: '', status: true, generalTopics: [] };
         }
+
+        /**
+         * Receives list of objects and return only that ones that have status true
+         * @param {any} list 
+         */
+        filterByActive(list) {
+            return list.filter(item => item.status);
+        }
     },
     template
 };

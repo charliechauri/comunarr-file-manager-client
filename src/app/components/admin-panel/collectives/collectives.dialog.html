@@ -49,11 +49,11 @@
                 Cancelar
             </md-button>
             <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedCollective)" ng-if="$ctrl.isEditing"
-                ng-disabled="collectiveForm.$invalid || $ctrl.selectedCollective.comunarrProjects.length === 0">
+                ng-disabled="collectiveForm.$invalid || $ctrl.filterByActive($ctrl.selectedCollective.comunarrProjects).length === 0">
                 Editar
             </md-button>
             <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedCollective)" ng-if="!$ctrl.isEditing"
-                ng-disabled="collectiveForm.$invalid || $ctrl.selectedCollective.comunarrProjects.length === 0">
+                ng-disabled="collectiveForm.$invalid || $ctrl.filterByActive($ctrl.selectedCollective.comunarrProjects).length === 0">
                 Añadir
             </md-button>
         </md-dialog-actions>

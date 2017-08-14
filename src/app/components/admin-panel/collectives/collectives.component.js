@@ -126,6 +126,14 @@ export const CollectivesComponent = {
         getNewCollective() {
             return { id: null, name: '', status: true, comunarrProjects: [] };
         }
+
+        /**
+         * Receives list of objects and return only that ones that have status true
+         * @param {any} list 
+         */
+        filterByActive(list) {
+            return list.filter(item => item.status);
+        }
     },
     template
 };
