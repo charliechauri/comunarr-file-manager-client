@@ -124,43 +124,14 @@
                         <!-- Name -->
                         <section flex="33">
                             <div layout-padding layout-margin md-whiteframe="1">
-                                <div layout="row" layout-align="start start" ng-repeat="filterName in $ctrl.filters.specific.name">
-                                    <md-input-container class="md-block" ng-hide="$first">
-                                        <label>Operador</label>
-                                        <md-select ng-model="filterName.op" ng-disabled="$first">
-                                            <md-option ng-value="'OR'" ng-if="$first"> OR </md-option>
-                                            <md-option ng-value="'AND'" ng-selected="!$first"> AND </md-option>
-                                            <md-option ng-value="'NOT'"> NOT </md-option>
-                                        </md-select>
-                                    </md-input-container>
-
-                                    <md-input-container class="md-block" flex>
-                                        <label>Nombre</label>
-                                        <input ng-model="filterName.value" name="{{ 'name' + $index }}" md-maxlength="100" minlength="4">
-                                        <div ng-messages="specificSearchForm['name' + $index].$error">
-                                            <div ng-message="minlength">Mínimo 4 caracteres</div>
-                                            <div ng-message="md-maxlength">Máximo 100 caracteres</div>
-                                        </div>
-                                    </md-input-container>
-
-                                    <div ng-if="$first">
-                                        <md-button ng-disabled="$ctrl.filters.name.length >= 5" class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.addFilter('name', 'value')">
-                                            <md-icon>add</md-icon>
-                                            <md-tooltip>
-                                                Añadir filtro
-                                            </md-tooltip>
-                                        </md-button>
+                                <md-input-container class="md-block">
+                                    <label>Título</label>
+                                    <input ng-model="$ctrl.filters.specific.name" name="name" md-maxlength="255" minlength="4">
+                                    <div ng-messages="specificSearchForm.name.$error">
+                                        <div ng-message="minlength">Mínimo 4 caracteres</div>
+                                        <div ng-message="md-maxlength">Máximo 255 caracteres</div>
                                     </div>
-
-                                    <div ng-if="!$first">
-                                        <md-button class="md-primary md-raised md-fab md-mini" ng-click="$ctrl.deleteFilter('name', 'value', filterName)">
-                                            <md-icon>delete</md-icon>
-                                            <md-tooltip>
-                                                Eliminar filtro
-                                            </md-tooltip>
-                                        </md-button>
-                                    </div>
-                                </div>
+                                </md-input-container>
                             </div>
                         </section>
 
@@ -644,7 +615,8 @@
                     <aside layout="row" layout-margin layout-align="start center">
                         <span flex></span>
                         <div>
-                            <md-button class="md-primary md-raised" ng-click="$ctrl.search('specific')" ng-disabled="specificSearchForm.$invalid || !$ctrl.isSpecificSearchFormValid($ctrl.filters.specific)"> Buscar </md-button>
+                            <md-button class="md-primary md-raised" ng-click="$ctrl.search('specific')" ng-disabled="specificSearchForm.$invalid || !$ctrl.isSpecificSearchFormValid($ctrl.filters.specific)">
+                            Buscar </md-button>
                         </div>
                     </aside>
                 </form>

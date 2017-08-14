@@ -119,11 +119,7 @@ export class FilesService {
      */
     getSpecificFilters() {
         return {
-            name: [
-                {
-                    value: '', op: 'OR'
-                }
-            ],
+            name: null,
             author: [
                 {
                     value: '', op: 'OR'

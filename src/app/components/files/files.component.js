@@ -345,12 +345,12 @@ export const FilesComponent = {
          */
         isSpecificSearchFormValid(filters) {
             let isValid = true;
-            const textFilters = ['name', 'author', 'place'];
+            const textFilters = ['author', 'place'];
             const idFilters = ['idComunarrProject', 'idCollective', 'idGeneralTopic', 'idSpecificTopic', 'idUser', 'idContentType', 'idFileType', 'keyWords'];
             const dateFilters = ['updateDate', 'relatedDate'];
 
 
-            isValid = textFilters.some(key => filters[key][0].value.length > 0) || idFilters.some(key => filters[key][0].id !== null) || (dateFilters.some(key => filters[key][0] !== null || filters[key][1] !== null));
+            isValid = (filters.name && filters.name.length > 0) || textFilters.some(key => filters[key][0].value.length > 0) || idFilters.some(key => filters[key][0].id !== null) || (dateFilters.some(key => filters[key][0] !== null || filters[key][1] !== null));
 
             return isValid;
         }
