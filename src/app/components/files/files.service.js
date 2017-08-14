@@ -34,8 +34,7 @@ export class FilesService {
      */
     specificSearch(filters) {
         // @todo Filter each filter's property if an element doesn't have a value (.length > 0) or a numeric id (id !== null)
-        console.log(filters);
-        return this.$http.post(`${this.EnvironmentService.getCurrent().BASE_URL}/specific-search`, filters).then(response => response.data);
+        return this.$http.post(`${this.URL}/specific-search`, filters).then(response => response.data);
     }
 
     /**
@@ -151,6 +150,11 @@ export class FilesService {
                 }
             ],
             idSpecificTopic: [
+                {
+                    id: null, op: 'OR'
+                }
+            ],
+            idUser: [
                 {
                     id: null, op: 'OR'
                 }
