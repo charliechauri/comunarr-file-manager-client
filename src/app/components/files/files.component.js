@@ -213,10 +213,10 @@ export const FilesComponent = {
                 })
                 .then(formData => {
                     formData.keyWords = formData.keyWords.map(keyWord => keyWord.name);
-
+                    debugger;
                     for (const key in formData) {
                         if (formData.hasOwnProperty(key)) {
-                            if (formData[key] === null) {
+                            if (!formData[key]) {
                                 delete formData[key];
                             }
                         }
