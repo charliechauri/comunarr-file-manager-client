@@ -216,7 +216,7 @@ export const FilesComponent = {
                     debugger;
                     for (const key in formData) {
                         if (formData.hasOwnProperty(key)) {
-                            if (!formData[key]) {
+                            if (!formData[key] || formData[key] === '') {
                                 delete formData[key];
                             }
                         }
