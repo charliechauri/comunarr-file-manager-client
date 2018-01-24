@@ -4,7 +4,7 @@
             <md-toolbar>
                 <div class="md-toolbar-tools">
                     <h4 ng-if="$ctrl.isEditing">Editar archivo</h4>
-                    <h4 ng-if="!$ctrl.isEditing">Añadir archivo</h4>
+                    <h4 ng-if="!$ctrl.isEditing">Subir archivo</h4>
                 </div>
             </md-toolbar>
 
@@ -168,7 +168,7 @@
                 Editar
             </md-button>
             <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.form)" ng-if="!$ctrl.isEditing" ng-disabled="fileForm.$invalid || !$ctrl.form.file">
-                Añadir
+                Subir
             </md-button>
         </md-dialog-actions>
     </form>
