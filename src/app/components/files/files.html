@@ -666,5 +666,16 @@
         </div>
     </section>
 
+    <section ng-if="!$ctrl.searchPerformed" md-whiteframe layout-margin layout-padding>
+        <div layout="row" layout-padding layout-align="start center">
+            <div>
+                <i class="material-icons">info</i>
+            </div>
+            <div flex>
+                Selecciona una búsqueda para iniciar la búsqueda
+            </div>
+        </div>
+    </section>
+
     <no-registers-found type-of-registers="archivos" ng-if="$ctrl.results.length === 0 && $ctrl.searchPerformed"></no-registers-found>
 </md-content>
