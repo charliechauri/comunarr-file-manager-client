@@ -213,13 +213,16 @@ export const FilesComponent = {
                 })
                 .then(formData => {
                     formData.keyWords = formData.keyWords.map(keyWord => keyWord.name);
-                    debugger;
                     for (const key in formData) {
                         if (formData.hasOwnProperty(key)) {
-                            if (!formData[key] || formData[key] === '') {
+                            if (!formData[key]) {
                                 delete formData[key];
                             }
                         }
+                    }
+
+                    if (formData.relatedDate) {
+                        formData.relatedDate = formData.relatedDate.toISOString().substring(0, 10);
                     }
 
                     this.FilesService[method](formData).then(() => {
