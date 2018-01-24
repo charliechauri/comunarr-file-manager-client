@@ -91,7 +91,7 @@ export const FilesComponent = {
                     this.specificTopics = specificTopics;
                 });
             });
-            this.ContentTypesService.get().then(contentTypes => this.contentTypes = contentTypes);
+            this.ContentTypesService.get().then(contentTypes => this.contentTypes = contentTypes.filter(ct => ct.status));
 
             this.keyWords = [];
             this.getKeyWords(false);
