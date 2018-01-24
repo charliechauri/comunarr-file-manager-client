@@ -222,7 +222,12 @@ export const FilesComponent = {
                     }
 
                     if (formData.relatedDate) {
-                        formData.relatedDate = formData.relatedDate.toISOString().substring(0, 10);
+
+                        if (formData.relatedDate.toISOString) {
+                            formData.relatedDate = formData.relatedDate.toISOString().substring(0, 10);
+                        } else {
+                            formData.relatedDate = formData.relatedDate.substring(0, 10);
+                        }
                     }
 
                     this.FilesService[method](formData).then(() => {
