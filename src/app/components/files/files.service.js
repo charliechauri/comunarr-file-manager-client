@@ -104,8 +104,7 @@ export class FilesService {
             'uploadedBy',
             'idUser',
             'idKeyWord',
-            'fileTypeImage',
-            'relatedDate'
+            'fileTypeImage'
         ].forEach(key => {
             delete form[key];
         });
