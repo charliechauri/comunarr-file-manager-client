@@ -33,6 +33,57 @@ export class FilesService {
      * @param {any} filters
      */
     specificSearch(filters) {
+        console.log(JSON.stringify(filters));
+
+        // Transform filters that can be Or or Not
+        [
+            'author',
+            'place',
+        ].forEach(key => {
+            filters[key] = {
+                OR: filters[key].filter(item => item.op === 'OR').filter(item => !!item.value).map(item => item.value),
+                NOT: filters[key].filter(item => item.op === 'NOT').filter(item => !!item.value).map(item => item.value)
+            };
+        });
+
+        [
+            'idCollective',
+            'idComunarrProject',
+            'idGeneralTopic',
+            'idSpecificTopic',
+            'idUser',
+            'idContentType',
+            'idFileType',
+        ].forEach(key => {
+            filters[key] = {
+                OR: filters[key].filter(item => item.op === 'OR').filter(item => !!item.value).map(item => item.value),
+                NOT: filters[key].filter(item => item.op === 'NOT').filter(item => !!item.value).map(item => item.value)
+            }
+        });
+
+        filters.keyWords = {
+            AND: filters.keyWords.filter(item => item.op === 'AND').filter(item => !!item.value).map(item => item.value),
+            OR: filters.keyWords.filter(item => item.op === 'OR').filter(item => !!item.value).map(item => item.value),
+            NOT: filters.keyWords.filter(item => item.op === 'NOT').filter(item => !!item.value).map(item => item.value)
+        };
+
+        [
+            'relatedDate',
+            'updateDate'
+        ].forEach(key => {
+
+            filters[key] = filters[key].map((date, index) => {
+
+                if (!!!date) {
+                    return index === 0 ? '1900-01-01' : '2800-01-01';
+                } else {
+                    return date;
+                }
+
+            });
+
+        });
+
         // @todo Filter each filter's property if an element doesn't have a value (.length > 0) or a numeric id (id !== null)
         return this.$http.post(`${this.URL}/specific-search`, filters).then(response => response.data);
     }
