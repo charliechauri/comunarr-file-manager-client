@@ -232,7 +232,7 @@ export const FilesComponent = {
 
                     this.FilesService[method](formData).then(() => {
                         this.$mdToast.show(this.$mdToast.simple()
-                            .textContent('Éxito: se subió de forma correcta el archivo')
+                            .textContent(`Éxito: se ${method === 'edit' ? 'actualizó' : 'subió'} de forma correcta el archivo`)
                             .position('top right')
                         );
                         this.form = {};
