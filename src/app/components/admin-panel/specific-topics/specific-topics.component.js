@@ -1,4 +1,5 @@
 import angular from 'angular';
+import Promise from 'ypromise';
 import template from './specific-topics.html';
 import dialogTemplate from './specific-topics.dialog.html';
 
@@ -20,7 +21,12 @@ export const SpecificTopicsComponent = {
          */
         $onInit() {
             this.specificTopics = [];
+            this.getCatalogs();
             this.assignGeneralTopicIdIntoSpecificTopics(false);
+        }
+
+        getCatalogs() {
+            return Promise.all([this.getGeneralTopics(), this.getSpecificTopics()]);
         }
 
         /**
@@ -39,17 +45,13 @@ export const SpecificTopicsComponent = {
 
         assignGeneralTopicIdIntoSpecificTopics(forceRefresh) {
             this.SpecificTopicsService.getRelatedGeneralTopics(forceRefresh).then(relations => {
-                this.getSpecificTopics(forceRefresh).then(() => {
-                    this.getGeneralTopics(forceRefresh).then(() => {
-                        this.specificTopics.forEach(specificTopic => {
-                            specificTopic.generalTopics = [];
+                this.specificTopics.forEach(specificTopic => {
+                    specificTopic.generalTopics = [];
 
-                            const relationsToSpecificTopic = relations.filter(relation => relation.idSpecificTopic === specificTopic.id);
+                    const relationsToSpecificTopic = relations.filter(relation => relation.idSpecificTopic === specificTopic.id);
 
-                            relationsToSpecificTopic.forEach(relationToSpecificTopic => {
-                                specificTopic.generalTopics.push(this.generalTopics.find(generalTopic => generalTopic.id === relationToSpecificTopic.idGeneralTopic));
-                            });
-                        });
+                    relationsToSpecificTopic.forEach(relationToSpecificTopic => {
+                        specificTopic.generalTopics.push(this.generalTopics.find(generalTopic => generalTopic.id === relationToSpecificTopic.idGeneralTopic));
                     });
                 });
             });
@@ -112,6 +114,7 @@ export const SpecificTopicsComponent = {
                     this.SpecificTopicsService[method](specificTopic).then(response => {
                         this.ResponseHandler.success(response);
                         this.selectedSpecificTopic = this.getNewSpecificTopic();
+                        this.getCatalogs();
                         this.assignGeneralTopicIdIntoSpecificTopics(true);
                     });
                 })
