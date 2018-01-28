@@ -56,8 +56,8 @@ export class FilesService {
             'idFileType',
         ].forEach(key => {
             filters[key] = {
-                OR: filters[key].filter(item => item.op === 'OR').filter(item => !!item.value).map(item => item.value),
-                NOT: filters[key].filter(item => item.op === 'NOT').filter(item => !!item.value).map(item => item.value)
+                OR: filters[key].filter(item => item.op === 'OR').filter(item => !!item.id).map(item => item.value),
+                NOT: filters[key].filter(item => item.op === 'NOT').filter(item => !!item.id).map(item => item.value)
             };
         });
 
