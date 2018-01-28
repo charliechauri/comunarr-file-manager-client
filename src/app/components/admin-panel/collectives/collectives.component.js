@@ -1,4 +1,5 @@
 import angular from 'angular';
+import Promise from 'ypromise';
 import template from './collectives.html';
 import dialogTemplate from './collectives.dialog.html';
 
@@ -20,7 +21,14 @@ export const CollectivesComponent = {
          */
         $onInit() {
             this.collectives = [];
-            this.assignProjectIdIntoCollectives(false);
+            this.projects = [];
+            this.getCatalogs();
+        }
+
+        getCatalogs() {
+            return Promise.all([this.getCollectives(), this.getProjects()]).then(() => {
+                this.assignProjectIdIntoCollectives(false);
+            });
         }
 
         /**
@@ -39,17 +47,13 @@ export const CollectivesComponent = {
 
         assignProjectIdIntoCollectives(forceRefresh) {
             this.CollectivesService.getRelatedProjects(forceRefresh).then(relations => {
-                this.getCollectives().then(() => {
-                    this.getProjects().then(() => {
-                        this.collectives.forEach(collective => {
-                            collective.comunarrProjects = [];
+                this.collectives.forEach(collective => {
+                    collective.comunarrProjects = [];
 
-                            const relationsToCollective = relations.filter(relation => relation.idCollective === collective.id);
+                    const relationsToCollective = relations.filter(relation => relation.idCollective === collective.id);
 
-                            relationsToCollective.forEach(relationToCollective => {
-                                collective.comunarrProjects.push(this.projects.find(project => project.id === relationToCollective.idComunarrProject));
-                            });
-                        });
+                    relationsToCollective.forEach(relationToCollective => {
+                        collective.comunarrProjects.push(this.projects.find(project => project.id === relationToCollective.idComunarrProject));
                     });
                 });
             });
@@ -112,6 +116,7 @@ export const CollectivesComponent = {
                         this.ResponseHandler.success(response);
                         this.selectedCollective = this.getNewCollective();
                         this.assignProjectIdIntoCollectives(true);
+                        this.getCatalogs();
                     });
                 })
                 .catch(() => {
