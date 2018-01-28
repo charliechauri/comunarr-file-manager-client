@@ -1,0 +1,42 @@
+<md-dialog>
+    <form name="institutionForm">
+        <md-dialog-content>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h4 ng-if="$ctrl.isEditing">Editar institución</h4>
+                    <h4 ng-if="!$ctrl.isEditing">Añadir institución</h4>
+                </div>
+            </md-toolbar>
+
+            <md-content layout-padding>
+                <md-input-container>
+                    <label>Nombre</label>
+                    <input ng-model="$ctrl.selectedInstitution.name" name="name" required minlength="4" md-maxlength="255">
+                    <div ng-messages="institutionForm.name.$error">
+                        <div ng-message="required">Es un campo requerido</div>
+                        <div ng-message="minlength">Mínimo 4 caracteres</div>
+                        <div ng-message="md-maxlength">Máximo 255 caracteres</div>
+                    </div>
+                </md-input-container>
+                <div ng-if="$ctrl.isEditing">
+                    <md-checkbox class="md-primary" ng-model="$ctrl.selectedInstitution.status" aria-label="Institución activa">
+                        Institución activa
+                    </md-checkbox>
+                </div>
+            </md-content>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button md-no-ink class="md-primary" ng-click="$ctrl.$mdDialog.cancel()">
+                Cancelar
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedInstitution)" ng-if="$ctrl.isEditing"
+                ng-disabled="institutionForm.$invalid">
+                Editar
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedInstitution)" ng-if="!$ctrl.isEditing"
+                ng-disabled="contentTypeForm.$invalid">
+                Añadir
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

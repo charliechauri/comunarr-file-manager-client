@@ -5,7 +5,7 @@ import dialogTemplate from './users.dialog.html';
 export const UsersComponent = {
     bindings: {},
     controller: class UsersComponent {
-        constructor($scope, $mdDialog, UsersService, UserTypesService, Validator, ResponseHandler) {
+        constructor($scope, $mdDialog, UsersService, UserTypesService, Validator, ResponseHandler, InstitutionsService) {
             'ngInject';
 
             this.$scope = $scope;
@@ -14,12 +14,15 @@ export const UsersComponent = {
             this.UserTypesService = UserTypesService;
             this.Validator = Validator;
             this.ResponseHandler = ResponseHandler;
+            this.InstitutionsService = InstitutionsService;
         }
 
         $onInit() {
             this.users = [];
+            this.institutions = [];
             this.userTypes = this.UserTypesService.get();
             this.getUsers(false);
+            this.getInstitutions(false);
         }
 
         getUsers(forceRefresh) {
@@ -30,6 +33,7 @@ export const UsersComponent = {
             return {
                 name: '',
                 userName: '',
+                idInstitution: null,
                 password: '',
                 confirmPassword: '',
                 idUserType: 3,
@@ -66,6 +70,10 @@ export const UsersComponent = {
                 .catch(() => {
                     this.selectedUser = this.getNewUser();
                 });
+        }
+
+        getInstitutions(forceRefresh) {
+            return this.InstitutionsService.get(forceRefresh).then(data => this.institutions = data);
         }
     },
     template

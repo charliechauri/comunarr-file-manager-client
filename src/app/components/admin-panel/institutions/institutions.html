@@ -1,0 +1,42 @@
+<md-content layout-padding>
+    <header layout="row">
+        <h1>
+            Instituciones
+        </h1>
+        <span flex></span>
+        <div>
+            <md-button class="md-primary md-raised" ng-click="$ctrl.addOrEdit({id: null, name: '', status: true}, $event, 'add')"> Añadir nueva institución </md-button>
+        </div>
+    </header>
+
+    <section ng-if="$ctrl.institutions.length > 0">
+        <header layout="row">
+            <h2 flex="50" layout-margin>Nombre</h2>
+            <h2 flex layout-margin>Estatus</h2>
+            <span flex></span>
+        </header>
+
+        <md-divider></md-divider>
+
+        <article ng-repeat="institution in $ctrl.institutions | orderBy: 'name'">
+            <div layout="row">
+                <p flex="50" layout-margin> {{ institution.name }} </p>
+                <p flex layout-margin>
+                    {{ institution.status | Active }}
+                </p>
+                <span flex></span>
+                <div>
+                    <md-button class="md-fab md-primary md-mini" ng-click="$ctrl.addOrEdit(institution, $event, 'edit')">
+                        <md-icon>edit</md-icon>
+                        <md-tooltip>
+                            Editar
+                        </md-tooltip>
+                    </md-button>
+                </div>
+            </div>
+            <md-divider></md-divider>
+        </article>
+    </section>
+
+    <no-registers-found ng-if="$ctrl.institutions.length === 0" type-of-registers="instituciones"></no-registers-found>
+</md-content>

@@ -1,5 +1,6 @@
 import angular from 'angular';
 import { UsersModule } from './users/users.module';
+import { InstitutionsModule } from './institutions/institutions.module';
 import { ProjectsModule } from './projects/projects.module';
 import { CollectivesModule } from './collectives/collectives.module';
 import { GeneralTopicsModule } from './general-topics/general-topics.module';
@@ -9,6 +10,7 @@ import { ContentTypesModule } from './content-types/content-types.module';
 export const AdminPanelModule = angular
     .module('co-file-manager-client.admin-panel', [
         UsersModule,
+        InstitutionsModule,
         ProjectsModule,
         CollectivesModule,
         GeneralTopicsModule,

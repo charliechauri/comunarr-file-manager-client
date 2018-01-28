@@ -6,6 +6,7 @@ export class MenuService {
 
         this.allItems = [
             { label: 'Usuarios', state: 'users', privacyType: 1 },
+            { label: 'Instituciones', state: 'institutions', privacyType: 1 },
             { label: 'Proyectos', state: 'projects', privacyType: 1 },
             { label: 'Colectivos', state: 'collectives', privacyType: 1 },
             { label: 'Tipos de contenido', state: 'content-types', privacyType: 1 },

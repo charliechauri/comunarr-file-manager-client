@@ -15,7 +15,8 @@ export const CacheConfig = CacheFactory => {
         'contentTypesCache',
         'usersCache',
         'keyWordsCache',
-        'fileCache'
+        'fileCache',
+        'institutionsCache'
     ];
 
     const config = {
