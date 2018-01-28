@@ -79,7 +79,14 @@ export class FilesService {
                 if (!!!date) {
                     return index === 0 ? '1900-01-01' : '2800-01-01';
                 } else {
-                    return date.substr(0, 10);
+
+                    if (date.toISOString) {
+                        date = date.toISOString().substring(0, 10);
+                    } else {
+                        date = date.substring(0, 10);
+                    }
+
+                    return date;
                 }
 
             });
