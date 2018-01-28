@@ -99,7 +99,6 @@ export class FilesService {
             'specificTopic',
             'privacyType',
             'contentType',
-            'fileType',
             'updateDate',
             'uploadedBy',
             'idUser',

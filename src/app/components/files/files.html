@@ -638,7 +638,7 @@
             <span class="md-subhead">Autor:</span>
             <span class="md-subhead">{{ result.author }}</span>
             <p>
-                {{ result.comunarrProject }} > {{ result.collective }} > {{ result.generalTopic }}
+                {{ result.comunarrProject }} <strong>></strong>  {{ result.collective }} <strong>></strong> {{ result.generalTopic }}
             </p>
         </div>
         <div>
@@ -669,6 +669,10 @@
                         </md-tooltip>
                     </md-button>
                 </div>
+            </div>
+
+            <div layout="row" layout-align="end center" layout-padding>
+                <span class="md-subhead"> <strong>Tamaño</strong>: {{ result.size | SizeConverter }}</span>
             </div>
         </div>
     </section>

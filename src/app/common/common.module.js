@@ -8,6 +8,7 @@ import { KeyWordsService } from './services/key-words.service';
 import { AuthFactory } from './services/auth.factory';
 import { ActiveFilter } from './filters/active.filter';
 import { UserTypeFilter } from './filters/user-type.filter';
+import { SizeConverter } from './filters/size-converter.filter';
 import { PasswordHandlerModule } from './components/password-handler/password-handler.module';
 import { NoRegistersFoundModule } from './components/no-registers-found/no-registers-found.module';
 
@@ -25,4 +26,5 @@ export const CommonModule = angular
     .service('AuthFactory', AuthFactory)
     .filter('Active', ActiveFilter)
     .filter('UserTypeFilter', UserTypeFilter)
+    .filter('SizeConverter', SizeConverter)
     .name;

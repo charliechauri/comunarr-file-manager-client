@@ -42,6 +42,9 @@
                 <div flex ng-if="$ctrl.form.specificTopic.length > 0">
                     <span class="md-subhead"> <strong>Tema específico:</strong> {{ $ctrl.form.specificTopic }} </span>
                 </div>
+                <div flex="33">
+                    <span class="md-subhead"> <strong>Tamaño:</strong> {{ $ctrl.form.size | SizeConverter }} </span>
+                </div>
             </div>
 
             <div layout="row">
