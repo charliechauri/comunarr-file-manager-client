@@ -59,3 +59,7 @@ body {
 /* md-toast {
 	left: calc(50vw - 150px);
 } */
+
+.logo {
+    width: 100%;
+}
