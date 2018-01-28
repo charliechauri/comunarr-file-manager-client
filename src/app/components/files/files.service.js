@@ -33,7 +33,9 @@ export class FilesService {
      * @param {any} filters
      */
     specificSearch(filters) {
-        console.log(JSON.stringify(filters));
+        if (!filters.name || filters.name.length === 0) {
+            delete filters.name;
+        }
 
         // Transform filters that can be Or or Not
         [
