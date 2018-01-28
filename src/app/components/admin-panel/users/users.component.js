@@ -1,4 +1,5 @@
 import angular from 'angular';
+import Promise from 'ypromise';
 import template from './users.html';
 import dialogTemplate from './users.dialog.html';
 
@@ -21,8 +22,14 @@ export const UsersComponent = {
             this.users = [];
             this.institutions = [];
             this.userTypes = this.UserTypesService.get();
-            this.getUsers(false);
-            this.getInstitutions(false);
+
+            Promise.all([this.getUsers(false), this.getInstitutions(false)]).then(() => {
+                this.users.forEach((user, index) => {
+                    const institution = this.institutions.find(inst => user.idInstitution === inst.id);
+                    this.users[index].institution = institution ? institution.name : 'N/A';
+                    this.$scope.$apply();
+                });
+            });
         }
 
         getUsers(forceRefresh) {
