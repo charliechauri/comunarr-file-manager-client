@@ -67,7 +67,7 @@ export class SpecificTopicsService {
      */
     add(specificTopic) {
         return this.$http.post(this.URL, this.format(specificTopic)).then(response => {
-            let specificTopicsData = this.specificTopicsCache.get(this.cacheKey);
+            let specificTopicsData = this.specificTopicsCache.get(this.cacheKey) || [];
             specificTopicsData.push(response.data.item);
             this.specificTopicsCache.put(this.cacheKey, specificTopicsData);
             return response.data;

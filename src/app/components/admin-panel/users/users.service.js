@@ -39,7 +39,7 @@ export class UsersService {
      */
     add(user) {
         return this.$http.post(this.URL, user).then(response => {
-            let usersData = this.usersCache.get(this.cacheKey);
+            let usersData = this.usersCache.get(this.cacheKey) || [];
             usersData.push(response.data.item);
             this.usersCache.put(this.cacheKey, usersData);
             return response.data;

@@ -43,7 +43,7 @@ export class InstitutionsService {
      */
     add(institution) {
         return this.$http.post(this.URL, institution).then(response => {
-            let institutionsData = this.institutionsCache.get(this.cacheKey);
+            let institutionsData = this.institutionsCache.get(this.cacheKey) || [];
             institutionsData.push(response.data.item);
             this.institutionsCache.put(this.cacheKey, institutionsData);
 

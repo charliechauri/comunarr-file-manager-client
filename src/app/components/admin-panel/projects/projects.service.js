@@ -42,7 +42,7 @@ export class ProjectsService {
      */
     add(project) {
         return this.$http.post(this.URL, project).then(response => {
-            let projectsData = this.projectsCache.get(this.cacheKey);
+            let projectsData = this.projectsCache.get(this.cacheKey) || [];
             projectsData.push(response.data.item);
             this.projectsCache.put(this.cacheKey, projectsData);
 

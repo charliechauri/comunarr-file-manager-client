@@ -43,7 +43,7 @@ export class ContentTypesService {
      */
     add(contentType) {
         return this.$http.post(this.URL, contentType).then(response => {
-            let contentTypesData = this.contentTypesCache.get(this.cacheKey);
+            let contentTypesData = this.contentTypesCache.get(this.cacheKey) || [];
             contentTypesData.push(response.data.item);
             this.contentTypesCache.put(this.cacheKey, contentTypesData);
 

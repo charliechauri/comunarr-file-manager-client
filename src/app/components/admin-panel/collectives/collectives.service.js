@@ -69,7 +69,7 @@ export class CollectivesService {
      */
     add(collective) {
         return this.$http.post(this.URL, this.format(collective)).then(response => {
-            let collectivesData = this.collectivesCache.get(this.cacheKey);
+            let collectivesData = this.collectivesCache.get(this.cacheKey) || [];
             collectivesData.push(response.data.item);
             this.collectivesCache.put(this.cacheKey, collectivesData);
 

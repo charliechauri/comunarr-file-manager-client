@@ -43,7 +43,7 @@ export class GeneralTopicsService {
      */
     add(generalTopic) {
         return this.$http.post(this.URL, generalTopic).then(response => {
-            let generalTopicsData = this.generalTopicsCache.get(this.cacheKey);
+            let generalTopicsData = this.generalTopicsCache.get(this.cacheKey) || [];
             generalTopicsData.push(response.data.item);
             this.generalTopicsCache.put(this.cacheKey, generalTopicsData);
 
