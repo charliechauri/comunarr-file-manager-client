@@ -51,6 +51,7 @@ export class UsersService {
      * Edit a whole user
      */
     edit(user) {
+        delete user.institution;
         return this.$http.put(this.URL, user).then(response => {
             let usersData = this.usersCache.get(this.cacheKey);
             for (let index = 0; index < usersData.length; index++) {
