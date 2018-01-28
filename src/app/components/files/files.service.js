@@ -58,7 +58,7 @@ export class FilesService {
             filters[key] = {
                 OR: filters[key].filter(item => item.op === 'OR').filter(item => !!item.value).map(item => item.value),
                 NOT: filters[key].filter(item => item.op === 'NOT').filter(item => !!item.value).map(item => item.value)
-            }
+            };
         });
 
         filters.keyWords = {
@@ -77,7 +77,7 @@ export class FilesService {
                 if (!!!date) {
                     return index === 0 ? '1900-01-01' : '2800-01-01';
                 } else {
-                    return date;
+                    return date.substr(0, 10);
                 }
 
             });
