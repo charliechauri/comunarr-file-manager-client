@@ -63,3 +63,11 @@ body {
 .logo {
     width: 100%;
 }
+
+._md-sidenav-backdrop {
+    height: 100% !important;
+    position: fixed !important;
+}
+    .md-sidenav-right {
+    position: fixed;
+}
