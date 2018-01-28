@@ -53,7 +53,7 @@ export const InstitutionsComponent = {
                 })
                 .then(institution => {
                     institution.name === institution.name.trim();
-                    if (!this.Validator.isUnique(this.institution, 'name', this.selectedInstitution, this.isEditing, true, 'institución')) {
+                    if (!this.Validator.isUnique(this.institutions, 'name', this.selectedInstitution, this.isEditing, true, 'institución')) {
                         this.selectedInstitution = null;
                         return;
                     }
