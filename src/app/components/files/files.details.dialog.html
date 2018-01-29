@@ -43,7 +43,7 @@
                     <span class="md-subhead">
                         <strong>Tema específico:</strong>
                         <label ng-if="$ctrl.form.specificTopic.length > 0">{{ $ctrl.form.specificTopic }}</label>
-                        <label ng-if="$ctrl.form.specificTopic.length === 0">--</label>
+                        <label ng-if="!$ctrl.form.specificTopic">--</label>
                     </span>
                 </div>
                 <div flex="33">
