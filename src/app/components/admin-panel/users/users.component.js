@@ -23,7 +23,11 @@ export const UsersComponent = {
             this.institutions = [];
             this.userTypes = this.UserTypesService.get();
 
-            Promise.all([this.getUsers(false), this.getInstitutions(false)]).then(() => {
+            this.getCatalogs();
+        }
+
+        getCatalogs() {
+            return Promise.all([this.getUsers(false), this.getInstitutions(false)]).then(() => {
                 this.users.forEach((user, index) => {
                     const institution = this.institutions.find(inst => user.idInstitution === inst.id);
                     this.users[index].institution = institution ? institution.name : 'N/A';
@@ -71,7 +75,7 @@ export const UsersComponent = {
                     this.UsersService[method](user).then(response => {
                         this.ResponseHandler.success(response);
                         this.selectedUser = this.getNewUser();
-                        this.getUsers();
+                        this.getCatalogs();
                     });
                 })
                 .catch(() => {
