@@ -50,7 +50,7 @@
             </md-button>
             <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedCollective)" ng-if="$ctrl.isEditing"
                 ng-disabled="collectiveForm.$invalid || $ctrl.filterByActive($ctrl.selectedCollective.comunarrProjects).length === 0">
-                Editar
+                Guardar
             </md-button>
             <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedCollective)" ng-if="!$ctrl.isEditing"
                 ng-disabled="collectiveForm.$invalid || $ctrl.filterByActive($ctrl.selectedCollective.comunarrProjects).length === 0">

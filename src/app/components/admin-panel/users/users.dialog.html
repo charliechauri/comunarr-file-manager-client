@@ -98,7 +98,7 @@
                     Cancelar
                 </md-button>
                 <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedUser)" ng-if="$ctrl.isEditing" ng-disabled="userForm.$invalid">
-                    Editar
+                    Guardar
                 </md-button>
                 <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedUser)" ng-if="!$ctrl.isEditing" ng-disabled="userForm.$invalid || ($ctrl.selectedUser.password !== $ctrl.selectedUser.confirmPassword)">
                     Añadir
