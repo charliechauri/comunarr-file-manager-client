@@ -1,12 +1,17 @@
 export const SizeConverter = () => {
-    return size => {
-        let newSize = size / 1024;
-        let displayInGB = false;
+    return size => { // In bytes
+        let newSize = size / 1000;
+        let unit = 'KB';
 
-        if (newSize > 1024) {
-            newSize = newSize / 1024;
-            displayInGB = true;
+        if (newSize > 1000) {
+            newSize = newSize / 1000;
+            unit = 'MB';
         }
-        return `${newSize.toFixed(3).slice(0, -1)} ${displayInGB ? 'GB' : 'MB'}`;
+
+        if (newSize > 1000) {
+            newSize = newSize / 1000;
+            unit = 'GB';
+        }
+        return `${newSize.toFixed(3).slice(0, -1)} ${unit}`;
     };
 };
