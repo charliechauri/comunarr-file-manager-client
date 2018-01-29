@@ -1,7 +1,3 @@
-/**
- * @todo
- * 1. Assign correct models to filters.specific
- */
 import angular from 'angular';
 import template from './files.html';
 import dialogFormTemplate from './files.form.dialog.html';
@@ -10,7 +6,7 @@ import dialogDetailsTemplate from './files.details.dialog.html';
 export const FilesComponent = {
     bindings: {},
     controller: class FilesComponent {
-        constructor($scope, $window, $mdToast, $mdDialog, localStorageService, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService, KeyWordsService, $stateParams, $state, ResponseHandler, UsersService) {
+        constructor($scope, $window, $mdToast, $mdDialog, localStorageService, FilesService, ProjectsService, CollectivesService, GeneralTopicsService, SpecificTopicsService, ContentTypesService, KeyWordsService, $stateParams, $state, ResponseHandler, UsersService, DiskSpaceService) {
             'ngInject';
 
             this.$scope = $scope;
@@ -30,6 +26,7 @@ export const FilesComponent = {
             this.$state = $state;
             this.ResponseHandler = ResponseHandler;
             this.UsersService = UsersService;
+            this.DiskSpaceService = DiskSpaceService;
         }
 
         $onInit() {
@@ -43,6 +40,8 @@ export const FilesComponent = {
             this.fileTypes = ['avi', 'doc', 'jpg', 'mov', 'mp3', 'mpg', 'pdf', 'png', 'ppt', 'txt', 'wmv', 'xls', 'zip'];
             this.user = this.localStorageService.get('user');
             this.form = {};
+
+            this.freeSpace = null;
 
             this.privacyTypes = [
                 { id: 1, name: 'Sólo yo' },
@@ -187,64 +186,67 @@ export const FilesComponent = {
          * @param {any} file Only on edition
          */
         addOrEditFile(targetEvent, method, file) {
-            if (method === 'edit') {
-                this.selectedKeyWord = null;
-                this.searchText = '';
-                this.isEditing = true;
-                this.form = angular.copy(file);
+            this.DiskSpaceService.get().then(({ freeSpace }) => {
+                this.freeSpace = freeSpace; // in KB
+                if (method === 'edit') {
+                    this.selectedKeyWord = null;
+                    this.searchText = '';
+                    this.isEditing = true;
+                    this.form = angular.copy(file);
 
-                this.form.keyWords = file.idKeyWord && file.idKeyWord.length > 0 ? file.idKeyWord.map(id => {
-                    return this.keyWords.find(keyWord => keyWord.id === id);
-                }) : [];
+                    this.form.keyWords = file.idKeyWord && file.idKeyWord.length > 0 ? file.idKeyWord.map(id => {
+                        return this.keyWords.find(keyWord => keyWord.id === id);
+                    }) : [];
 
-                file.keyWords = angular.copy(this.form.keyWords);
-            } else {
-                this.form = {};
-                this.form.keyWords = [];
-            }
-            this.$mdDialog
-                .show({
-                    autoWrap: false,
-                    escapeToClose: false,
-                    preserveScope: true,
-                    scope: this.$scope,
-                    targetEvent,
-                    template: dialogFormTemplate
-                })
-                .then(formData => {
-                    formData.keyWords = formData.keyWords.map(keyWord => keyWord.name);
-                    for (const key in formData) {
-                        if (formData.hasOwnProperty(key)) {
-                            if (!formData[key]) {
-                                delete formData[key];
+                    file.keyWords = angular.copy(this.form.keyWords);
+                } else {
+                    this.form = {};
+                    this.form.keyWords = [];
+                }
+                this.$mdDialog
+                    .show({
+                        autoWrap: false,
+                        escapeToClose: false,
+                        preserveScope: true,
+                        scope: this.$scope,
+                        targetEvent,
+                        template: dialogFormTemplate
+                    })
+                    .then(formData => {
+                        formData.keyWords = formData.keyWords.map(keyWord => keyWord.name);
+                        for (const key in formData) {
+                            if (formData.hasOwnProperty(key)) {
+                                if (!formData[key]) {
+                                    delete formData[key];
+                                }
                             }
                         }
-                    }
 
-                    if (formData.relatedDate) {
+                        if (formData.relatedDate) {
 
-                        if (formData.relatedDate.toISOString) {
-                            formData.relatedDate = formData.relatedDate.toISOString().substring(0, 10);
-                        } else {
-                            formData.relatedDate = formData.relatedDate.substring(0, 10);
+                            if (formData.relatedDate.toISOString) {
+                                formData.relatedDate = formData.relatedDate.toISOString().substring(0, 10);
+                            } else {
+                                formData.relatedDate = formData.relatedDate.substring(0, 10);
+                            }
                         }
-                    }
 
-                    this.FilesService[method](formData).then(() => {
-                        this.$mdToast.show(this.$mdToast.simple()
-                            .textContent(`Éxito: se ${method === 'edit' ? 'actualizó' : 'subió'} de forma correcta el archivo`)
-                            .position('top right')
-                        );
+                        this.FilesService[method](formData).then(() => {
+                            this.$mdToast.show(this.$mdToast.simple()
+                                .textContent(`Éxito: se ${method === 'edit' ? 'actualizó' : 'subió'} de forma correcta el archivo`)
+                                .position('top right')
+                            );
+                            this.form = {};
+                            this.isEditing = false;
+                            this.getKeyWords(true);
+                            this.search(this.selectedTabIndex === 1 ? 'specific' : 'simple');
+                        });
+                    })
+                    .catch(err => {
                         this.form = {};
                         this.isEditing = false;
-                        this.getKeyWords(true);
-                        this.search(this.selectedTabIndex === 1 ? 'specific' : 'simple');
                     });
-                })
-                .catch(err => {
-                    this.form = {};
-                    this.isEditing = false;
-                });
+            })
         }
 
         /**

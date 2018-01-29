@@ -171,6 +171,11 @@
 
         <!-- Actions -->
         <md-dialog-actions>
+            <span flex>
+                <small>
+                    * Espacio disponible: {{ $ctrl.freeSpace / 1024 |  SizeConverter  }}
+                </small>
+            </span>
             <md-button md-no-ink class="md-primary" ng-click="$ctrl.$mdDialog.cancel()">
                 Cancelar
             </md-button>

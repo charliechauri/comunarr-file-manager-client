@@ -8,6 +8,16 @@ export const FileInputDirective = ($parse, $mdToast) => {
             const maxLimit = 1024 * 1024 * 1024; // 1GB
 
             element.bind('change', () => {
+                const freeSpace = scope.$ctrl.freeSpace; // in bytes
+
+                if(element && element.length > 0 && element[0].files.length > 0 && (element[0].files[0].size) * 2.1 >= freeSpace){
+                    $mdToast.show($mdToast.simple()
+                        .textContent('Error: No hay espacio suficiente para guardar este archivo')
+                        .position('top right')
+                    );
+                    return;
+                }
+
                 if (element && element.length > 0 && element[0].files.length > 0 && element[0].files[0].size >= maxLimit) {
                     $mdToast.show($mdToast.simple()
                         .textContent('Error: el tamaño máximo de archivo es 1 GB')
