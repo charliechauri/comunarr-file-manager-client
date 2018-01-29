@@ -244,7 +244,7 @@ export class FilesService {
                 let fileName = response.headers('X-filename');
                 let blob = new Blob([response.data], { type: response.headers('Content-Type') });
                 FileSaver.saveAs(blob, fileName);
-                return { message: 'Archvo descargado' };
+                return { message: 'Archivo descargado' };
             } catch (ex) {
                 // Fallback to download file directly from server
                 window.open(`${this.URL}/${id}`);
