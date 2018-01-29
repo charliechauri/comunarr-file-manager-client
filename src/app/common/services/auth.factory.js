@@ -41,10 +41,12 @@ export const AuthFactory = ($injector, EnvironmentService, localStorageService) 
     const responseError = response => {
         const err = response.data;
 
-        $injector.get('$mdToast').show($injector.get('$mdToast').simple()
-            .textContent(err.message)
-            .position('top right')
-        );
+        if (response.status !== 404) {
+            $injector.get('$mdToast').show($injector.get('$mdToast').simple()
+                .textContent(err.message)
+                .position('top right')
+            );
+        }
 
         return $injector.get('$q').reject(response);
     };
