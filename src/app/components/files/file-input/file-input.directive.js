@@ -12,7 +12,7 @@ export const FileInputDirective = ($parse, $mdToast) => {
 
                 if(element && element.length > 0 && element[0].files.length > 0 && (element[0].files[0].size) * 2.1 >= freeSpace){
                     $mdToast.show($mdToast.simple()
-                        .textContent('Error: No hay espacio suficiente para guardar este archivo')
+                        .textContent('ERROR: No hay espacio suficiente para guardar este archivo')
                         .position('top right')
                     );
                     return;
@@ -20,7 +20,7 @@ export const FileInputDirective = ($parse, $mdToast) => {
 
                 if (element && element.length > 0 && element[0].files.length > 0 && element[0].files[0].size >= maxLimit) {
                     $mdToast.show($mdToast.simple()
-                        .textContent('Error: el tamaño máximo de archivo es 1 GB')
+                        .textContent('ERROR: el tamaño máximo de archivo es 1 GB')
                         .position('top right')
                     );
                     return;
@@ -28,7 +28,7 @@ export const FileInputDirective = ($parse, $mdToast) => {
 
                 if (element && element.length > 0 && element[0].files.length > 0 && element[0].files[0].type === 'application/x-msdownload') {
                     $mdToast.show($mdToast.simple()
-                        .textContent('Error: no es posible subir archivos .exe')
+                        .textContent('ERROR: no es posible subir archivos .exe')
                         .position('top right')
                     );
                     return;
