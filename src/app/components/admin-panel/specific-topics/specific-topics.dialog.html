@@ -50,7 +50,7 @@
             </md-button>
             <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedSpecificTopic)" ng-if="$ctrl.isEditing"
                 ng-disabled="specificTopicForm.$invalid || $ctrl.filterByActive($ctrl.selectedSpecificTopic.generalTopics).length === 0">
-                Editar
+                Guardar
             </md-button>
             <md-button class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide($ctrl.selectedSpecificTopic)" ng-if="!$ctrl.isEditing"
                 ng-disabled="specificTopicForm.$invalid || $ctrl.filterByActive($ctrl.selectedSpecificTopic.generalTopics).length === 0">
