@@ -7,6 +7,6 @@ export const SizeConverter = () => {
             newSize = newSize / 1024;
             displayInGB = true;
         }
-        return `${newSize.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]} ${displayInGB ? 'GB' : 'MB'}`;
+        return `${newSize.toFixed(3).slice(0, -1)} ${displayInGB ? 'GB' : 'MB'}`;
     };
 };
