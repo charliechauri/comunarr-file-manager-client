@@ -260,4 +260,12 @@ export class FilesService {
     getFileTypes() {
         return this.$http.get(`${this.URL}-type`).then(response => response.data);
     }
+
+    /**
+     * Delete permanently a file in the server
+     * @param {object} file
+     */
+    delete(file) {
+        return this.$http.delete(`${this.URL}/${file.id}`).then(response => response.data);
+    }
 }

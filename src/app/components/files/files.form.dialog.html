@@ -173,7 +173,7 @@
         <md-dialog-actions>
             <span flex>
                 <small>
-                    * Espacio disponible: {{ $ctrl.freeSpace / 1024 |  SizeConverter  }}
+                    * Espacio disponible: {{ $ctrl.freeSpace |  SizeConverter  }}
                 </small>
             </span>
             <md-button md-no-ink class="md-primary" ng-click="$ctrl.$mdDialog.cancel()">

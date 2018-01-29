@@ -115,10 +115,15 @@
             <md-tab label="Búsqueda específica" ng-click="$ctrl.resetResults()">
                 <br>
                 <aside layout="row" layout-margin layout-align="start center">
-                    <div>
+                    <div flex>
                         <md-switch class="md-primary" ng-model="$ctrl.showSpecificSearchFilters" aria-label="mostrar filtros">
                             Mostrar filtros
                         </md-switch>
+                    </div>
+                    <div>
+                        <md-button class="md-primary md-raised" ng-click="$ctrl.resetSpecificSearchFilters()" aria-label="Limpiar filtros">
+                            Limpiar filtros
+                        </md-button>
                     </div>
                 </aside>
                 <form name="specificSearchForm">
@@ -129,7 +134,7 @@
                             <!-- Name -->
                             <section flex="33">
                                 <div layout-padding layout-margin md-whiteframe="1">
-                                    <md-input-container class="md-block">
+                                    <md-input-container flex class="md-block">
                                         <label>Título</label>
                                         <input ng-model="$ctrl.filters.specific.name" name="name" md-maxlength="255" minlength="4">
                                         <div ng-messages="specificSearchForm.name.$error">
@@ -144,6 +149,7 @@
                             <section flex="33">
                                 <div layout-padding layout-margin md-whiteframe="1">
                                     <div layout="row" layout-align="start start" ng-repeat="filterAuthor in $ctrl.filters.specific.author">
+
                                         <md-input-container class="md-block" ng-hide="$first">
                                             <label>Operador</label>
                                             <md-select ng-model="filterAuthor.op" ng-disabled="$first">
@@ -629,7 +635,9 @@
             <span class="md-subhead">Autor:</span>
             <span class="md-subhead">{{ result.author }}</span>
             <p>
-                {{ result.comunarrProject }} <strong>></strong>  {{ result.collective }} <strong>></strong> {{ result.generalTopic }}
+                {{ result.comunarrProject }}
+                <strong>></strong> {{ result.collective }}
+                <strong>></strong> {{ result.generalTopic }}
             </p>
         </div>
         <div>
@@ -644,14 +652,6 @@
                         </md-tooltip>
                     </md-button>
                 </div>
-                <div ng-if="$ctrl.user.idUserType === 1 || $ctrl.user.id === result.idUser">
-                    <md-button class="md-fab md-primary md-mini" ng-click="$ctrl.addOrEditFile($event, 'edit', result)">
-                        <md-icon>edit</md-icon>
-                        <md-tooltip>
-                            Editar
-                        </md-tooltip>
-                    </md-button>
-                </div>
                 <div>
                     <md-button class="md-fab md-primary md-mini" ng-click="$ctrl.download(result)">
                         <md-icon>file_download</md-icon>
@@ -660,10 +660,27 @@
                         </md-tooltip>
                     </md-button>
                 </div>
+                <div ng-if="$ctrl.user.idUserType === 1 || $ctrl.user.id === result.idUser">
+                    <md-button class="md-fab md-primary md-mini" ng-click="$ctrl.addOrEditFile($event, 'edit', result)">
+                        <md-icon>edit</md-icon>
+                        <md-tooltip>
+                            Editar
+                        </md-tooltip>
+                    </md-button>
+                </div>
+                <div ng-if="$ctrl.user.idUserType === 1 || $ctrl.user.id === result.idUser">
+                    <md-button class="md-fab md-primary md-mini" ng-click="$ctrl.deleteFile($event, result)">
+                        <md-icon>delete</md-icon>
+                        <md-tooltip>
+                            Eliminar
+                        </md-tooltip>
+                    </md-button>
+                </div>
             </div>
 
             <div layout="row" layout-align="end center" layout-padding>
-                <span class="md-subhead"> <strong>Tamaño</strong>: {{ result.size | SizeConverter }}</span>
+                <span class="md-subhead">
+                    <strong>Tamaño</strong>: {{ result.size | SizeConverter }}</span>
             </div>
         </div>
     </section>

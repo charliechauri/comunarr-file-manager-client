@@ -1,0 +1,29 @@
+<md-dialog flex="45" aria-label="Eliminar archivo">
+    <md-dialog-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h4>Eliminar archivo</h4>
+            </div>
+        </md-toolbar>
+
+        <md-content layout-padding>
+            <div layout="column" layout-align="center center">
+                <h3>¿Estás seguro de eliminar el archivo?</h3>
+                <p>
+                    Esta acción no se puede deshacer
+                </p>
+            </div>
+
+        </md-content>
+    </md-dialog-content>
+
+    <!-- Actions -->
+    <md-dialog-actions>
+        <md-button md-no-ink class="md-primary" ng-click="$ctrl.$mdDialog.cancel()">
+            Cancelar
+        </md-button>
+        <md-button md-no-ink class="md-primary md-raised" ng-click="$ctrl.$mdDialog.hide()">
+            Aceptar
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

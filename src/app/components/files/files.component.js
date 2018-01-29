@@ -2,6 +2,7 @@ import angular from 'angular';
 import template from './files.html';
 import dialogFormTemplate from './files.form.dialog.html';
 import dialogDetailsTemplate from './files.details.dialog.html';
+import dialogConfirmDeleteTemplate from './files.confirm-delete.dialog.html';
 
 export const FilesComponent = {
     bindings: {},
@@ -59,8 +60,9 @@ export const FilesComponent = {
                     idGeneralTopic: undefined,
                     uploadedByMe: true
                 },
-                specific: this.FilesService.getSpecificFilters()
+                specific: null // Defines it in the resetSpecificSearchFilters
             };
+            this.resetSpecificSearchFilters();
             this.results = [];
 
             this.$scope.fileChanged = this.fileChanged;
@@ -292,6 +294,21 @@ export const FilesComponent = {
             this.filters.specific[key].splice(this.filters.specific[key].map(filter => filter.value).indexOf(item[type]), 1);
         }
 
+        /**
+         * Reset an specific filter
+         * @param {any} filter
+         */
+        resetSpecificSearchFilter(filter) {
+            console.log(filter);
+        }
+
+        /**
+         * Reset all filters to the initial state
+         */
+        resetSpecificSearchFilters() {
+            this.filters.specific = this.FilesService.getSpecificFilters();
+        }
+
         filterUser(users) {
             return user => {
                 return user.idUserType === 1 || user.idUserType === 2;
@@ -369,6 +386,27 @@ export const FilesComponent = {
             isValid = (filters.name && filters.name.length > 0) || textFilters.some(key => filters[key][0].value.length > 0) || idFilters.some(key => filters[key][0].id !== null) || (dateFilters.some(key => filters[key][0] !== null || filters[key][1] !== null));
 
             return isValid;
+        }
+
+        /**
+         * Deletes a file
+         * @param {object} $event
+         * @param {object} result
+         */
+        deleteFile($event, result) {
+            this.$mdDialog.show({
+                preserveScope: true,
+                scope: this.$scope,
+                template: dialogConfirmDeleteTemplate
+            }).then(() => {
+                this.FilesService.delete(result).then(() => {
+                    this.$mdToast.show(this.$mdToast.simple()
+                        .textContent('Éxito: se eliminó de forma correcta el archivo')
+                        .position('top right')
+                    );
+                    this.results.splice(this.results.indexOf(res => res.id === result.id), 1);
+                });
+            });
         }
     },
     template
