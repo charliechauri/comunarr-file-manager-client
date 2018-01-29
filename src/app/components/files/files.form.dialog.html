@@ -87,6 +87,9 @@
                     <md-input-container flex>
                         <label>Tema específico</label>
                         <md-select ng-model="$ctrl.form.idSpecificTopic" ng-disabled="!$ctrl.form.idGeneralTopic">
+                            <md-option ng-if="$ctrl.isEditing" ng-value="null">
+                                Sin tema específico
+                            </md-option>
                             <md-option ng-repeat="specificTopic in $ctrl.specificTopics | filter: { status: true, idGeneralTopic: $ctrl.form.idGeneralTopic }" ng-value="{{ specificTopic.id }}">
                                 {{ specificTopic.name }}
                             </md-option>
