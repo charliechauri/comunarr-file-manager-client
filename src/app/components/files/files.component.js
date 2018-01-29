@@ -242,11 +242,11 @@ export const FilesComponent = {
                             this.search(this.selectedTabIndex === 1 ? 'specific' : 'simple');
                         });
                     })
-                    .catch(err => {
+                    .catch(() => {
                         this.form = {};
                         this.isEditing = false;
                     });
-            })
+            });
         }
 
         /**
@@ -292,6 +292,12 @@ export const FilesComponent = {
             this.filters.specific[key].splice(this.filters.specific[key].map(filter => filter.value).indexOf(item[type]), 1);
         }
 
+        filterUser(users) {
+            return user => {
+                return user.idUserType === 1 || user.idUserType === 2;
+            };
+        }
+
         /**
          * If a collective is present in the selected projects filter returns true
          * @param {any} comunarrProjectFilters
@@ -299,7 +305,7 @@ export const FilesComponent = {
          */
         filterCollective(comunarrProjectFilters) {
             return collective => {
-                return comunarrProjectFilters.some(filter => filter.id === collective.idComunarrProject);
+                return comunarrProjectFilters.some(filter => filter.id === collective.idComunarrProject && collective.status);
             };
         }
 
@@ -310,7 +316,7 @@ export const FilesComponent = {
          */
         filterSpecificTopic(generalTopicFilters) {
             return specificTopic => {
-                return generalTopicFilters.some(filter => filter.id === specificTopic.idGeneralTopic);
+                return generalTopicFilters.some(filter => filter.id === specificTopic.idGeneralTopic && specificTopic.status);
             };
         }
 

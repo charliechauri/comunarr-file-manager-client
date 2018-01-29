@@ -64,7 +64,7 @@
                                     <label>Proyecto</label>
                                     <md-select ng-model="$ctrl.filters.simple.idComunarrProject">
                                         <md-option ng-value="undefined">Todos</md-option>
-                                        <md-option ng-repeat="project in $ctrl.comunarrProjects | filter: { status: true }" ng-value="{{ project.id }}">
+                                        <md-option ng-repeat="project in $ctrl.comunarrProjects | filter: { status: true } | orderBy: 'name'" ng-value="{{ project.id }}">
                                             {{ project.name }}
                                         </md-option>
                                     </md-select>
@@ -77,7 +77,7 @@
                                     <label>Colectivo</label>
                                     <md-select ng-model="$ctrl.filters.simple.idCollective">
                                         <md-option ng-value="undefined">Todos</md-option>
-                                        <md-option ng-repeat="collective in $ctrl.collectives | filter: { idComunarrProject: $ctrl.filters.simple.idComunarrProject, status: true }"
+                                        <md-option ng-repeat="collective in $ctrl.collectives | filter: { idComunarrProject: $ctrl.filters.simple.idComunarrProject, status: true } | orderBy: 'name'"
                                             ng-value="{{ collective.id }}">
                                             {{ collective.name }}
                                         </md-option>
@@ -91,7 +91,7 @@
                                     <label>Tema general</label>
                                     <md-select ng-model="$ctrl.filters.simple.idGeneralTopic">
                                         <md-option ng-value="undefined">Todos</md-option>
-                                        <md-option ng-repeat="generalTopic in $ctrl.generalTopics | filter: { status: true }" ng-value="{{ generalTopic.id }}">
+                                        <md-option ng-repeat="generalTopic in $ctrl.generalTopics | filter: { status: true } | orderBy: 'name'" ng-value="{{ generalTopic.id }}">
                                             {{ generalTopic.name }}
                                         </md-option>
                                     </md-select>
@@ -197,7 +197,7 @@
                                         <md-input-container class="md-block" flex>
                                             <label>Subido por</label>
                                             <md-select ng-model="filterUser.id">
-                                                <md-option ng-repeat="user in $ctrl.users" ng-value="{{ user.id }}">
+                                                <md-option ng-repeat="user in $ctrl.users | orderBy: 'name' | filter: $ctrl.filterUser()" ng-value="{{ user.id }}">
                                                     {{ user.name }}
                                                 </md-option>
                                             </md-select>
@@ -283,7 +283,7 @@
                                             <md-input-container class="md-block" flex>
                                                 <label>Proyecto</label>
                                                 <md-select ng-model="filterProject.id">
-                                                    <md-option ng-repeat="project in $ctrl.comunarrProjects" ng-value="{{ project.id }}">
+                                                    <md-option ng-repeat="project in $ctrl.comunarrProjects | orderBy: 'name' | filter: { status: true }" ng-value="{{ project.id }}">
                                                         {{ project.name }}
                                                     </md-option>
                                                 </md-select>
@@ -323,7 +323,7 @@
                                             <md-input-container class="md-block" flex>
                                                 <label>Colectivo</label>
                                                 <md-select ng-model="filterCollective.id" ng-disabled="$ctrl.filters.specific.idComunarrProject[0].id === null">
-                                                    <md-option ng-repeat="collective in $ctrl.collectives | filter:$ctrl.filterCollective($ctrl.filters.specific.idComunarrProject)"
+                                                    <md-option ng-repeat="collective in $ctrl.collectives | filter:$ctrl.filterCollective($ctrl.filters.specific.idComunarrProject) | orderBy: 'name'"
                                                         ng-value="{{ collective.id }}">
                                                         {{ collective.name }}
                                                     </md-option>
@@ -368,7 +368,7 @@
                                         <md-input-container class="md-block" flex>
                                             <label>Tipo de contenido</label>
                                             <md-select ng-model="filterContentType.id">
-                                                <md-option ng-repeat="contentType in $ctrl.contentTypes" ng-value="{{ contentType.id }}">
+                                                <md-option ng-repeat="contentType in $ctrl.contentTypes | orderBy: 'name' | filter: { status: true }" ng-value="{{ contentType.id }}">
                                                     {{ contentType.name }}
                                                 </md-option>
                                             </md-select>
@@ -412,7 +412,7 @@
                                             <md-input-container class="md-block" flex>
                                                 <label>Tema general</label>
                                                 <md-select ng-model="filterGeneralTopic.id">
-                                                    <md-option ng-repeat="generalTopic in $ctrl.generalTopics" ng-value="{{ generalTopic.id }}">
+                                                    <md-option ng-repeat="generalTopic in $ctrl.generalTopics | orderBy: 'name' | filter: { status: true }" ng-value="{{ generalTopic.id }}">
                                                         {{ generalTopic.name }}
                                                     </md-option>
                                                 </md-select>
@@ -451,8 +451,8 @@
 
                                             <md-input-container class="md-block" flex>
                                                 <label>Tema específico</label>
-                                                <md-select ng-model="filterSpecificTopic.id" ng-disabled="$ctrl.filters.specific.idSpecificTopic[0].id === null">
-                                                    <md-option ng-repeat="specificTopic in $ctrl.specificTopics | filter: $ctrl.filterSpecificTopic($ctrl.filters.specific.idGeneralTopic)"
+                                                <md-select ng-model="filterSpecificTopic.id" ng-disabled="$ctrl.filters.specific.idGeneralTopic[0].id === null">
+                                                    <md-option ng-repeat="specificTopic in $ctrl.specificTopics | filter: $ctrl.filterSpecificTopic($ctrl.filters.specific.idGeneralTopic) | orderBy: 'name'"
                                                         ng-value="{{ specificTopic.id }}">
                                                         {{ specificTopic.name }}
                                                     </md-option>
@@ -497,7 +497,7 @@
                                         <md-input-container class="md-block" flex>
                                             <label>Tipo de archivo</label>
                                             <md-select ng-model="filterFileType.id">
-                                                <md-option ng-repeat="fileType in $ctrl.fileTypesCatalog" ng-value="{{ fileType.id }}">
+                                                <md-option ng-repeat="fileType in $ctrl.fileTypesCatalog | orderBy: 'name' | filter: { status: true }" ng-value="{{ fileType.id }}">
                                                     {{ fileType.name }}
                                                 </md-option>
                                             </md-select>
@@ -580,7 +580,7 @@
                                         <md-input-container class="md-block" flex>
                                             <label>Palabras clave</label>
                                             <md-select ng-model="filterKeyWords.id">
-                                                <md-option ng-repeat="keyWord in $ctrl.keyWords" ng-value="{{ keyWord.id }}">
+                                                <md-option ng-repeat="keyWord in $ctrl.keyWords | orderBy: 'name' | filter: { status: true }" ng-value="{{ keyWord.id }}">
                                                     {{ keyWord.name }}
                                                 </md-option>
                                             </md-select>
