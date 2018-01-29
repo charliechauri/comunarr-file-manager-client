@@ -17,10 +17,13 @@
             <md-tab label="Búsqueda simple" ng-click="$ctrl.resetResults()">
                 <br>
                 <aside layout="row" layout-padding layout-align="start center">
-                    <div>
+                    <div flex>
                         <md-switch class="md-primary" ng-model="$ctrl.showSimpleSearchFilters" aria-label="mostrar filtros">
                             Mostrar filtros
                         </md-switch>
+                    </div>
+                    <div> 
+                        <span> <strong>Total de archivos encontrados:</strong> {{ $ctrl.results.length }}
                     </div>
                 </aside>
                 <form action="simpleSearchForm">
@@ -119,6 +122,9 @@
                         <md-switch class="md-primary" ng-model="$ctrl.showSpecificSearchFilters" aria-label="mostrar filtros">
                             Mostrar filtros
                         </md-switch>
+                    </div>
+                    <div> 
+                        <span> <strong>Total de archivos encontrados:</strong> {{ $ctrl.results.length }}
                     </div>
                     <div>
                         <md-button class="md-primary md-raised" ng-click="$ctrl.resetSpecificSearchFilters()" aria-label="Limpiar filtros">
