@@ -6,6 +6,7 @@ import { Validator } from './services/validator.service';
 import { UserTypesService } from './services/user-types.service';
 import { KeyWordsService } from './services/key-words.service';
 import { AuthFactory } from './services/auth.factory';
+import { DiskSpaceService } from './services/disk-space.service';
 import { ActiveFilter } from './filters/active.filter';
 import { UserTypeFilter } from './filters/user-type.filter';
 import { SizeConverter } from './filters/size-converter.filter';
@@ -24,6 +25,7 @@ export const CommonModule = angular
     .service('UserTypesService', UserTypesService)
     .service('KeyWordsService', KeyWordsService)
     .service('AuthFactory', AuthFactory)
+    .service('DiskSpaceService', DiskSpaceService)
     .filter('Active', ActiveFilter)
     .filter('UserTypeFilter', UserTypeFilter)
     .filter('SizeConverter', SizeConverter)
